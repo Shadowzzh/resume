@@ -29,3 +29,17 @@ jobs:
       - run: npm run validate
       - run: npm run build:full
       - run: npm publish --provenance
+      - name: Print npm debug logs
+        if: failure()
+        run: |
+          shopt -s nullglob
+          for file in /home/runner/.npm/_logs/*-debug-0.log; do
+            echo "=== $file ==="
+            cat "$file"
+          done
+      - name: Upload npm debug logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-debug-logs
+          path: /home/runner/.npm/_logs/*-debug-0.log
