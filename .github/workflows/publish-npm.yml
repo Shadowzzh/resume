@@ -18,10 +18,15 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
           cache: npm
+      - name: Install Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium
+          echo "CHROME_BIN=$(command -v chromium)" >> "$GITHUB_ENV"
       - run: npm ci
       - run: npm test
       - run: npm run validate
-      - run: npm run build
+      - run: npm run build:full
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

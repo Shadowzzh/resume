@@ -8,11 +8,24 @@ import { pathToFileURL } from "node:url";
 const execFileAsync = promisify(execFile);
 
 const CHROME_CANDIDATES = [
+  "/usr/bin/google-chrome",
+  "/usr/bin/google-chrome-stable",
+  "/usr/bin/chromium",
+  "/usr/bin/chromium-browser",
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
 ];
 
 async function resolveChromeBinary() {
+  if (process.env.CHROME_BIN) {
+    try {
+      await access(process.env.CHROME_BIN);
+      return process.env.CHROME_BIN;
+    } catch {
+      throw new Error(`Configured CHROME_BIN was not found: ${process.env.CHROME_BIN}`);
+    }
+  }
+
   for (const candidate of CHROME_CANDIDATES) {
     try {
       await access(candidate);

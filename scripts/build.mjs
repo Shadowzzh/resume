@@ -14,6 +14,10 @@ async function ensureCleanDir(dirPath) {
   await fs.mkdir(dirPath, { recursive: true });
 }
 
+function shouldBuildPdf() {
+  return process.env.BUILD_PDF === "true";
+}
+
 async function main() {
   const rootDir = process.cwd();
   const distDir = path.join(rootDir, "dist");
@@ -47,10 +51,12 @@ async function main() {
   await fs.writeFile(path.join(distDir, "CNAME"), `${canonicalResume.branding.domain}\n`, "utf8");
   await fs.writeFile(path.join(distDir, ".nojekyll"), "", "utf8");
 
-  await renderPdf({
-    inputHtmlPath: htmlResult.printPagePath,
-    outputPath: path.join(distDir, "resume.pdf")
-  });
+  if (shouldBuildPdf()) {
+    await renderPdf({
+      inputHtmlPath: htmlResult.printPagePath,
+      outputPath: path.join(distDir, "resume.pdf")
+    });
+  }
 
   console.log("Build completed.");
 }
