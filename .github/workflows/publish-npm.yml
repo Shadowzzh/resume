@@ -28,6 +28,13 @@ jobs:
       - run: npm test
       - run: npm run validate
       - run: npm run build:full
+      - name: Debug npm auth env
+        run: |
+          echo "NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN:+SET}"
+          echo "NPM_CONFIG_USERCONFIG=${NPM_CONFIG_USERCONFIG:-UNSET}"
+          if [ -n "${NPM_CONFIG_USERCONFIG:-}" ] && [ -f "$NPM_CONFIG_USERCONFIG" ]; then
+            sed 's#//registry.npmjs.org/:_authToken=.*#//registry.npmjs.org/:_authToken=[REDACTED]#' "$NPM_CONFIG_USERCONFIG"
+          fi
       - run: npm publish --provenance
       - name: Print npm debug logs
         if: failure()
@@ -39,7 +46,7 @@ jobs:
           done
       - name: Upload npm debug logs
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: npm-debug-logs
           path: /home/runner/.npm/_logs/*-debug-0.log
