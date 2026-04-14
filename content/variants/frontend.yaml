@@ -1,0 +1,25 @@
+id: frontend
+label: 前端版
+headline_override:
+  primary: 前端开发工程师
+  secondary: 全栈开发工程师
+
+summary_override:
+  short: 5 年 Web 开发经验，前端为主，具备全栈开发能力。
+
+featured_project_ids:
+  - component-library
+  - cnapp-platform
+  - auto-pentest-platform
+
+skill_domain_order:
+  - frontend
+  - tooling
+  - ai_workflow
+  - fullstack
+  - devops
+
+experience_order:
+  - qidun
+  - wotu
+  - yuanhe

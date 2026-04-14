@@ -1,0 +1,31 @@
+{
+  "name": "@zhangziheng/resume",
+  "version": "0.1.0",
+  "description": "Single-source resume with HTML, PDF, man, JSON, and CLI outputs.",
+  "type": "module",
+  "private": false,
+  "bin": "./bin/resume.mjs",
+  "files": [
+    "README.md",
+    "bin/",
+    "dist/",
+    "renderers/cli/"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "test": "node --test",
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs",
+    "prepublishOnly": "npm test && npm run validate && npm run build"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "yaml": "^2.5.1"
+  }
+}

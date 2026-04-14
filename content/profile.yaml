@@ -1,0 +1,44 @@
+id: shadowzzh
+name: 张子恒
+display_name: 张子恒
+english_name: null
+
+headline:
+  primary: 前端开发工程师
+  secondary: 全栈开发工程师
+
+summary:
+  short: 5 年 Web 开发经验，前端为主，具备全栈开发能力。
+  long: >
+    常用 React、Vue、Next.js 等技术栈，了解 Node.js、Go 等后端技术。
+    熟练使用 Claude Code 参与调研、开发、运维等流程，擅长通过工具提升交付效率与开发体验。
+
+location:
+  city: 杭州
+  region: 浙江
+  country: 中国
+
+contact:
+  email: shadow1746556951@gmail.com
+  phone: "19165940712"
+
+links:
+  github: https://github.com/Shadowzzh
+  website: https://resume.zihengzhang.com
+  blog: https://zihengzhang.com
+  npm: https://www.npmjs.com/~zhangziheng
+
+branding:
+  domain: resume.zihengzhang.com
+  npm_package: "@zhangziheng/resume"
+  curl_endpoint: https://resume.zihengzhang.com/resume.json
+  man_endpoint: https://resume.zihengzhang.com/resume.7
+  preferred_command:
+    - npx @zhangziheng/resume
+    - curl -sL https://resume.zihengzhang.com/resume.json
+
+availability:
+  open_to_work: true
+  preferred_roles:
+    - 前端开发工程师
+    - 全栈开发工程师

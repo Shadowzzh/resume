@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Public Resume",
+  "type": "object",
+  "required": [
+    "basics",
+    "skills",
+    "experience",
+    "projects",
+    "featuredProjects",
+    "variant",
+    "branding",
+    "meta"
+  ],
+  "properties": {
+    "basics": {
+      "type": "object",
+      "required": [
+        "name",
+        "displayName",
+        "headline",
+        "summary",
+        "location",
+        "contact",
+        "links"
+      ]
+    },
+    "variant": {
+      "type": "object",
+      "required": [
+        "id",
+        "label"
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "generatedAt",
+        "variant",
+        "visibility"
+      ]
+    }
+  }
+}

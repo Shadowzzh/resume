@@ -1,0 +1,25 @@
+id: fullstack
+label: 全栈版
+headline_override:
+  primary: 全栈开发工程师
+  secondary: 前端开发工程师
+
+summary_override:
+  short: 5 年 Web 开发经验，前端为主，可承担中小型全栈交付。
+
+featured_project_ids:
+  - auto-pentest-platform
+  - cnapp-platform
+  - finance-review-system
+
+skill_domain_order:
+  - fullstack
+  - frontend
+  - devops
+  - tooling
+  - ai_workflow
+
+experience_order:
+  - qidun
+  - yuanhe
+  - wotu

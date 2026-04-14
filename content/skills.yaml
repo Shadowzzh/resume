@@ -1,0 +1,48 @@
+domains:
+  - id: frontend
+    name: 前端工程
+    level: strong
+    keywords:
+      - React
+      - Next.js
+      - Vue 2
+      - Vue 3
+      - TypeScript
+    narrative: 面向业务交付、组件抽象和工程化建设。
+
+  - id: fullstack
+    name: 全栈开发
+    level: working
+    keywords:
+      - Node.js
+      - Go
+      - Fastify
+    narrative: 能承担中小型后端接口、服务封装和联调排障。
+
+  - id: tooling
+    name: 工程化与工具链
+    level: strong
+    keywords:
+      - Webpack
+      - Vite
+      - Dumi
+      - Father
+    narrative: 擅长搭建组件库、文档系统和多项目共享能力。
+
+  - id: devops
+    name: 运维与交付
+    level: working
+    keywords:
+      - Docker
+      - Nginx
+      - Kubernetes
+    narrative: 具备基础部署、容器化和运行环境排障能力。
+
+  - id: ai_workflow
+    name: AI 工具协作
+    level: strong
+    keywords:
+      - Claude Code
+      - ChatGPT
+      - Gemini
+    narrative: 熟练将 AI 用于调研、开发、调试和效率提升流程。

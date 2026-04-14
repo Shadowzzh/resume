@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Canonical Resume",
+  "type": "object",
+  "required": [
+    "basics",
+    "skills",
+    "experience",
+    "projects",
+    "featuredProjects",
+    "variant",
+    "branding",
+    "meta"
+  ],
+  "properties": {
+    "basics": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "displayName",
+        "headline",
+        "summary",
+        "location",
+        "contact",
+        "links"
+      ]
+    },
+    "skills": {
+      "type": "array"
+    },
+    "experience": {
+      "type": "array"
+    },
+    "projects": {
+      "type": "array"
+    },
+    "featuredProjects": {
+      "type": "array"
+    },
+    "variant": {
+      "type": "object",
+      "required": [
+        "id",
+        "label"
+      ]
+    },
+    "branding": {
+      "type": "object"
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "generatedAt",
+        "variant"
+      ]
+    }
+  }
+}

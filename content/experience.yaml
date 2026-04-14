@@ -1,0 +1,53 @@
+items:
+  - id: qidun
+    company: 杭州奇盾
+    role: 前端开发工程师
+    city: 杭州
+    start: 2024-03
+    end: present
+    employment_type: full-time
+    tech_stack:
+      - Vue
+      - Next.js
+      - Node.js
+      - Go
+    summary:
+      - 负责公司前端和 Node 相关项目的迭代与维护。
+      - 参与自动化攻击平台和云原生安全平台的功能开发与问题修复。
+    project_refs:
+      - auto-pentest-platform
+      - cnapp-platform
+
+  - id: wotu
+    company: 杭州沃土教育
+    role: 前端开发工程师
+    city: 杭州西湖区
+    start: 2022-02
+    end: 2023-10
+    employment_type: full-time
+    tech_stack:
+      - Vue
+      - Dumi
+      - Father
+      - DingTalk Mini Program
+    summary:
+      - 负责培训平台、CMS 系统与钉钉小程序的前端业务开发。
+      - 参与多平台通用组件库与文档系统建设。
+    project_refs:
+      - component-library
+
+  - id: yuanhe
+    company: 苏州元和信息有限公司
+    role: 前端开发工程师
+    city: 苏州姑苏区
+    start: 2020-08
+    end: 2022-03
+    employment_type: full-time
+    tech_stack:
+      - Vue 3
+      - Tailwind CSS
+    summary:
+      - 负责财务评审系统前端开发。
+      - 封装业务组件，提高页面复用性。
+    project_refs:
+      - finance-review-system

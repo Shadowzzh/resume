@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{pageTitle}}</title>
+    <style>
+      :root {
+        --bg: #f4f1e8;
+        --surface: #fffdf7;
+        --line: #d6cfbf;
+        --text: #1d1c18;
+        --muted: #5b584d;
+        --accent: #0f4c5c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Iowan Old Style", "Palatino Linotype", "Songti SC", serif;
+        background: radial-gradient(circle at top, #fbf6ea, var(--bg));
+        color: var(--text);
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 40px 24px 72px;
+      }
+
+      .panel {
+        background: rgba(255, 253, 247, 0.92);
+        border: 1px solid var(--line);
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      .commands {
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        background: #181818;
+        color: #f6f4ee;
+        padding: 16px;
+        overflow: auto;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .grid.two {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .tag {
+        display: inline-block;
+        border: 1px solid var(--line);
+        padding: 4px 10px;
+        margin: 0 8px 8px 0;
+      }
+
+      @media print {
+        body {
+          background: #ffffff;
+        }
+
+        .page {
+          max-width: none;
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      {{content}}
+    </main>
+  </body>
+</html>
