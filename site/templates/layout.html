@@ -6,12 +6,17 @@
     <title>{{pageTitle}}</title>
     <style>
       :root {
-        --bg: #f4f1e8;
-        --surface: #fffdf7;
-        --line: #d6cfbf;
-        --text: #1d1c18;
-        --muted: #5b584d;
-        --accent: #0f4c5c;
+        --bg: #edf2f7;
+        --surface: rgba(255, 255, 255, 0.92);
+        --surface-strong: #ffffff;
+        --line: #c8d4e3;
+        --text: #102033;
+        --muted: #53657d;
+        --accent: #1767a3;
+        --accent-soft: #d9ebf7;
+        --panel-dark: #0d1826;
+        --panel-dark-line: #29415a;
+        --panel-dark-text: #edf5fb;
       }
 
       * {
@@ -20,43 +25,237 @@
 
       body {
         margin: 0;
-        font-family: "Iowan Old Style", "Palatino Linotype", "Songti SC", serif;
-        background: radial-gradient(circle at top, #fbf6ea, var(--bg));
+        font-family: "Avenir Next", "Segoe UI", "PingFang SC", "Helvetica Neue", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(23, 103, 163, 0.14), transparent 32%),
+          linear-gradient(180deg, #f8fbfd 0%, var(--bg) 100%);
         color: var(--text);
       }
 
       a {
         color: var(--accent);
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.16em;
       }
 
       .page {
-        max-width: 980px;
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 40px 24px 72px;
+        padding: 40px 24px 80px;
       }
 
       .panel {
-        background: rgba(255, 253, 247, 0.92);
+        background: var(--surface);
         border: 1px solid var(--line);
-        padding: 24px;
+        box-shadow: 0 20px 48px rgba(16, 32, 51, 0.06);
+        padding: 28px;
         margin-bottom: 20px;
+        backdrop-filter: blur(12px);
       }
 
-      .commands {
+      .panel-dark {
+        background: linear-gradient(180deg, rgba(13, 24, 38, 0.98), rgba(17, 31, 48, 0.96));
+        border-color: var(--panel-dark-line);
+        color: var(--panel-dark-text);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 6vw, 4.8rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+        margin-bottom: 16px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        letter-spacing: -0.03em;
+        margin-bottom: 0;
+      }
+
+      h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .hero {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+        align-items: start;
+      }
+
+      .panel-hero {
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(236, 245, 251, 0.9)),
+          var(--surface-strong);
+      }
+
+      .hero-copy {
+        max-width: 720px;
+      }
+
+      .eyebrow,
+      .section-kicker {
         font-family: "SFMono-Regular", "Menlo", monospace;
-        background: #181818;
-        color: #f6f4ee;
-        padding: 16px;
-        overflow: auto;
+        font-size: 0.84rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
-      .grid {
+      .eyebrow {
+        color: var(--accent);
+        margin-bottom: 18px;
+      }
+
+      .hero-headline {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      .hero-summary,
+      .summary-copy p {
+        max-width: 58ch;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 0;
+      }
+
+      .hero-meta {
+        display: grid;
+        gap: 12px;
+        align-self: stretch;
+      }
+
+      .meta-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .meta-card {
+        border: 1px solid var(--line);
+        background: rgba(217, 235, 247, 0.35);
+        padding: 14px 16px;
+      }
+
+      .meta-card strong {
+        display: block;
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        font-size: 0.74rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .meta-card span {
+        display: block;
+        font-size: 0.98rem;
+        line-height: 1.5;
+      }
+
+      .section-block,
+      .print-section {
+        position: relative;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+
+      .section-kicker {
+        color: var(--accent);
+        margin-bottom: 0;
+      }
+
+      .panel-dark .section-kicker,
+      .panel-dark .section-summary,
+      .panel-dark h2 {
+        color: var(--panel-dark-text);
+      }
+
+      .section-summary {
+        color: rgba(237, 245, 251, 0.78);
+        margin-bottom: 16px;
+      }
+
+      .card-grid {
         display: grid;
         gap: 16px;
       }
 
-      .grid.two {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      .project-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .capability-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .project-card,
+      .capability-card,
+      .timeline-item,
+      .contact-card {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.72);
+        padding: 18px;
+      }
+
+      .project-card p,
+      .capability-card p,
+      .timeline-item p,
+      .resume-item p,
+      .project-meta,
+      .timeline-meta {
+        color: var(--muted);
+      }
+
+      .project-meta,
+      .timeline-meta {
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        font-size: 0.82rem;
+        margin-bottom: 12px;
+      }
+
+      .timeline-list,
+      .resume-list {
+        display: grid;
+        gap: 16px;
+      }
+
+      .resume-item {
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .resume-item:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
       }
 
       .muted {
@@ -66,8 +265,40 @@
       .tag {
         display: inline-block;
         border: 1px solid var(--line);
-        padding: 4px 10px;
-        margin: 0 8px 8px 0;
+        background: rgba(217, 235, 247, 0.35);
+        padding: 5px 10px;
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        font-size: 0.78rem;
+      }
+
+      .command-panel {
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        background: rgba(5, 12, 20, 0.92);
+        color: var(--panel-dark-text);
+        padding: 18px;
+        overflow: auto;
+        border: 1px solid var(--panel-dark-line);
+        white-space: pre-wrap;
+      }
+
+      .contact-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .contact-card strong {
+        display: block;
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        font-size: 0.74rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .page-project h1 {
+        font-size: clamp(2.2rem, 4vw, 3.2rem);
       }
 
       @media print {
@@ -77,12 +308,59 @@
 
         .page {
           max-width: none;
-          padding: 24px;
+          padding: 24px 24px 0;
+        }
+
+        .panel {
+          box-shadow: none;
+          backdrop-filter: none;
+          background: #ffffff;
+          break-inside: avoid;
+        }
+
+        .panel-dark {
+          color: var(--text);
+          border-color: var(--line);
+        }
+
+        .panel-dark .section-kicker,
+        .panel-dark .section-summary,
+        .panel-dark h2 {
+          color: var(--text);
+        }
+
+        .command-panel {
+          background: #ffffff;
+          color: var(--text);
+          border-color: var(--line);
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          padding-inline: 16px;
+        }
+
+        .panel {
+          padding: 22px;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .section-heading {
+          flex-direction: column;
+          align-items: start;
         }
       }
     </style>
   </head>
-  <body>
+  <body class="{{bodyClass}}">
     <main class="page">
       {{content}}
     </main>

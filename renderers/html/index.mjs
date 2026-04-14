@@ -64,9 +64,9 @@ function renderExperience(resume, basePath = "/") {
       const summary = item.summary.map((text) => `<li>${escapeHtml(text)}</li>`).join("");
 
       return [
-        "<article>",
+        '<article class="resume-item">',
         `<h3>${escapeHtml(item.company)} | ${escapeHtml(item.role)}</h3>`,
-        `<p class="muted">${escapeHtml(item.start)} - ${escapeHtml(item.end)} | ${escapeHtml(item.city)}</p>`,
+        `<p class="timeline-meta">${escapeHtml(item.start)} - ${escapeHtml(item.end)} | ${escapeHtml(item.city)}</p>`,
         `<ul>${summary}</ul>`,
         `<p>${projectLinks}</p>`,
         "</article>"
@@ -82,9 +82,9 @@ function renderProjects(resume, basePath = "/") {
       const summary = project.summary.map((text) => `<li>${escapeHtml(text)}</li>`).join("");
 
       return [
-        "<article>",
+        '<article class="resume-item">',
         `<h3><a href="${href}">${escapeHtml(project.title)}</a></h3>`,
-        `<p class="muted">${escapeHtml(project.stack.join(" / "))}</p>`,
+        `<p class="project-meta">${escapeHtml(project.stack.join(" / "))}</p>`,
         `<ul>${summary}</ul>`,
         "</article>"
       ].join("");
@@ -98,10 +98,10 @@ function renderSkills(resume) {
       const tags = skill.keywords.map((keyword) => `<span class="tag">${escapeHtml(keyword)}</span>`).join("");
 
       return [
-        "<article>",
+        '<article class="resume-item">',
         `<h3>${escapeHtml(skill.name)}</h3>`,
         `<p>${escapeHtml(skill.narrative)}</p>`,
-        `<div>${tags}</div>`,
+        `<div class="tag-row">${tags}</div>`,
         "</article>"
       ].join("");
     })
@@ -110,16 +110,123 @@ function renderSkills(resume) {
 
 function renderContact(resume) {
   return [
-    `<p>Email: <a href="mailto:${escapeHtml(resume.basics.contact.email)}">${escapeHtml(resume.basics.contact.email)}</a></p>`,
-    `<p>Phone: ${escapeHtml(resume.basics.contact.phone)}</p>`,
-    `<p>GitHub: <a href="${escapeHtml(resume.basics.links.github)}">${escapeHtml(resume.basics.links.github)}</a></p>`,
-    `<p>Blog: <a href="${escapeHtml(resume.basics.links.blog)}">${escapeHtml(resume.basics.links.blog)}</a></p>`
+    [
+      '<article class="contact-card">',
+      "<strong>Email</strong>",
+      `<a href="mailto:${escapeHtml(resume.basics.contact.email)}">${escapeHtml(resume.basics.contact.email)}</a>`,
+      "</article>"
+    ].join(""),
+    [
+      '<article class="contact-card">',
+      "<strong>Phone</strong>",
+      `<span>${escapeHtml(resume.basics.contact.phone)}</span>`,
+      "</article>"
+    ].join(""),
+    [
+      '<article class="contact-card">',
+      "<strong>GitHub</strong>",
+      `<a href="${escapeHtml(resume.basics.links.github)}">${escapeHtml(resume.basics.links.github)}</a>`,
+      "</article>"
+    ].join(""),
+    [
+      '<article class="contact-card">',
+      "<strong>Blog</strong>",
+      `<a href="${escapeHtml(resume.basics.links.blog)}">${escapeHtml(resume.basics.links.blog)}</a>`,
+      "</article>"
+    ].join("")
   ].join("");
 }
 
-async function renderPage({ layoutTemplate, pageTitle, content }) {
+function renderHeroMeta(resume) {
+  const items = [
+    ["Base", resume.basics.location.city],
+    ["Focus", "Frontend Systems / Tooling / AI Workflows"],
+    [
+      "Stack",
+      [
+        resume.skills[0]?.keywords[0],
+        resume.skills[0]?.keywords[1],
+        resume.skills[0]?.keywords[2],
+        "Node.js"
+      ]
+        .filter(Boolean)
+        .join(", ")
+    ],
+    ["Now", resume.basics.availability]
+  ];
+
+  return items
+    .map(([label, value]) => {
+      return [
+        '<article class="meta-card">',
+        `<strong>${escapeHtml(label)}</strong>`,
+        `<span>${escapeHtml(value)}</span>`,
+        "</article>"
+      ].join("");
+    })
+    .join("");
+}
+
+function renderSelectedWork(resume, basePath = "/") {
+  return resume.featuredProjects
+    .map((project) => {
+      const href = joinHref(basePath, `projects/${project.id}/`);
+      const highlights = project.summary.map((text) => `<li>${escapeHtml(text)}</li>`).join("");
+
+      return [
+        '<article class="project-card">',
+        `<p class="project-meta">${escapeHtml(project.stack.join(" / "))}</p>`,
+        `<h3><a href="${href}">${escapeHtml(project.title)}</a></h3>`,
+        `<p>${escapeHtml(project.company)}</p>`,
+        `<ul>${highlights}</ul>`,
+        "</article>"
+      ].join("");
+    })
+    .join("");
+}
+
+function renderCapabilityMatrix(resume) {
+  return resume.skills
+    .map((skill) => {
+      const tags = skill.keywords.map((keyword) => `<span class="tag">${escapeHtml(keyword)}</span>`).join("");
+
+      return [
+        '<article class="capability-card">',
+        `<h3>${escapeHtml(skill.name)}</h3>`,
+        `<p>${escapeHtml(skill.narrative)}</p>`,
+        `<div class="tag-row">${tags}</div>`,
+        "</article>"
+      ].join("");
+    })
+    .join("");
+}
+
+function renderExperienceSnapshot(resume, basePath = "/") {
+  return resume.experience
+    .map((item) => {
+      const projectLinks = item.projects
+        .map((project) => {
+          const href = joinHref(basePath, `projects/${project.id}/`);
+          return `<a href="${href}">${escapeHtml(project.title)}</a>`;
+        })
+        .join(" / ");
+
+      return [
+        '<article class="timeline-item">',
+        `<p class="timeline-meta">${escapeHtml(item.start)} - ${escapeHtml(item.end)} | ${escapeHtml(item.city)}</p>`,
+        `<h3>${escapeHtml(item.company)} | ${escapeHtml(item.role)}</h3>`,
+        `<p>${escapeHtml(item.summary[0])}</p>`,
+        `<p>${projectLinks}</p>`,
+        "</article>"
+      ].join("");
+    })
+    .join("");
+}
+
+async function renderPage({ layoutTemplate, pageTitle, bodyClass, content }) {
   return replacePlaceholders(layoutTemplate, {
     pageTitle: escapeHtml(pageTitle),
+    bodyClass: escapeHtml(bodyClass),
     content
   });
 }
@@ -127,13 +234,14 @@ async function renderPage({ layoutTemplate, pageTitle, content }) {
 async function loadTemplates(rootDir) {
   const templateDir = path.join(rootDir, "site", "templates");
 
-  const [layout, resume, project] = await Promise.all([
+  const [layout, home, print, project] = await Promise.all([
     fs.readFile(path.join(templateDir, "layout.html"), "utf8"),
-    fs.readFile(path.join(templateDir, "resume.html"), "utf8"),
+    fs.readFile(path.join(templateDir, "home.html"), "utf8"),
+    fs.readFile(path.join(templateDir, "print.html"), "utf8"),
     fs.readFile(path.join(templateDir, "project.html"), "utf8")
   ]);
 
-  return { layout, resume, project };
+  return { layout, home, print, project };
 }
 
 async function writePage(filePath, content) {
@@ -141,12 +249,17 @@ async function writePage(filePath, content) {
   await fs.writeFile(filePath, content, "utf8");
 }
 
-function renderResumeContent({ resume, templates, basePath }) {
-  return replacePlaceholders(templates.resume, {
+function renderHomeContent({ resume, templates, basePath }) {
+  return replacePlaceholders(templates.home, {
     eyebrow: `${escapeHtml(resume.variant.label)} / ${escapeHtml(resume.basics.location.city)}`,
     name: escapeHtml(resume.basics.displayName),
     headline: `${escapeHtml(resume.basics.headline.primary)} / ${escapeHtml(resume.basics.headline.secondary)}`,
     summary: escapeHtml(resume.basics.summary.long),
+    heroMeta: renderHeroMeta(resume),
+    selectedWork: renderSelectedWork(resume, basePath),
+    capabilityMatrix: renderCapabilityMatrix(resume),
+    experienceSnapshot: renderExperienceSnapshot(resume, basePath),
+    accessSummary: escapeHtml("Use the package, fetch the JSON source, or open the man page."),
     commands: [
       "npx @zhangziheng/resume",
       `curl -sL ${resume.branding.curl_endpoint}`,
@@ -154,6 +267,17 @@ function renderResumeContent({ resume, templates, basePath }) {
     ]
       .map(escapeHtml)
       .join("\n"),
+    contact: renderContact(resume)
+  });
+}
+
+function renderPrintContent({ resume, templates, basePath }) {
+  return replacePlaceholders(templates.print, {
+    eyebrow: `${escapeHtml(resume.variant.label)} / ${escapeHtml(resume.basics.location.city)}`,
+    name: escapeHtml(resume.basics.displayName),
+    headline: `${escapeHtml(resume.basics.headline.primary)} / ${escapeHtml(resume.basics.headline.secondary)}`,
+    summary: `<p>${escapeHtml(resume.basics.summary.long)}</p>`,
+    heroMeta: renderHeroMeta(resume),
     experience: renderExperience(resume, basePath),
     projects: renderProjects(resume, basePath),
     skills: renderSkills(resume),
@@ -163,12 +287,12 @@ function renderResumeContent({ resume, templates, basePath }) {
 
 export async function renderHtmlSite({ resume, rootDir, outputDir }) {
   const templates = await loadTemplates(rootDir);
-  const homeResumeContent = renderResumeContent({
+  const homeContent = renderHomeContent({
     resume,
     templates,
     basePath: "/resume/"
   });
-  const printResumeContent = renderResumeContent({
+  const printContent = renderPrintContent({
     resume,
     templates,
     basePath: "/resume/"
@@ -177,13 +301,15 @@ export async function renderHtmlSite({ resume, rootDir, outputDir }) {
   const homePage = await renderPage({
     layoutTemplate: templates.layout,
     pageTitle: `${resume.basics.displayName} | Resume`,
-    content: homeResumeContent
+    bodyClass: "page-home",
+    content: homeContent
   });
 
   const printPage = await renderPage({
     layoutTemplate: templates.layout,
     pageTitle: `${resume.basics.displayName} | Print Resume`,
-    content: printResumeContent
+    bodyClass: "page-print",
+    content: printContent
   });
 
   await writePage(path.join(outputDir, "index.html"), homePage);
@@ -200,6 +326,7 @@ export async function renderHtmlSite({ resume, rootDir, outputDir }) {
     const page = await renderPage({
       layoutTemplate: templates.layout,
       pageTitle: `${project.title} | ${resume.basics.displayName}`,
+      bodyClass: "page-project",
       content: projectContent
     });
 

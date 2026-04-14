@@ -41,3 +41,36 @@ test("renderHtmlSite writes a single resume entry and github pages-safe links", 
     await fs.rm(outputDir, { recursive: true, force: true });
   }
 });
+
+test("renderHtmlSite separates homepage branding from print resume layout", async () => {
+  const resume = await buildCanonicalResume({
+    rootDir: projectRoot,
+    variantId: "frontend"
+  });
+  const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "resume-html-"));
+
+  try {
+    await renderHtmlSite({
+      resume,
+      rootDir: projectRoot,
+      outputDir
+    });
+
+    const homepage = await fs.readFile(path.join(outputDir, "index.html"), "utf8");
+    const printPage = await fs.readFile(path.join(outputDir, "print", "index.html"), "utf8");
+
+    assert.match(homepage, /Selected Work/);
+    assert.match(homepage, /Capability Matrix/);
+    assert.match(homepage, /Terminal Access/);
+    assert.match(homepage, /Experience Snapshot/);
+    assert.doesNotMatch(homepage, /Core Summary/);
+
+    assert.match(printPage, /Core Summary/);
+    assert.match(printPage, /Selected Projects/);
+    assert.match(printPage, /Experience/);
+    assert.doesNotMatch(printPage, /Capability Matrix/);
+    assert.doesNotMatch(printPage, /Terminal Access/);
+  } finally {
+    await fs.rm(outputDir, { recursive: true, force: true });
+  }
+});
