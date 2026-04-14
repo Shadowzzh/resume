@@ -4,7 +4,9 @@
   "description": "Single-source resume with HTML, PDF, man, JSON, and CLI outputs.",
   "type": "module",
   "private": false,
-  "bin": "./bin/resume.mjs",
+  "bin": {
+    "resume": "./bin/resume.mjs"
+  },
   "files": [
     "README.md",
     "bin/",
