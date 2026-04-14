@@ -1,9 +1,13 @@
 {
   "name": "@zhangziheng/resume",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Single-source resume with HTML, PDF, man, JSON, and CLI outputs.",
   "type": "module",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shadowzzh/resume.git"
+  },
   "bin": {
     "resume": "./bin/resume.mjs"
   },
