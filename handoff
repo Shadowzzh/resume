@@ -1,0 +1,91 @@
+【任务目标】
+继续推进 `~/Documents/code/resume` 的单一内容源简历仓库，在已完成基础脚手架的前提下进入下一阶段开发或发布准备。
+
+【已完成】
+- 已完成 resume foundation 基础脚手架，并已提交到 `main`
+- 已建立内容源结构：`content/profile.yaml`、`content/experience.yaml`、`content/skills.yaml`、`content/variants/*.yaml`、`content/projects/*.md`
+- 已实现规范化与校验流程：`scripts/normalize.mjs`、`scripts/validate.mjs`
+- 已补充基础测试：`tests/normalize.test.mjs`
+- 已实现基础渲染链路：JSON、HTML、CLI、man、PDF
+- 已实现构建入口：`scripts/build.mjs`
+- 已实现 CLI 入口：`bin/resume.mjs`
+- 已生成构建产物：HTML、JSON、TXT、man、PDF、项目页、`CNAME`、`.nojekyll`
+- 已有计划文档，记录了 foundation 阶段的目标与任务拆分
+- 当前工作区干净，无未提交改动
+- 当前最新提交：`57ae2a3 feat: initialize resume foundation`
+
+【关键结论】
+- 第一阶段基础能力已可用，不是“开发中断”，而是“已完成 foundation，可继续下一阶段”
+- 本地验证已通过：测试、校验、构建都成功
+- `dist/` 已成功产出完整基础文件，包含 `resume.pdf`
+- 仓库当前缺少明确的“下一阶段目标定义”，后续做什么需要先定优先级
+- 待确认：GitHub Actions 工作流文件是否已实际创建并完善，计划文档里提到了，但本次未核对其内容
+
+【未完成】
+1. 明确下一阶段目标：优先做 CI/发布、内容完善、样式优化，还是 variant 扩展
+2. 核对并补齐 GitHub Actions / Pages / npm 发布链路
+3. 检查 HTML/PDF/CLI 呈现质量，按实际使用体验做优化
+4. 补充更多测试覆盖，尤其是构建产物和更多 variant 场景
+5. 视需要完善 README 的使用说明、发布说明和内容维护说明
+
+【关键文件】
+- /Users/zzh/Documents/code/resume/README.md
+- /Users/zzh/Documents/code/resume/package.json
+- /Users/zzh/Documents/code/resume/docs/superpowers/plans/2026-04-14-resume-foundation.md
+- /Users/zzh/Documents/code/resume/scripts/build.mjs
+- /Users/zzh/Documents/code/resume/scripts/normalize.mjs
+- /Users/zzh/Documents/code/resume/scripts/validate.mjs
+- /Users/zzh/Documents/code/resume/tests/normalize.test.mjs
+- /Users/zzh/Documents/code/resume/bin/resume.mjs
+- /Users/zzh/Documents/code/resume/renderers/html/index.mjs
+- /Users/zzh/Documents/code/resume/renderers/pdf/index.mjs
+- /Users/zzh/Documents/code/resume/site/templates/layout.html
+- /Users/zzh/Documents/code/resume/site/templates/resume.html
+- /Users/zzh/Documents/code/resume/content/profile.yaml
+- /Users/zzh/Documents/code/resume/content/experience.yaml
+- /Users/zzh/Documents/code/resume/content/skills.yaml
+
+【验证情况】
+- 已执行
+  - `npm test`：通过，2 个测试通过
+  - `npm run validate`：通过
+  - `npm run build`：通过
+  - 手工确认 `dist/` 产物存在
+- 已确认产物
+  - `dist/index.html`
+  - `dist/resume/index.html`
+  - `dist/resume/print/index.html`
+  - `dist/resume.json`
+  - `dist/resume.txt`
+  - `dist/resume.7`
+  - `dist/resume.pdf`
+  - `dist/projects/*/index.html`
+  - `dist/CNAME`
+  - `dist/.nojekyll`
+- 未验证
+  - GitHub Actions 是否可实际跑通
+  - GitHub Pages 发布是否可实际访问
+  - npm 发布链路是否可实际发布
+  - CLI 的最终用户体验是否满足预期
+  - PDF 在不同机器环境下的稳定性
+
+【注意事项】
+- 用户要求：使用中文回复
+- 用户要求：优先讨论和提建议，只有明确说“写代码”才改代码
+- 用户要求：不要猜需求，需求模糊先澄清
+- 用户要求：谨慎引入第三方依赖，如引入需说明原因
+- 用户要求：英文注释，仅注释复杂逻辑
+- 用户要求：绝对不要使用嵌套三元运算符
+- 项目是 Node.js 22 + `yaml` 的简历仓库，不是复杂业务系统
+- 当前仓库已在 `main`，工作区干净，不要误以为有未完成本地改动
+- 若继续涉及库、框架、CLI、云服务文档查询，按规则优先用 Context7 MCP
+- 待确认：CI/Deploy/Publish workflow 文件是否已经存在且可用
+
+【建议的下一步】
+1. 先核对 `.github/workflows/` 是否完整，确认 CI、Pages、npm 发布链路现状
+2. 再人工检查一次 `dist/index.html`、`dist/resume.pdf`、CLI 输出，确定当前展示层最明显的问题
+3. 基于检查结果，和用户确认下一阶段优先级：发布链路、版式优化、内容补充、variant 扩展
+4. 用户明确“写代码”后，再进入具体改动
+
+可直接发到新线程的简版上下文：
+当前在继续 `~/Documents/code/resume` 项目。基础脚手架已完成，最新提交是 `57ae2a3 feat: initialize resume foundation`，工作区干净。已实现内容源、normalize/validate、JSON/HTML/CLI/man/PDF 渲染和 build/CLI 入口；`npm test`、`npm run validate`、`npm run build` 都已通过，`dist/` 已有 `index.html`、`resume.json`、`resume.txt`、`resume.7`、`resume.pdf`、项目页等产物。现在不是修 bug，而是进入下一阶段。优先建议先检查 `.github/workflows/` 和发布链路，再检查 HTML/PDF/CLI 的实际效果，然后与用户确认下一步到底做发布、样式优化、内容完善还是 variant 扩展。注意：用中文回复，先讨论建议，只有用户明确说“写代码”才改代码，不要猜需求，不要用嵌套三元运算符。
