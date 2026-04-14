@@ -17,7 +17,6 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-          registry-url: https://registry.npmjs.org
           cache: npm
       - name: Install Chromium
         run: |
@@ -28,7 +27,16 @@ jobs:
       - run: npm test
       - run: npm run validate
       - run: npm run build:full
+      - name: Prepare npmrc for OIDC publish
+        run: |
+          cat > "$HOME/.npmrc" <<'EOF'
+          registry=https://registry.npmjs.org/
+          always-auth=false
+          EOF
       - name: Debug npm auth env
+        env:
+          NODE_AUTH_TOKEN: ""
+          NPM_CONFIG_USERCONFIG: /home/runner/.npmrc
         run: |
           echo "NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN:+SET}"
           echo "NPM_CONFIG_USERCONFIG=${NPM_CONFIG_USERCONFIG:-UNSET}"
@@ -36,6 +44,9 @@ jobs:
             sed 's#//registry.npmjs.org/:_authToken=.*#//registry.npmjs.org/:_authToken=[REDACTED]#' "$NPM_CONFIG_USERCONFIG"
           fi
       - run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ""
+          NPM_CONFIG_USERCONFIG: /home/runner/.npmrc
       - name: Print npm debug logs
         if: failure()
         run: |
