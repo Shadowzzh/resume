@@ -42,11 +42,24 @@ function renderMarkdownBody(markdown) {
   return html.join("\n");
 }
 
-function renderExperience(resume) {
+function joinHref(basePath, relativePath) {
+  let normalizedBase = basePath.endsWith("/") ? basePath : `${basePath}/`;
+
+  if (normalizedBase.startsWith("/")) {
+    normalizedBase = normalizedBase.slice(1);
+  }
+
+  return new URL(relativePath, `https://resume.local/${normalizedBase}`).pathname;
+}
+
+function renderExperience(resume, basePath = "/") {
   return resume.experience
     .map((item) => {
       const projectLinks = item.projects
-        .map((project) => `<a href="/projects/${project.id}/">${escapeHtml(project.title)}</a>`)
+        .map((project) => {
+          const href = joinHref(basePath, `projects/${project.id}/`);
+          return `<a href="${href}">${escapeHtml(project.title)}</a>`;
+        })
         .join(" / ");
       const summary = item.summary.map((text) => `<li>${escapeHtml(text)}</li>`).join("");
 
@@ -62,14 +75,15 @@ function renderExperience(resume) {
     .join("");
 }
 
-function renderProjects(resume) {
+function renderProjects(resume, basePath = "/") {
   return resume.featuredProjects
     .map((project) => {
+      const href = joinHref(basePath, `projects/${project.id}/`);
       const summary = project.summary.map((text) => `<li>${escapeHtml(text)}</li>`).join("");
 
       return [
         "<article>",
-        `<h3><a href="/projects/${project.id}/">${escapeHtml(project.title)}</a></h3>`,
+        `<h3><a href="${href}">${escapeHtml(project.title)}</a></h3>`,
         `<p class="muted">${escapeHtml(project.stack.join(" / "))}</p>`,
         `<ul>${summary}</ul>`,
         "</article>"
@@ -127,43 +141,53 @@ async function writePage(filePath, content) {
   await fs.writeFile(filePath, content, "utf8");
 }
 
-export async function renderHtmlSite({ resume, rootDir, outputDir }) {
-  const templates = await loadTemplates(rootDir);
-  const commands = [
-    "npx @zhangziheng/resume",
-    `curl -sL ${resume.branding.curl_endpoint}`,
-    `curl -sL ${resume.branding.man_endpoint} | man -l -`
-  ]
-    .map(escapeHtml)
-    .join("\n");
-
-  const resumeContent = replacePlaceholders(templates.resume, {
+function renderResumeContent({ resume, templates, basePath }) {
+  return replacePlaceholders(templates.resume, {
     eyebrow: `${escapeHtml(resume.variant.label)} / ${escapeHtml(resume.basics.location.city)}`,
     name: escapeHtml(resume.basics.displayName),
     headline: `${escapeHtml(resume.basics.headline.primary)} / ${escapeHtml(resume.basics.headline.secondary)}`,
     summary: escapeHtml(resume.basics.summary.long),
-    commands,
-    experience: renderExperience(resume),
-    projects: renderProjects(resume),
+    commands: [
+      "npx @zhangziheng/resume",
+      `curl -sL ${resume.branding.curl_endpoint}`,
+      `curl -sL ${resume.branding.man_endpoint} | man -l -`
+    ]
+      .map(escapeHtml)
+      .join("\n"),
+    experience: renderExperience(resume, basePath),
+    projects: renderProjects(resume, basePath),
     skills: renderSkills(resume),
     contact: renderContact(resume)
+  });
+}
+
+export async function renderHtmlSite({ resume, rootDir, outputDir }) {
+  const templates = await loadTemplates(rootDir);
+  const homeResumeContent = renderResumeContent({
+    resume,
+    templates,
+    basePath: "/resume/"
+  });
+  const printResumeContent = renderResumeContent({
+    resume,
+    templates,
+    basePath: "/resume/"
   });
 
   const homePage = await renderPage({
     layoutTemplate: templates.layout,
     pageTitle: `${resume.basics.displayName} | Resume`,
-    content: resumeContent
+    content: homeResumeContent
   });
 
   const printPage = await renderPage({
     layoutTemplate: templates.layout,
     pageTitle: `${resume.basics.displayName} | Print Resume`,
-    content: resumeContent
+    content: printResumeContent
   });
 
   await writePage(path.join(outputDir, "index.html"), homePage);
-  await writePage(path.join(outputDir, "resume", "index.html"), homePage);
-  await writePage(path.join(outputDir, "resume", "print", "index.html"), printPage);
+  await writePage(path.join(outputDir, "print", "index.html"), printPage);
 
   for (const project of resume.projects) {
     const projectContent = replacePlaceholders(templates.project, {
@@ -184,6 +208,6 @@ export async function renderHtmlSite({ resume, rootDir, outputDir }) {
 
   return {
     homepagePath: path.join(outputDir, "index.html"),
-    printPagePath: path.join(outputDir, "resume", "print", "index.html")
+    printPagePath: path.join(outputDir, "print", "index.html")
   };
 }
