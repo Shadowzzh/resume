@@ -112,13 +112,13 @@ function renderContact(resume) {
   return [
     [
       '<article class="contact-card">',
-      "<strong>Email</strong>",
+      "<strong>邮箱</strong>",
       `<a href="mailto:${escapeHtml(resume.basics.contact.email)}">${escapeHtml(resume.basics.contact.email)}</a>`,
       "</article>"
     ].join(""),
     [
       '<article class="contact-card">',
-      "<strong>Phone</strong>",
+      "<strong>电话</strong>",
       `<span>${escapeHtml(resume.basics.contact.phone)}</span>`,
       "</article>"
     ].join(""),
@@ -130,7 +130,7 @@ function renderContact(resume) {
     ].join(""),
     [
       '<article class="contact-card">',
-      "<strong>Blog</strong>",
+      "<strong>博客</strong>",
       `<a href="${escapeHtml(resume.basics.links.blog)}">${escapeHtml(resume.basics.links.blog)}</a>`,
       "</article>"
     ].join("")
@@ -139,10 +139,10 @@ function renderContact(resume) {
 
 function renderHeroMeta(resume) {
   const items = [
-    ["Base", resume.basics.location.city],
-    ["Focus", "Frontend Systems / Tooling / AI Workflows"],
+    ["所在地", resume.basics.location.city],
+    ["方向", "前端工程 / 工具链 / AI 协作"],
     [
-      "Stack",
+      "技术栈",
       [
         resume.skills[0]?.keywords[0],
         resume.skills[0]?.keywords[1],
@@ -152,7 +152,7 @@ function renderHeroMeta(resume) {
         .filter(Boolean)
         .join(", ")
     ],
-    ["Now", resume.basics.availability]
+    ["当前状态", resume.basics.availability]
   ];
 
   return items
@@ -259,7 +259,7 @@ function renderHomeContent({ resume, templates, basePath }) {
     selectedWork: renderSelectedWork(resume, basePath),
     capabilityMatrix: renderCapabilityMatrix(resume),
     experienceSnapshot: renderExperienceSnapshot(resume, basePath),
-    accessSummary: escapeHtml("Use the package, fetch the JSON source, or open the man page."),
+    accessSummary: escapeHtml("可通过 npm 包、JSON 接口或 man 手册查看简历内容。"),
     commands: [
       "npx @zhangziheng/resume",
       `curl -sL ${resume.branding.curl_endpoint}`,

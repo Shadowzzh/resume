@@ -59,15 +59,26 @@ test("renderHtmlSite separates homepage branding from print resume layout", asyn
     const homepage = await fs.readFile(path.join(outputDir, "index.html"), "utf8");
     const printPage = await fs.readFile(path.join(outputDir, "print", "index.html"), "utf8");
 
-    assert.match(homepage, /Selected Work/);
-    assert.match(homepage, /Capability Matrix/);
-    assert.match(homepage, /Terminal Access/);
-    assert.match(homepage, /Experience Snapshot/);
+    assert.match(homepage, /个人概览/);
+    assert.match(homepage, /重点项目/);
+    assert.match(homepage, /技能矩阵/);
+    assert.match(homepage, /经历概览/);
+    assert.match(homepage, /访问方式/);
+    assert.match(homepage, /联系方式/);
+    assert.match(homepage, /所在地/);
+    assert.match(homepage, /当前状态/);
+    assert.match(homepage, /邮箱/);
+    assert.doesNotMatch(homepage, /Selected Work/);
     assert.doesNotMatch(homepage, /Core Summary/);
+    assert.doesNotMatch(homepage, /Base/);
 
-    assert.match(printPage, /Core Summary/);
-    assert.match(printPage, /Selected Projects/);
-    assert.match(printPage, /Experience/);
+    assert.match(printPage, /个人简介/);
+    assert.match(printPage, /工作经历/);
+    assert.match(printPage, /项目经验/);
+    assert.match(printPage, /专业技能/);
+    assert.match(printPage, /联系方式/);
+    assert.doesNotMatch(printPage, /Core Summary/);
+    assert.doesNotMatch(printPage, /Experience/);
     assert.doesNotMatch(printPage, /Capability Matrix/);
     assert.doesNotMatch(printPage, /Terminal Access/);
   } finally {

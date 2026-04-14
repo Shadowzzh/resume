@@ -13,7 +13,8 @@ items:
       - Go
     summary:
       - 负责公司前端和 Node 相关项目的迭代与维护。
-      - 参与自动化攻击平台和云原生安全平台的功能开发与问题修复。
+      - 负责自动化攻击平台的前端开发与 Claude Agent SDK 封装，支持通过 HTTP 请求调用 Claude Code。
+      - 参与 CNAPP 云原生应用保护平台的前端开发与维护，并协助修复后端问题。
     project_refs:
       - auto-pentest-platform
       - cnapp-platform
@@ -31,8 +32,9 @@ items:
       - Father
       - DingTalk Mini Program
     summary:
-      - 负责培训平台、CMS 系统与钉钉小程序的前端业务开发。
-      - 参与多平台通用组件库与文档系统建设。
+      - 负责培训平台、CMS 系统与钉钉小程序的前端业务开发和组件库开发。
+      - 使用 Dumi + Father 搭建多平台通用业务组件库与文档系统，并推动多个项目统一升级。
+      - 负责钉钉小程序埋点方案、小程序差异化部署、原生小程序格式化代码保存及节日促销活动低代码平台相关开发。
     project_refs:
       - component-library
 
@@ -47,7 +49,7 @@ items:
       - Vue 3
       - Tailwind CSS
     summary:
-      - 负责财务评审系统前端开发。
-      - 封装业务组件，提高页面复用性。
+      - 负责财务评审系统前端开发，封装业务组件以提高页面复用性。
+      - 使用 Vue 3 + Tailwind CSS 构建业务界面，并支撑系统迭代与维护。
     project_refs:
       - finance-review-system
