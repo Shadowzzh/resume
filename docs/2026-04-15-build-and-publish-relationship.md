@@ -16,6 +16,7 @@
 - `dist/resume.json`
 - `dist/index.html`
 - `dist/print/index.html`
+- `dist/resume.md`
 - `dist/resume.txt`
 - `dist/resume.7`
 - `dist/resume.pdf`
@@ -53,7 +54,7 @@ npm 不会自动发布整个仓库，而是只会发布 `package.json` 里 `file
 - `scripts/`
 - `tests/`
 
-这意味着 npm 用户安装包后，拿到的是已经构建好的结果，例如 `dist/resume.json`，而不是 `content/` 里的原始 YAML。
+这意味着 npm 用户安装包后，拿到的是已经构建好的结果，例如 `dist/resume.json` 和 `dist/resume.md`，而不是 `content/` 里的原始 YAML。
 
 ## Answering The Common Question Directly
 

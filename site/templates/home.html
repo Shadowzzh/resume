@@ -1,76 +1,40 @@
-<section class="hero panel panel-hero">
-  <div class="hero-copy">
-    <p class="eyebrow">{{eyebrow}}</p>
-    <h1>{{name}}</h1>
-    <p class="hero-headline">{{headline}}</p>
-    <p class="hero-summary">{{summary}}</p>
-    <div class="action-row">
-      {{heroActions}}
+<div class="resume-shell">
+  <header class="resume-header">
+    <div class="header-top">
+      <div class="name-area">
+        <h1 class="header-name">{{name}}</h1>
+      </div>
+      <span class="job-title">{{jobTitle}}</span>
     </div>
-    <div class="signal-grid">
-      {{heroSignals}}
+    <div class="header-summary">
+      {{summary}}
     </div>
-  </div>
-  <aside class="hero-meta">
-    <p class="section-kicker">快速判断</p>
-    {{heroMeta}}
-  </aside>
-</section>
+    <div class="contact-info">
+      {{contactStrip}}
+    </div>
+  </header>
 
-<section class="section-block panel">
-  <div class="section-heading">
-    <p class="section-kicker">01</p>
-    <div class="section-heading-copy">
-      <h2>核心能力</h2>
-      <p>先给出工程能力判断，再用项目和经历做证据支撑。</p>
+  <section>
+    <div class="section-title-v5">核心技术栈</div>
+    <div class="tech-list-v5">
+      {{skillRows}}
     </div>
-  </div>
-  <div class="card-grid capability-grid">
-    {{capabilityMatrix}}
-  </div>
-</section>
+  </section>
 
-<section class="section-block panel">
-  <div class="section-heading">
-    <p class="section-kicker">02</p>
-    <div class="section-heading-copy">
-      <h2>代表项目</h2>
-      <p>围绕问题、方案、结果三段式展示，帮助面试官快速判断匹配度。</p>
+  <section>
+    <div class="section-title-v5">核心项目经历</div>
+    <div class="project-list-v5">
+      {{projectCards}}
     </div>
-  </div>
-  <div class="card-grid project-grid">
-    {{selectedWork}}
-  </div>
-</section>
+  </section>
 
-<section class="section-block panel">
-  <div class="section-heading">
-    <p class="section-kicker">03</p>
-    <div class="section-heading-copy">
-      <h2>工作经历</h2>
-      <p>每段经历保留最强结果，并链接到对应项目细节。</p>
+  <section>
+    <div class="section-title-v5">个人优势与认知</div>
+    <ul class="point-list-v5 insight-list-v5">
+      {{insightList}}
+    </ul>
+    <div class="footer-links-v5">
+      {{footerLinks}}
     </div>
-  </div>
-  <div class="timeline-list">
-    {{experienceSnapshot}}
-  </div>
-</section>
-
-<section class="section-block panel panel-dark">
-  <div class="section-heading">
-    <p class="section-kicker">04</p>
-    <div class="section-heading-copy">
-      <h2>补充资料</h2>
-      <p>{{accessSummary}}</p>
-    </div>
-  </div>
-  <div class="resource-grid">
-    {{resourceLinks}}
-  </div>
-  <div class="supplement-grid">
-    <div class="command-panel">{{commands}}</div>
-    <div class="contact-grid">
-      {{contact}}
-    </div>
-  </div>
-</section>
+  </section>
+</div>

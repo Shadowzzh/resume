@@ -5,7 +5,7 @@
 目标：
 
 - 在一个地方维护简历内容
-- 生成 `HTML`、`PDF`、`man`、`resume.json`
+- 生成 `HTML`、`Markdown`、`PDF`、`man`、`resume.json`
 - 提供 `npx @zhangziheng/resume` 的终端入口
 
 内容源使用 `YAML + Markdown`：

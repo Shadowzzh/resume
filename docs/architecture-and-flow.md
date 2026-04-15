@@ -2,7 +2,7 @@
 
 这个项目是一个“单一内容源简历生成器”。
 
-你维护 `content/` 里的简历内容，构建脚本会把这些内容整理成统一的数据结构，再渲染成多个渠道的输出，包括 HTML、PDF、CLI、man page 和 JSON。
+你维护 `content/` 里的简历内容，构建脚本会把这些内容整理成统一的数据结构，再渲染成多个渠道的输出，包括 HTML、Markdown、PDF、CLI、man page 和 JSON。
 
 ## Overall Architecture
 
@@ -15,18 +15,20 @@ flowchart TD
     C --> F[renderers/cli/index.mjs]
     C --> G[renderers/man/index.mjs]
     C --> H[renderers/json/index.mjs]
+    C --> I[renderers/markdown/index.mjs]
 
-    E --> I[site/templates/*.html]
-    I --> J[dist/index.html]
-    I --> K[dist/print/index.html]
-    I --> L[dist/projects/*/index.html]
+    E --> J[site/templates/*.html]
+    J --> K[dist/index.html]
+    J --> L[dist/print/index.html]
+    J --> M[dist/projects/*/index.html]
 
-    K --> M[renderers/pdf/index.mjs]
-    M --> N[dist/resume.pdf]
+    L --> N[renderers/pdf/index.mjs]
+    N --> O[dist/resume.pdf]
 
-    F --> O[dist/resume.txt]
-    G --> P[dist/resume.7]
-    H --> Q[dist/resume.json]
+    F --> P[dist/resume.txt]
+    G --> Q[dist/resume.7]
+    H --> R[dist/resume.json]
+    I --> S[dist/resume.md]
 ```
 
 ## Core Flow
@@ -67,6 +69,7 @@ flowchart TD
 
 - [renderers/html/index.mjs](/Users/zzh/Documents/code/resume/renderers/html/index.mjs)
 - [renderers/json/index.mjs](/Users/zzh/Documents/code/resume/renderers/json/index.mjs)
+- [renderers/markdown/index.mjs](/Users/zzh/Documents/code/resume/renderers/markdown/index.mjs)
 - [renderers/cli/index.mjs](/Users/zzh/Documents/code/resume/renderers/cli/index.mjs)
 - [renderers/man/index.mjs](/Users/zzh/Documents/code/resume/renderers/man/index.mjs)
 - [renderers/pdf/index.mjs](/Users/zzh/Documents/code/resume/renderers/pdf/index.mjs)
@@ -95,7 +98,7 @@ flowchart TD
 
 - 先执行校验
 - 清空并重建 `dist/`
-- 生成 JSON、HTML、CLI、man page
+- 生成 JSON、HTML、Markdown、CLI、man page
 - 写入 `CNAME` 和 `.nojekyll`
 - 在 `BUILD_PDF=true` 时生成 PDF
 
@@ -114,12 +117,14 @@ flowchart LR
 
     R --> H[HTML Renderer]
     R --> J[JSON Renderer]
-    R --> K[CLI Renderer]
+    R --> K[Markdown Renderer]
+    R --> L[CLI Renderer]
     R --> M[Man Renderer]
 
     H --> T[HTML Pages]
+    K --> U[resume.md]
     T --> P[PDF Renderer]
-    P --> U[resume.pdf]
+    P --> V[resume.pdf]
 ```
 
 ## Directory Responsibilities
@@ -185,9 +190,10 @@ flowchart TD
     C --> D[查看 dist/index.html]
     C --> E[查看 dist/print/index.html]
     C --> F[查看 dist/resume.json]
-    C --> G[查看 dist/resume.txt]
-    C --> H[可选 BUILD_PDF=true npm run build]
-    H --> I[查看 dist/resume.pdf]
+    C --> G[查看 dist/resume.md]
+    C --> H[查看 dist/resume.txt]
+    C --> I[可选 BUILD_PDF=true npm run build]
+    I --> J[查看 dist/resume.pdf]
 ```
 
 ## Typical Change Entry Points

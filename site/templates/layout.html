@@ -4,6 +4,32 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{pageTitle}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Archivo", "sans-serif"],
+              display: ["Space Grotesk", "sans-serif"],
+              mono: ["IBM Plex Mono", "monospace"]
+            },
+            colors: {
+              ink: "#09090b",
+              surface: "#fafaf9",
+              line: "#e4e4e7",
+              accent: "#2563eb"
+            }
+          }
+        }
+      };
+    </script>
     <style>
       :root {
         --bg: #f3f5f8;
@@ -33,11 +59,298 @@
 
       body {
         margin: 0;
-        font-family: "Avenir Next", "Segoe UI", "PingFang SC", "Helvetica Neue", sans-serif;
+        font-family: "Archivo", "Segoe UI", "PingFang SC", "Helvetica Neue", sans-serif;
         background:
           linear-gradient(180deg, rgba(21, 94, 239, 0.06), transparent 240px),
           linear-gradient(180deg, #fbfcfe 0%, var(--bg) 100%);
         color: var(--text);
+      }
+
+      .page-home {
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: #ffffff;
+        color: #334155;
+      }
+
+      .page-home .page {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 0 15mm 18px;
+      }
+
+      .page-home .resume-shell {
+        font-size: 11px;
+        line-height: 1.4;
+        color: #334155;
+        text-align: justify;
+      }
+
+      .page-home .resume-header {
+        margin-bottom: 8px;
+        border-bottom: 1.5px solid #0f172a;
+        padding-bottom: 6px;
+        padding-top: 5px;
+      }
+
+      .page-home .header-top {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 6px;
+        flex-wrap: wrap;
+      }
+
+      .page-home .header-name {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: #0f172a;
+        letter-spacing: 2px;
+      }
+
+      .page-home .job-title {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        border-radius: 4px;
+        background: #eff6ff;
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #2563eb;
+      }
+
+      .page-home .header-summary {
+        margin-bottom: 6px;
+      }
+
+      .page-home .header-summary p {
+        margin: 0 0 3px;
+        line-height: 1.45;
+        color: #334155;
+      }
+
+      .page-home .contact-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 14px;
+        flex-wrap: wrap;
+        font-size: 10.5px;
+        color: #334155;
+      }
+
+      .page-home .contact-item-v5 {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .page-home .contact-item-v5 svg {
+        width: 12px;
+        height: 12px;
+        fill: #64748b;
+        flex: none;
+      }
+
+      .page-home .contact-item-v5 a,
+      .page-home .contact-item-v5 span {
+        color: #334155;
+        text-decoration: none;
+      }
+
+      .page-home .contact-label-v5 {
+        margin-right: 3px;
+        color: #64748b;
+      }
+
+      .page-home .contact-item-v5 a:hover,
+      .page-home .footer-links-v5 a:hover {
+        color: #2563eb;
+      }
+
+      .page-home .section-title-v5 {
+        display: flex;
+        align-items: center;
+        margin: 10px 0 6px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #0f172a;
+      }
+
+      .page-home .section-title-v5::before {
+        content: "";
+        display: inline-block;
+        width: 4px;
+        height: 13px;
+        margin-right: 6px;
+        border-radius: 2px;
+        background: #2563eb;
+      }
+
+      .page-home .tech-list-v5 {
+        margin-bottom: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .page-home .tech-item-v5 {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .page-home .tech-label-v5 {
+        flex-shrink: 0;
+        width: 86px;
+        margin-right: 8px;
+        margin-top: 1px;
+        border-radius: 4px;
+        background: #e2e8f0;
+        padding: 2px 6px;
+        text-align: center;
+        font-size: 10px;
+        font-weight: 600;
+        color: #475569;
+      }
+
+      .page-home .tech-content-v5 {
+        flex-grow: 1;
+        line-height: 1.45;
+        color: #334155;
+      }
+
+      .page-home .project-list-v5 {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .page-home .project-card-v5 {
+        overflow: hidden;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        background: #ffffff;
+      }
+
+      .page-home .project-header-v5 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px dashed #cbd5e1;
+        background: #f8fafc;
+        padding: 5px 10px;
+      }
+
+      .page-home .project-title-v5 {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #2563eb;
+      }
+
+      .page-home .project-title-v5 a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+
+      .page-home .project-title-v5 svg {
+        width: 14px;
+        height: 14px;
+        fill: #2563eb;
+        flex: none;
+      }
+
+      .page-home .project-meta-v5 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        color: #64748b;
+      }
+
+      .page-home .badge-v5 {
+        display: inline-flex;
+        align-items: center;
+        min-height: 18px;
+        border-radius: 4px;
+        background: #dcfce7;
+        padding: 1px 6px;
+        font-size: 10px;
+        font-weight: 600;
+        color: #166534;
+      }
+
+      .page-home .badge-v5-neutral {
+        background: #e2e8f0;
+        color: #475569;
+      }
+
+      .page-home .project-body-v5 {
+        padding: 6px 10px;
+      }
+
+      .page-home .project-tech-v5 {
+        margin-bottom: 3px;
+        font-size: 11px;
+        color: #64748b;
+      }
+
+      .page-home .point-list-v5 {
+        margin-top: 2px;
+        padding-left: 16px;
+      }
+
+      .page-home .point-list-v5 li {
+        position: relative;
+        margin-bottom: 3px;
+        line-height: 1.45;
+      }
+
+      .page-home .point-list-v5 li:last-child {
+        margin-bottom: 0;
+      }
+
+      .page-home .point-list-v5 li::marker {
+        color: #2563eb;
+      }
+
+      .page-home .list-label-v5 {
+        font-weight: 600;
+        color: #0f172a;
+      }
+
+      .page-home .hl-tech {
+        font-weight: 600;
+        color: #2563eb;
+      }
+
+      .page-home .hl-num {
+        font-weight: 600;
+        color: #059669;
+      }
+
+      .page-home .insight-list-v5 {
+        color: #334155;
+      }
+
+      .page-home .footer-links-v5 {
+        margin-top: 8px;
+        font-size: 10.5px;
+        color: #64748b;
+      }
+
+      .page-home .footer-links-v5 a {
+        color: #334155;
+        text-decoration: none;
+      }
+
+      .page-home .footer-separator-v5 {
+        margin: 0 6px;
+        color: #94a3b8;
       }
 
       a {
@@ -484,9 +797,35 @@
           margin-top: 0;
         }
       }
+
+      @media (max-width: 720px) {
+        .page-home .page {
+          padding-inline: 16px;
+        }
+
+        .page-home .contact-info {
+          justify-content: flex-start;
+        }
+
+        .page-home .tech-item-v5 {
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .page-home .tech-label-v5 {
+          width: auto;
+          margin-right: 0;
+          padding-inline: 8px;
+        }
+
+        .page-home .project-header-v5 {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
     </style>
   </head>
-  <body class="{{bodyClass}}">
+  <body class="{{bodyClass}} antialiased">
     <main class="page">
       {{content}}
     </main>
