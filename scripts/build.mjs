@@ -5,6 +5,7 @@ import { buildCanonicalResume, buildPublicResume } from "./normalize.mjs";
 import { validateAll } from "./validate.mjs";
 import { renderJson } from "../renderers/json/index.mjs";
 import { renderHtmlSite } from "../renderers/html/index.mjs";
+import { renderMarkdownResume } from "../renderers/markdown/index.mjs";
 import { renderManPage } from "../renderers/man/index.mjs";
 import { renderCliResume } from "../renderers/cli/index.mjs";
 import { renderPdf } from "../renderers/pdf/index.mjs";
@@ -47,6 +48,7 @@ async function main() {
     outputPath: path.join(distDir, "resume.7")
   });
 
+  await fs.writeFile(path.join(distDir, "resume.md"), renderMarkdownResume(publicResume), "utf8");
   await fs.writeFile(path.join(distDir, "resume.txt"), renderCliResume(publicResume), "utf8");
   await fs.writeFile(path.join(distDir, "CNAME"), `${canonicalResume.branding.domain}\n`, "utf8");
   await fs.writeFile(path.join(distDir, ".nojekyll"), "", "utf8");
