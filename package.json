@@ -27,6 +27,8 @@
     "build": "node scripts/build.mjs",
     "build:full": "BUILD_PDF=true node scripts/build.mjs",
     "dev": "node scripts/build.mjs",
+    "dev:html": "node scripts/dev-html.mjs",
+    "start:npm": "node bin/resume.mjs",
     "prepublishOnly": "npm test && npm run validate && npm run build:full"
   },
   "engines": {
@@ -34,5 +36,8 @@
   },
   "dependencies": {
     "yaml": "^2.5.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4"
   }
 }

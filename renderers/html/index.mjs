@@ -164,11 +164,6 @@ function renderContact(resume) {
 function renderHeroActions(resume, basePath = "/") {
   const actions = [
     {
-      label: "查看完整简历",
-      href: joinHref(basePath, "print/"),
-      className: "action-link action-link-primary"
-    },
-    {
       label: "GitHub",
       href: resume.basics.links.github,
       className: "action-link action-link-secondary"
