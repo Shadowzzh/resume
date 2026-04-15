@@ -27,6 +27,10 @@ npm run build
 
 构建产物输出到 `dist/`。
 
+更多说明：
+
+- 项目流程与架构文档：`docs/architecture-and-flow.md`
+
 发布说明：
 
 - GitHub Pages 发布目录来自 `dist/`

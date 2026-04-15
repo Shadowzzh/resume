@@ -14,7 +14,7 @@ stack:
   - Tailwind CSS
 summary:
   - 负责财务评审系统前端开发，并封装业务组件提升页面复用性。
-  - 使用 Vue 3 + Tailwind CSS 构建业务界面并支撑系统迭代。
+  - 使用 Vue 3 + Tailwind CSS 构建 UI，并支撑系统迭代维护。
 impact:
   - 提升业务页面复用度，降低后续页面开发成本。
 problem:

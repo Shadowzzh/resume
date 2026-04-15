@@ -1,3 +1,8 @@
 node_modules
 dist
 .DS_Store
+.agents
+.claude
+skills-lock.json
+.superpowers
+docs/superpowers

@@ -12,9 +12,9 @@ items:
       - Node.js
       - Go
     summary:
-      - 负责公司前端和 Node 相关项目的迭代与维护。
-      - 负责自动化攻击平台的前端开发与 Claude Agent SDK 封装，支持通过 HTTP 请求调用 Claude Code。
-      - 参与 CNAPP 云原生应用保护平台的前端开发与维护，并协助修复后端问题。
+      - 主要负责公司前端和 Node 相关项目的迭代和维护。
+      - 负责自动化攻击平台的前端开发和 Claude Agent SDK 封装，使 Claude Code 可以被外部通过 HTTP 请求调用。
+      - 参与 CNAPP 云原生应用保护平台的前端开发和维护，协助修复后端 bug。
     project_refs:
       - auto-pentest-platform
       - cnapp-platform
@@ -33,8 +33,10 @@ items:
       - DingTalk Mini Program
     summary:
       - 负责培训平台、CMS 系统与钉钉小程序的前端业务开发和组件库开发。
-      - 使用 Dumi + Father 搭建多平台通用业务组件库与文档系统，并推动多个项目统一升级。
-      - 负责钉钉小程序埋点方案、小程序差异化部署、原生小程序格式化代码保存及节日促销活动低代码平台相关开发。
+      - 使用 Dumi + Father 搭建多平台的组件库与文档系统。
+      - 批量升级多个项目的组件库版本，并对各类 UI 组件进行二次封装。
+      - 负责钉钉小程序埋点方案、小程序差异化部署和原生小程序保存格式化代码能力建设。
+      - 参与节日促销活动低代码平台开发。
     project_refs:
       - component-library
 
@@ -49,7 +51,7 @@ items:
       - Vue 3
       - Tailwind CSS
     summary:
-      - 负责财务评审系统前端开发，封装业务组件以提高页面复用性。
-      - 使用 Vue 3 + Tailwind CSS 构建业务界面，并支撑系统迭代与维护。
+      - 负责财务评审系统前端开发，封装业务组件，提高页面复用性。
+      - 使用 Vue 3 + Tailwind CSS 构建 UI，并支撑系统迭代维护。
     project_refs:
       - finance-review-system

@@ -1,4 +1,4 @@
-<section class="print-header panel">
+<section class="print-header panel panel-hero">
   <p class="eyebrow">{{eyebrow}}</p>
   <h1>{{name}}</h1>
   <p class="hero-headline">{{headline}}</p>
@@ -10,7 +10,10 @@
 <section class="print-section panel">
   <div class="section-heading">
     <p class="section-kicker">01</p>
-    <h2>个人简介</h2>
+    <div class="section-heading-copy">
+      <h2>个人摘要</h2>
+      <p>面试前速读版，优先保留判断岗位匹配所需的信息。</p>
+    </div>
   </div>
   <div class="summary-copy">
     {{summary}}
@@ -20,27 +23,10 @@
 <section class="print-section panel">
   <div class="section-heading">
     <p class="section-kicker">02</p>
-    <h2>工作经历</h2>
-  </div>
-  <div class="resume-list">
-    {{experience}}
-  </div>
-</section>
-
-<section class="print-section panel">
-  <div class="section-heading">
-    <p class="section-kicker">03</p>
-    <h2>项目经验</h2>
-  </div>
-  <div class="resume-list">
-    {{projects}}
-  </div>
-</section>
-
-<section class="print-section panel">
-  <div class="section-heading">
-    <p class="section-kicker">04</p>
-    <h2>专业技能</h2>
+    <div class="section-heading-copy">
+      <h2>核心能力</h2>
+      <p>围绕岗位判断整理的能力项，而不是单纯技术标签列表。</p>
+    </div>
   </div>
   <div class="resume-list">
     {{skills}}
@@ -49,8 +35,37 @@
 
 <section class="print-section panel">
   <div class="section-heading">
+    <p class="section-kicker">03</p>
+    <div class="section-heading-copy">
+      <h2>工作经历</h2>
+      <p>保留完整经历要点与关联项目，方便面试前快速回看。</p>
+    </div>
+  </div>
+  <div class="resume-list">
+    {{experience}}
+  </div>
+</section>
+
+<section class="print-section panel">
+  <div class="section-heading">
+    <p class="section-kicker">04</p>
+    <div class="section-heading-copy">
+      <h2>精选项目</h2>
+      <p>精选项目作为能力证据，重点展示问题与结果。</p>
+    </div>
+  </div>
+  <div class="resume-list">
+    {{projects}}
+  </div>
+</section>
+
+<section class="print-section panel">
+  <div class="section-heading">
     <p class="section-kicker">05</p>
-    <h2>联系方式</h2>
+    <div class="section-heading-copy">
+      <h2>联系方式</h2>
+      <p>提供直接联系渠道与补充查看入口。</p>
+    </div>
   </div>
   <div class="contact-grid">
     {{contact}}
