@@ -1,6 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+function hasValue(value) {
+  return value !== null && value !== undefined && value !== "";
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -142,12 +146,30 @@ function renderTagRow(items) {
 }
 
 function renderContact(resume) {
-  const contactItems = [
-    ["邮箱", `<a href="mailto:${escapeHtml(resume.basics.contact.email)}">${escapeHtml(resume.basics.contact.email)}</a>`],
-    ["电话", `<span>${escapeHtml(resume.basics.contact.phone)}</span>`],
-    ["GitHub", `<a href="${escapeHtml(resume.basics.links.github)}">${escapeHtml(resume.basics.links.github)}</a>`],
-    ["博客", `<a href="${escapeHtml(resume.basics.links.blog)}">${escapeHtml(resume.basics.links.blog)}</a>`]
-  ];
+  const contactItems = [];
+
+  if (hasValue(resume.basics.contact.email)) {
+    const email = escapeHtml(resume.basics.contact.email);
+    contactItems.push(["邮箱", `<a href="mailto:${email}">${email}</a>`]);
+  }
+
+  if (hasValue(resume.basics.contact.phone)) {
+    contactItems.push(["电话", `<span>${escapeHtml(resume.basics.contact.phone)}</span>`]);
+  }
+
+  if (hasValue(resume.basics.links.github)) {
+    const github = escapeHtml(resume.basics.links.github);
+    contactItems.push(["GitHub", `<a href="${github}">${github}</a>`]);
+  }
+
+  if (hasValue(resume.basics.links.blog)) {
+    const blog = escapeHtml(resume.basics.links.blog);
+    contactItems.push(["博客", `<a href="${blog}">${blog}</a>`]);
+  }
+
+  if (contactItems.length === 0) {
+    return "";
+  }
 
   return contactItems
     .map(([label, value]) => {
@@ -176,6 +198,7 @@ function renderHeroActions(resume, basePath = "/") {
   ];
 
   return actions
+    .filter((action) => hasValue(action.href))
     .map((action) => {
       return `<a class="${action.className}" href="${escapeHtml(action.href)}">${escapeHtml(action.label)}</a>`;
     })
@@ -316,6 +339,7 @@ function renderResourceLinks(resume, basePath = "/") {
   ];
 
   return resources
+    .filter((resource) => hasValue(resource.href))
     .map((resource) => {
       return [
         '<article class="resource-card">',

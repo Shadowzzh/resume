@@ -60,7 +60,7 @@ test("renderHtmlSite uses the new screening-first information hierarchy", async 
     const homepage = await fs.readFile(path.join(outputDir, "index.html"), "utf8");
     const printPage = await fs.readFile(path.join(outputDir, "print", "index.html"), "utf8");
 
-    assert.match(homepage, /查看完整简历/);
+    assert.match(homepage, /打印版简历/);
     assert.match(homepage, /核心能力/);
     assert.match(homepage, /代表项目/);
     assert.match(homepage, /工作经历/);
@@ -70,12 +70,16 @@ test("renderHtmlSite uses the new screening-first information hierarchy", async 
     assert.match(homepage, /AI 工具/);
     assert.match(homepage, /后端与全栈协作/);
     assert.match(homepage, /5 年 Web 开发经验，前端为主，具备全栈开发能力。/);
-    assert.match(homepage, /常用 React、Vue、Next\.js 等技术栈，了解 Node\.js、Go 等后端技术。/);
-    assert.match(homepage, /熟练使用 Claude Code 调研、开发、运维等流程。/);
+    assert.match(homepage, /常用 React、Vue、Next\.js 等技术栈，了解 Node\.js、Go等后端技术。/);
+    assert.match(homepage, /熟练使用 ClaudeCode \\ Codex 调研、开发、运维等流程。/);
     assert.match(homepage, /擅长使用各种工具提高自身效率和开发体验。/);
     assert.match(homepage, /所在地/);
     assert.match(homepage, /当前状态/);
     assert.match(homepage, /邮箱/);
+    assert.match(homepage, /博客/);
+    assert.doesNotMatch(homepage, /电话/);
+    assert.doesNotMatch(homepage, /\bundefined\b/);
+    assert.doesNotMatch(homepage, /\bnull\b/);
     assert.doesNotMatch(homepage, /技能矩阵/);
     assert.doesNotMatch(homepage, /经历概览/);
     assert.doesNotMatch(homepage, /访问方式/);
@@ -84,12 +88,15 @@ test("renderHtmlSite uses the new screening-first information hierarchy", async 
     assert.match(printPage, /个人摘要/);
     assert.match(printPage, /核心能力/);
     assert.match(printPage, /工作经历/);
-    assert.match(printPage, /精选项目/);
+    assert.match(printPage, /项目/);
     assert.match(printPage, /联系方式/);
     assert.match(printPage, /主要负责公司前端和 Node 相关项目的迭代和维护。/);
     assert.match(printPage, /负责培训平台、CMS 系统与钉钉小程序的前端业务开发和组件库开发。/);
     assert.match(printPage, /使用 Dumi \+ Father 搭建多平台的组件库与文档系统。/);
     assert.match(printPage, /使用 Vue 3 \+ Tailwind CSS 构建 UI，并支撑系统迭代维护。/);
+    assert.doesNotMatch(printPage, /电话/);
+    assert.doesNotMatch(printPage, /\bundefined\b/);
+    assert.doesNotMatch(printPage, /\bnull\b/);
     assert.doesNotMatch(printPage, /项目经验/);
     assert.doesNotMatch(printPage, /专业技能/);
     assert.doesNotMatch(printPage, /访问方式/);

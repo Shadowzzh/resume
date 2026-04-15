@@ -5,13 +5,15 @@ english_name: null
 
 headline:
   primary: 前端开发工程师
-  secondary: 全栈开发工程师
+  # secondary: 全栈开发工程师
 
 summary:
   short: 5 年 Web 开发经验，前端为主，具备全栈开发能力。
-  long: >
-    5 年 Web 开发经验，前端为主，具备全栈开发能力。常用 React、Vue、Next.js 等技术栈，了解 Node.js、Go
-    等后端技术。熟练使用 Claude Code 调研、开发、运维等流程。擅长使用各种工具提高自身效率和开发体验。
+  long: |
+    5 年 Web 开发经验，前端为主，具备全栈开发能力。
+    常用 React、Vue、Next.js 等技术栈，了解 Node.js、Go等后端技术。
+    熟练使用 ClaudeCode \ Codex 调研、开发、运维等流程。
+    擅长使用各种工具提高自身效率和开发体验。
 
 location:
   city: 杭州
@@ -20,12 +22,12 @@ location:
 
 contact:
   email: shadow1746556951@gmail.com
-  phone: "19165940712"
+  # phone: "19165940712"
 
 links:
   github: https://github.com/Shadowzzh
-  website: https://blog.logit.cn/
-  blog: https://blog.logit.cn/
+  # website: https://blog.logit.cn/
+  blog: https://blog.zihengzhang.com/
 
 branding:
   domain: resume.zihengzhang.com
@@ -36,4 +38,4 @@ branding:
     - npx @zhangziheng/resume
     - curl -sL https://resume.zihengzhang.com/resume.json
 
-availability: 在职
+availability: 在职 \ 在找工作机会

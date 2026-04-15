@@ -21,13 +21,13 @@ test("buildCanonicalResume applies the frontend variant ordering", async () => {
   assert.equal(resume.experience[0].id, "qidun");
 });
 
-test("buildPublicResume redacts the phone number for public channels", async () => {
+test("buildPublicResume preserves missing optional contact fields for public channels", async () => {
   const canonical = await buildCanonicalResume({
     rootDir: projectRoot,
     variantId: "frontend"
   });
   const publicResume = buildPublicResume(canonical);
 
-  assert.equal(publicResume.basics.contact.phone, "191****0712");
+  assert.equal(publicResume.basics.contact.phone, null);
   assert.equal(publicResume.meta.visibility, "public");
 });
