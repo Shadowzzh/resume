@@ -55,7 +55,7 @@ async function main() {
 
   if (shouldBuildPdf()) {
     await renderPdf({
-      inputHtmlPath: htmlResult.printPagePath,
+      inputHtmlPath: htmlResult.homepagePath,
       outputPath: path.join(distDir, "resume.pdf")
     });
   }

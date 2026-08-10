@@ -105,7 +105,7 @@ function renderSkills(skills = []) {
   return renderKeyValueRows(
     skills.map((skill) => [
       skill.name,
-      formatSlashList(skill.keywords)
+      skill.narrative
     ])
   );
 }
@@ -203,6 +203,7 @@ export function renderCliResume(resume) {
   ]);
   const contactLines = renderKeyValueRows([
     ["邮箱", basics.contact.email],
+    ["电话", basics.contact.phone],
     ["GitHub", basics.links.github],
     ["博客", basics.links.blog]
   ]);
@@ -216,7 +217,7 @@ export function renderCliResume(resume) {
   appendSection(lines, "基本信息", basicInfoLines);
   appendSection(lines, "个人摘要", summaryLines);
   appendSection(lines, "联系方式", contactLines);
-  appendSection(lines, "核心技能", renderSkills(resume.skills));
+  appendSection(lines, "专业技能", renderSkills(resume.skills));
   appendSection(lines, "工作经历", renderExperience(resume.experience));
   appendSection(lines, "访问方式", renderAccessMethods(branding));
 

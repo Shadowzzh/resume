@@ -3,10 +3,6 @@ import path from "node:path";
 
 import YAML from "yaml";
 
-function isPlainObject(value) {
-  return value !== null && typeof value === "object" && !Array.isArray(value);
-}
-
 async function readYamlFile(filePath) {
   const content = await fs.readFile(filePath, "utf8");
   return YAML.parse(content);
@@ -65,14 +61,6 @@ function orderByIds(items, orderedIds = []) {
   });
 
   return withIndex.map((entry) => entry.item);
-}
-
-function maskPhone(phone) {
-  if (!phone || phone.length < 7) {
-    return phone ?? null;
-  }
-
-  return `${phone.slice(0, 3)}****${phone.slice(-4)}`;
 }
 
 function applyVariant(profile, experience, skills, projects, variant) {
@@ -198,11 +186,6 @@ export async function buildCanonicalResume({
 
 export function buildPublicResume(canonicalResume) {
   const publicResume = structuredClone(canonicalResume);
-
-  if (isPlainObject(publicResume.basics.contact)) {
-    publicResume.basics.contact.phone = maskPhone(publicResume.basics.contact.phone);
-  }
-
   publicResume.meta.visibility = "public";
 
   return publicResume;

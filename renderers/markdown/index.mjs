@@ -103,6 +103,10 @@ function renderContact(basics) {
     );
   }
 
+  if (hasValue(basics.contact.phone)) {
+    lines.push(`- 电话：${formatMarkdownLink(basics.contact.phone, `tel:${basics.contact.phone}`)}`);
+  }
+
   if (hasValue(basics.links.github)) {
     lines.push(
       `- GitHub：${formatMarkdownLink(
@@ -136,12 +140,10 @@ function renderSkills(skills = []) {
       lines.push("");
     }
 
-    lines.push(`### ${skill.name}`, "");
+    lines.push(`### ${skill.name}`);
 
-    for (const keyword of skill.keywords ?? []) {
-      if (hasValue(keyword)) {
-        lines.push(`- ${keyword}`);
-      }
+    if (hasValue(skill.narrative)) {
+      lines.push("", skill.narrative);
     }
   }
 
@@ -240,7 +242,7 @@ export function renderMarkdownResume(resume) {
   appendSection(lines, "个人摘要", summaryLines);
   appendSection(lines, "基本信息", renderBasicInfo(basics));
   appendSection(lines, "联系方式", renderContact(basics));
-  appendSection(lines, "核心技能", renderSkills(resume.skills));
+  appendSection(lines, "专业技能", renderSkills(resume.skills));
   appendSection(lines, "工作经历", renderExperience(resume.experience));
   appendSection(lines, "代表项目", renderFeaturedProjects(resume.featuredProjects));
   appendSection(lines, "访问方式", renderAccessMethods(branding));

@@ -1,25 +1,24 @@
 id: fullstack
-label: 全栈版
+label: AI 应用版
 headline_override:
-  primary: 全栈开发工程师
-  secondary: 前端开发工程师
+  primary: AI 应用工程师
+  secondary: 高级前端工程师
 
 summary_override:
-  short: 5 年 Web 开发经验，前端为主，可承担中小型全栈交付。
+  short: 6 年+ Web 开发经验，具备企业级前端、AI Agent 服务、Go 平台工具与部署交付能力。
 
 featured_project_ids:
   - auto-pentest-platform
+  - security-baseline-agent
   - cnapp-platform
-  - finance-review-system
 
 skill_domain_order:
-  - fullstack
   - frontend
-  - devops
-  - tooling
-  - ai_workflow
+  - engineering
+  - backend
+  - delivery
 
 experience_order:
   - qidun
-  - yuanhe
   - wotu
+  - yuanhe

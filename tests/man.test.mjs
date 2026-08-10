@@ -46,7 +46,7 @@ test("renderManPage reuses the same resume body as the CLI output", async () => 
     assert.match(content, /\[基本信息\]/);
     assert.match(content, /\[个人摘要\]/);
     assert.match(content, /\[联系方式\]/);
-    assert.match(content, /\[核心技能\]/);
+    assert.match(content, /\[专业技能\]/);
     assert.match(content, /\[工作经历\]/);
     assert.match(content, /\[访问方式\]/);
     assert.doesNotMatch(content, /\.SH EXPERIENCE/);

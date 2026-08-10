@@ -212,7 +212,7 @@ function renderQuickFacts(resume) {
     ["经验年限", years ?? "5 年+"],
     ["所在地", `${resume.basics.location.city} · ${resume.basics.location.region}`],
     ["当前状态", resume.basics.availability],
-    ["职业重心", "前端主导 / 全栈协作 / AI 工作流"]
+    ["职业重心", "前端主导 / 服务端协作 / 部署交付"]
   ];
 
   return facts
@@ -229,42 +229,37 @@ function renderQuickFacts(resume) {
 
 function renderStrengthCards(resume) {
   const frontend = findSkill(resume, "frontend");
-  const fullstack = findSkill(resume, "fullstack");
-  const devops = findSkill(resume, "devops");
-  const aiWorkflow = findSkill(resume, "ai_workflow");
-  const tooling = findSkill(resume, "tooling");
+  const backend = findSkill(resume, "backend");
+  const delivery = findSkill(resume, "delivery");
+  const engineering = findSkill(resume, "engineering");
   const cards = [
     {
       label: "Value 01",
       title: "前端主导交付",
       description:
         frontend?.narrative ??
-        "以 React、Next.js、Vue 为主，能承担平台型与中后台前端交付。",
+        "熟练使用 React、Next.js 与 Vue，能承担平台型与中后台前端交付。",
       tags: frontend?.keywords?.slice(0, 4) ?? ["React", "Next.js", "Vue 2", "Vue 3"]
     },
     {
       label: "Value 02",
-      title: "多栈协作能力",
+      title: "服务端与交付协作",
       description: [
-        fullstack?.narrative ?? "具备 Node.js、Go 基础，可协助接口开发、联调和问题定位。",
-        devops?.narrative ?? "了解 Docker、Nginx、Kubernetes，可配合完成基础部署和环境排查。"
+        backend?.narrative ?? "具备 Go 工具开发经验，可参与 Java 服务维护和接口联调。",
+        delivery?.narrative ?? "具备 Docker、Nginx 和 Linux 环境下的部署交付经验。"
       ].join(" "),
       tags: [
-        ...(fullstack?.keywords ?? ["Node.js", "Go"]),
-        ...((devops?.keywords ?? ["Docker", "Nginx"]).slice(0, 2))
+        ...(backend?.keywords ?? ["Go", "Java / Spring Boot"]),
+        ...((delivery?.keywords ?? ["Docker", "Nginx"]).slice(0, 2))
       ]
     },
     {
       label: "Value 03",
-      title: "AI 工作流与效率提升",
-      description: [
-        aiWorkflow?.narrative ?? "熟练使用 AI 工具辅助调研、开发、运维和效率提升。",
-        tooling?.narrative ?? "熟悉 Webpack、Vite 等构建工具，能处理工程化配置与日常维护。"
-      ].join(" "),
-      tags: [
-        ...(aiWorkflow?.keywords ?? ["Claude Code", "ChatGPT", "Gemini"]),
-        ...((tooling?.keywords ?? ["Webpack", "Vite"]).slice(0, 2))
-      ]
+      title: "前端工程化与质量",
+      description:
+        engineering?.narrative ??
+        "具备构建配置、Monorepo、组件库和自动化测试实践。",
+      tags: engineering?.keywords ?? ["Vite / Webpack", "Monorepo", "组件库", "单元测试"]
     }
   ];
 
@@ -286,15 +281,7 @@ function renderStrengthCards(resume) {
 }
 
 function orderFeaturedProjects(projects) {
-  const priority = ["auto-pentest-platform", "cnapp-platform", "component-library"];
-  const indexMap = new Map(priority.map((item, index) => [item, index]));
-
-  return [...projects].sort((left, right) => {
-    const leftRank = indexMap.has(left.id) ? indexMap.get(left.id) : Number.MAX_SAFE_INTEGER;
-    const rightRank = indexMap.has(right.id) ? indexMap.get(right.id) : Number.MAX_SAFE_INTEGER;
-
-    return leftRank - rightRank;
-  });
+  return [...projects];
 }
 
 function renderFeaturedProjectCards(resume, basePath = "/") {
@@ -371,7 +358,7 @@ function renderSkillSections(resume) {
       return [
         '<article class="rounded-[28px] border border-zinc-200 bg-white p-6 shadow-[0_20px_50px_rgba(15,23,42,0.05)]">',
         `<p class="mb-3 font-mono text-[11px] uppercase tracking-[0.28em] text-zinc-500">${escapeHtml(
-          skill.level === "strong" ? "核心能力" : "协作能力"
+          skill.level === "strong" ? "核心能力" : "扩展能力"
         )}</p>`,
         `<h3 class="text-xl font-semibold tracking-[-0.03em] text-zinc-950">${escapeHtml(skill.name)}</h3>`,
         `<p class="mt-3 text-sm leading-7 text-zinc-600">${escapeHtml(skill.narrative)}</p>`,
@@ -470,6 +457,10 @@ function renderIconSvg(iconId) {
     return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>';
   }
 
+  if (iconId === "phone") {
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.46 15.46 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>';
+  }
+
   if (iconId === "github") {
     return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>';
   }
@@ -523,6 +514,15 @@ function renderContactStrip(resume) {
     });
   }
 
+  if (hasValue(resume.basics.contact.phone)) {
+    items.push({
+      icon: "phone",
+      label: "电话",
+      text: resume.basics.contact.phone,
+      href: `tel:${resume.basics.contact.phone}`
+    });
+  }
+
   if (hasValue(resume.basics.links.github)) {
     items.push({
       icon: "github",
@@ -559,22 +559,13 @@ function renderContactStrip(resume) {
     .join("");
 }
 
-function renderHighlightedKeywords(items) {
-  const safeItems = Array.isArray(items) ? items.filter(Boolean) : [];
-
-  return safeItems.map((item) => `<span class="hl-tech">${escapeHtml(item)}</span>`).join("、");
-}
-
 function renderSkillRowsV5(resume) {
   return resume.skills
     .map((skill) => {
-      const keywords = renderHighlightedKeywords(skill.keywords);
-      const content = `${keywords}；${escapeHtml(skill.narrative)}`;
-
       return [
         '<div class="tech-item-v5">',
         `<div class="tech-label-v5">${escapeHtml(skill.name)}</div>`,
-        `<div class="tech-content-v5">${content}</div>`,
+        `<div class="tech-content-v5">${escapeHtml(skill.narrative)}</div>`,
         "</div>"
       ].join("");
     })
@@ -596,7 +587,11 @@ function joinProjectBullet(items, emptyText) {
     return emptyText;
   }
 
-  return safeItems.slice(0, 2).join("；");
+  const sentences = safeItems
+    .slice(0, 2)
+    .map((item) => String(item).replace(/[。；;]+$/u, ""));
+
+  return `${sentences.join("；")}。`;
 }
 
 function renderProjectCardsV5(resume) {
@@ -613,14 +608,12 @@ function renderProjectCardsV5(resume) {
       return [
         '<article class="project-card-v5">',
         '<div class="project-header-v5">',
-        '<div class="project-title-v5">',
         renderIconSvg("project"),
         `<a href="${escapeHtml(href)}">${escapeHtml(project.title)}</a>`,
-        "</div>",
-        '<div class="project-meta-v5">',
+        '<span class="project-meta-v5">',
         `<span>${escapeHtml(formatPeriod(project.start, project.end))}</span>`,
         renderProjectBadgeV5(project),
-        "</div>",
+        "</span>",
         "</div>",
         '<div class="project-body-v5">',
         `<div class="project-tech-v5">技术栈：${stack}</div>`,
@@ -637,41 +630,46 @@ function renderProjectCardsV5(resume) {
     .join("");
 }
 
-function renderInsightList(resume) {
-  const frontend = findSkill(resume, "frontend");
-  const fullstack = findSkill(resume, "fullstack");
-  const tooling = findSkill(resume, "tooling");
-  const aiWorkflow = findSkill(resume, "ai_workflow");
-  const autoPentest = resume.projects.find((project) => project.id === "auto-pentest-platform");
+function renderExperienceListV5(resume, basePath = "/") {
+  return resume.experience
+    .map((item) => {
+      let highlightLimit = 1;
 
-  const items = [
-    `前端主导交付：<span class="hl-num">${escapeHtml(getYearsOfExperience(resume) ?? "5 年+")}</span> Web 开发经验，${escapeHtml(frontend?.narrative ?? "以前端为主，能承担平台型前端开发。")}`,
-    `全栈协作能力：${escapeHtml(fullstack?.narrative ?? "具备 Node.js、Go 基础，可协助接口开发、联调和问题定位。")}`,
-    `AI 工作流落地：${escapeHtml(aiWorkflow?.narrative ?? "熟练使用 AI 工具辅助调研、开发、运维和效率提升。")} ${escapeHtml(autoPentest?.impact?.[0] ?? "")}`,
-    `工程化与维护：${escapeHtml(tooling?.narrative ?? "熟悉 Webpack、Vite 等构建工具，能处理工程化配置与日常维护。")}`
-  ];
+      if (item.id === "qidun") {
+        highlightLimit = 4;
+      }
 
-  return items.map((item) => `<li>${item}</li>`).join("");
-}
+      const highlights = item.summary.slice(0, highlightLimit);
+      const projectLinks = item.projects
+        .map((project) => {
+          const href = joinHref(basePath, `projects/${project.id}/`);
+          return `<a href="${escapeHtml(href)}">${escapeHtml(project.title)}</a>`;
+        })
+        .join('<span class="experience-separator-v5">/</span>');
+      const sections = [];
 
-function renderFooterLinksV5(resume, basePath = "/") {
-  const links = [];
+      if (item.id === "yuanhe") {
+        sections.push('<div class="section-title-v5 experience-continuation-v5">工作经历（续）</div>');
+      }
 
-  links.push(`<a href="${escapeHtml(joinHref(basePath, "print/"))}">打印版简历</a>`);
+      sections.push(
+        '<article class="experience-item-v5">',
+        '<div class="experience-header-v5">',
+        '<div>',
+        `<h3>${escapeHtml(item.company)} · ${escapeHtml(item.role)}</h3>`,
+        `<p>${escapeHtml(item.city)}</p>`,
+        "</div>",
+        `<span class="experience-period-v5">${formatPeriod(item.start, item.end)}</span>`,
+        "</div>",
+        renderList(highlights, "point-list-v5 experience-highlights-v5"),
+        renderList(item.summary, "point-list-v5 experience-details-print-v5"),
+        `<div class="experience-footer-v5"><span>${escapeHtml((item.tech_stack ?? []).join(" · "))}</span><span class="experience-projects-v5">${projectLinks}</span></div>`,
+        "</article>"
+      );
 
-  if (hasValue(resume.basics.links.github)) {
-    links.push(`<a href="${escapeHtml(resume.basics.links.github)}">GitHub</a>`);
-  }
-
-  if (hasValue(resume.basics.links.blog)) {
-    links.push(`<a href="${escapeHtml(resume.basics.links.blog)}">博客</a>`);
-  }
-
-  if (hasValue(resume.branding.curl_endpoint)) {
-    links.push(`<a href="${escapeHtml(resume.branding.curl_endpoint)}">Resume JSON</a>`);
-  }
-
-  return links.join('<span class="footer-separator-v5">·</span>');
+      return sections.join("");
+    })
+    .join("");
 }
 
 function renderContact(resume) {
@@ -776,7 +774,7 @@ function renderHeroSignals(resume) {
 function renderCapabilityMatrix(resume) {
   const levelLabel = {
     strong: "核心能力",
-    working: "协作能力"
+    working: "扩展能力"
   };
 
   return resume.skills
@@ -932,7 +930,6 @@ function renderSkills(resume) {
         '<article class="resume-item">',
         `<h3>${escapeHtml(skill.name)}</h3>`,
         `<p>${escapeHtml(skill.narrative)}</p>`,
-        renderTagRow(skill.keywords),
         "</article>"
       ].join("");
     })
@@ -1017,7 +1014,7 @@ async function writePage(filePath, content) {
 
 function renderHomeContent({ resume, templates, basePath }) {
   const secondaryHeadline = resume.basics.headline.secondary ?? "全栈开发工程师";
-  const jobTitle = `${resume.basics.headline.primary} / ${secondaryHeadline} / AI 工作流`;
+  const jobTitle = `${resume.basics.headline.primary} / ${secondaryHeadline}`;
 
   return replacePlaceholders(templates.home, {
     name: escapeHtml(resume.basics.displayName),
@@ -1025,9 +1022,8 @@ function renderHomeContent({ resume, templates, basePath }) {
     summary: renderHeaderSummary(resume.basics.summary.long),
     contactStrip: renderContactStrip(resume),
     skillRows: renderSkillRowsV5(resume),
-    projectCards: renderProjectCardsV5(resume),
-    insightList: renderInsightList(resume),
-    footerLinks: renderFooterLinksV5(resume, basePath)
+    experienceList: renderExperienceListV5(resume, basePath),
+    projectCards: renderProjectCardsV5(resume)
   });
 }
 

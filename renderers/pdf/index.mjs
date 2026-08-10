@@ -48,6 +48,8 @@ export async function renderPdf({ inputHtmlPath, outputPath }) {
     "--disable-gpu",
     "--no-first-run",
     "--no-default-browser-check",
+    "--no-pdf-header-footer",
+    "--print-to-pdf-page-size=A4",
     `--print-to-pdf=${outputPath}`,
     inputUrl
   ];

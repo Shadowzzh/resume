@@ -67,7 +67,7 @@
       }
 
       .page-home {
-        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-family: "Hiragino Sans GB", "Heiti SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
         background: #ffffff;
         color: #334155;
       }
@@ -131,11 +131,11 @@
       }
 
       .page-home .contact-info {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
         align-items: center;
         justify-content: space-between;
-        gap: 8px 14px;
-        flex-wrap: wrap;
+        gap: 5px 14px;
         font-size: 10.5px;
         color: #334155;
       }
@@ -164,8 +164,7 @@
         color: #64748b;
       }
 
-      .page-home .contact-item-v5 a:hover,
-      .page-home .footer-links-v5 a:hover {
+      .page-home .contact-item-v5 a:hover {
         color: #2563eb;
       }
 
@@ -226,6 +225,79 @@
         gap: 8px;
       }
 
+      .page-home .experience-list-v5 {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .page-home .experience-continuation-v5 {
+        display: none;
+      }
+
+      .page-home .experience-item-v5 {
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 6px 10px;
+        background: #ffffff;
+      }
+
+      .page-home .experience-header-v5,
+      .page-home .experience-footer-v5 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px 14px;
+      }
+
+      .page-home .experience-header-v5 h3 {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 600;
+        color: #0f172a;
+      }
+
+      .page-home .experience-header-v5 p,
+      .page-home .experience-period-v5,
+      .page-home .experience-footer-v5 {
+        margin: 0;
+        font-size: 10px;
+        color: #64748b;
+      }
+
+      .page-home .experience-period-v5 {
+        flex: none;
+      }
+
+      .page-home .experience-highlights-v5 {
+        margin: 4px 0;
+      }
+
+      .page-home .experience-details-print-v5 {
+        display: none;
+      }
+
+      .page-home .experience-footer-v5 {
+        border-top: 1px dashed #e2e8f0;
+        padding-top: 4px;
+      }
+
+      .page-home .experience-projects-v5 {
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 0 5px;
+      }
+
+      .page-home .experience-projects-v5 a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+
+      .page-home .experience-separator-v5 {
+        color: #94a3b8;
+      }
+
       .page-home .project-card-v5 {
         overflow: hidden;
         border: 1px solid #cbd5e1;
@@ -234,41 +306,35 @@
       }
 
       .page-home .project-header-v5 {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
         border-bottom: 1px dashed #cbd5e1;
         background: #f8fafc;
         padding: 5px 10px;
-      }
-
-      .page-home .project-title-v5 {
-        display: flex;
-        align-items: center;
-        gap: 5px;
         font-size: 13px;
         font-weight: 600;
         color: #2563eb;
       }
 
-      .page-home .project-title-v5 a {
+      .page-home .project-header-v5 a {
         color: #2563eb;
         text-decoration: none;
       }
 
-      .page-home .project-title-v5 svg {
+      .page-home .project-header-v5 svg {
+        display: inline-block;
         width: 14px;
         height: 14px;
+        margin-right: 5px;
+        vertical-align: -2px;
         fill: #2563eb;
-        flex: none;
       }
 
       .page-home .project-meta-v5 {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 8px;
+        margin-left: 12px;
         font-size: 11px;
+        font-weight: 400;
         color: #64748b;
       }
 
@@ -321,36 +387,6 @@
       .page-home .list-label-v5 {
         font-weight: 600;
         color: #0f172a;
-      }
-
-      .page-home .hl-tech {
-        font-weight: 600;
-        color: #2563eb;
-      }
-
-      .page-home .hl-num {
-        font-weight: 600;
-        color: #059669;
-      }
-
-      .page-home .insight-list-v5 {
-        color: #334155;
-      }
-
-      .page-home .footer-links-v5 {
-        margin-top: 8px;
-        font-size: 10.5px;
-        color: #64748b;
-      }
-
-      .page-home .footer-links-v5 a {
-        color: #334155;
-        text-decoration: none;
-      }
-
-      .page-home .footer-separator-v5 {
-        margin: 0 6px;
-        color: #94a3b8;
       }
 
       a {
@@ -731,6 +767,11 @@
         font-size: clamp(2.3rem, 4vw, 3.4rem);
       }
 
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
       @media print {
         body {
           background: #ffffff;
@@ -765,6 +806,22 @@
           background: #ffffff;
           color: var(--text);
           border-color: var(--line);
+        }
+
+        .page-home .experience-highlights-v5 {
+          display: none;
+        }
+
+        .page-home .experience-details-print-v5 {
+          display: block;
+          margin: 4px 0;
+        }
+
+        .page-home .experience-continuation-v5 {
+          display: flex;
+          break-before: page;
+          page-break-before: always;
+          margin-top: 0;
         }
       }
 
@@ -804,7 +861,8 @@
         }
 
         .page-home .contact-info {
-          justify-content: flex-start;
+          grid-template-columns: 1fr;
+          justify-content: stretch;
         }
 
         .page-home .tech-item-v5 {
@@ -818,9 +876,10 @@
           padding-inline: 8px;
         }
 
-        .page-home .project-header-v5 {
-          align-items: flex-start;
-          flex-direction: column;
+        .page-home .project-meta-v5 {
+          display: flex;
+          margin-top: 4px;
+          margin-left: 19px;
         }
       }
     </style>

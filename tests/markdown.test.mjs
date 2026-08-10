@@ -17,29 +17,43 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
   const resume = buildPublicResume(canonical);
 
   const output = renderMarkdownResume(resume);
+  const skillsStart = output.indexOf("## 专业技能");
+  const experienceStart = output.indexOf("## 工作经历", skillsStart);
+  const skillsSection = output.slice(skillsStart, experienceStart);
 
-  assert.match(output, /^# 张子恒\n\n> 前端开发工程师\n/m);
-  assert.match(output, /## 个人摘要\n\n5 年 Web 开发经验，前端为主，具备全栈开发能力。\n常用 React、Vue、Next\.js 等技术栈，了解 Node\.js、Go等后端技术。\n熟练使用 ClaudeCode \\ Codex 调研、开发、运维等流程。\n擅长使用各种工具提高自身效率和开发体验。\n/m);
-  assert.match(output, /## 基本信息\n\n- 所在地：杭州，浙江，中国\n- 当前状态：在职 \\ 在找工作机会\n/m);
+  assert.match(output, /^# 张子恒\n\n> 高级前端工程师\n/m);
+  assert.match(output, /## 个人摘要\n\n6 年\+ Web 开发经验，长期参与终端安全、云原生安全与 AI 安全验证产品建设。/m);
+  assert.match(output, /具备 Node\.js\/Fastify AI Agent 服务与 Go 平台工具开发经验/m);
+  assert.match(output, /## 基本信息\n\n- 所在地：杭州，浙江，中国\n- 当前状态：寻找新的工作机会\n/m);
   assert.match(
     output,
-    /## 联系方式\n\n- 邮箱：\[shadow1746556951@gmail\.com\]\(mailto:shadow1746556951@gmail\.com\)\n- GitHub：\[Shadowzzh\]\(https:\/\/github\.com\/Shadowzzh\)\n- 博客：\[blog\.zihengzhang\.com\]\(https:\/\/blog\.zihengzhang\.com\/\)\n/m
+    /## 联系方式\n\n- 邮箱：\[shadow1746556951@gmail\.com\]\(mailto:shadow1746556951@gmail\.com\)\n- 电话：\[\d{11}\]\(tel:\d{11}\)\n- GitHub：\[Shadowzzh\]\(https:\/\/github\.com\/Shadowzzh\)\n- 博客：\[blog\.zihengzhang\.com\]\(https:\/\/blog\.zihengzhang\.com\/\)\n/m
   );
-  assert.match(output, /## 核心技能\n\n### 常用技术栈\n\n- React\n- Next\.js\n- Vue 2\n- Vue 3\n/m);
+  assert.match(output, /## 专业技能\n\n### 前端开发\n\n长期使用 JavaScript \/ TypeScript，熟练掌握 Vue 2 \/ Vue 3、React 与 Next\.js/m);
+  assert.match(output, /### 前端工程化\n\n具备 Vite \/ Webpack 项目的构建与升级经验/m);
+  assert.match(output, /### 服务端与工具\n\n具备 Go 跨平台检测工具开发与发布经验/m);
+  assert.match(output, /### 部署与交付\n\n具备 Docker 容器化、Nginx 配置及 Linux \/ Shell 实践/m);
+  assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Fastify|Zod|Claude Agent SDK|Dumi|Father/);
   assert.match(
     output,
-    /## 工作经历\n\n### 杭州奇盾｜前端开发工程师\n\n- 时间：2024-03 - 至今\n- 主要负责公司前端和 Node 相关项目的迭代和维护。\n- 负责自动化攻击平台的前端开发和 Claude Agent SDK 封装，使 Claude Code 可以被外部通过 HTTP 请求调用。\n- 参与 CNAPP 云原生应用保护平台的前端开发和维护，协助修复后端 bug。\n/m
+    /## 工作经历\n\n### 杭州奇盾｜前端开发工程师\n\n- 时间：2024-03 - 至今\n- 负责终端安全、云原生安全与 AI 安全验证产品的前端建设与迭代/m
   );
+  assert.match(output, /负责 Go 跨平台基线检测工具开发，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。/);
+  assert.match(output, /参与 Java \/ Spring Boot 后端接口开发与联调。/);
   assert.match(
     output,
-    /## 代表项目\n\n### 多平台业务组件库\n\n- 技术栈：Vue \/ Dumi \/ Father\n- 负责培训平台、CMS 系统与钉钉小程序的前端业务开发和组件库开发。\n- 降低多项目重复开发成本，提升组件复用率与版本升级效率。\n- 链接：\[https:\/\/www\.busionline\.com\]\(https:\/\/www\.busionline\.com\)\n/m
+    /## 代表项目\n\n### CNAPP 云原生应用保护平台\n\n- 技术栈：Vue 3 \/ TypeScript \/ Vite \/ Pinia \/ Vue Query/m
   );
+  assert.match(output, /### AI 安全验证平台\n\n- 技术栈：Vue 3 \/ TypeScript \/ Fastify \/ Zod \/ Claude Agent SDK \/ Docker \/ Java \/ Spring Boot/m);
+  assert.match(output, /### 多平台业务组件库\n\n- 技术栈：Vue \/ React \/ 钉钉小程序 \/ H5/m);
+  assert.doesNotMatch(output, /Dumi|Father/);
   assert.match(
     output,
     /## 访问方式\n\n- `npx @zhangziheng\/resume`\n- `curl -sL https:\/\/resume\.zihengzhang\.com\/resume\.json`\n- `curl -sL https:\/\/resume\.zihengzhang\.com\/resume\.7 \| man -l -`\n/m
   );
   assert.doesNotMatch(output, /全栈开发工程师/);
-  assert.doesNotMatch(output, /电话/);
+  assert.doesNotMatch(output, /Java 17|systemd|GitHub Actions|Go 安全客户端/);
+  assert.doesNotMatch(output, /### 跨平台基线检测工具/);
   assert.doesNotMatch(output, /\bundefined\b/);
   assert.doesNotMatch(output, /\bnull\b/);
 });

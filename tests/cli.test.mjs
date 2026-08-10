@@ -17,17 +17,28 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   const resume = buildPublicResume(canonical);
 
   const output = renderCliResume(resume);
+  const skillsStart = output.indexOf("[专业技能]");
+  const experienceStart = output.indexOf("[工作经历]", skillsStart);
+  const skillsSection = output.slice(skillsStart, experienceStart);
 
-  assert.match(output, /^张子恒\n前端开发工程师\n/m);
-  assert.match(output, /\[基本信息\]\n所在地\s+杭州，浙江，中国\n当前状态\s+在职 \\ 在找工作机会/);
-  assert.match(output, /\[个人摘要\]\n5 年 Web 开发经验，前端为主，具备全栈开发能力。\n常用 React、Vue、Next\.js 等技术栈，了解 Node\.js、Go等后端技术。\n熟练使用 ClaudeCode \\ Codex 调研、开发、运维等流程。\n擅长使用各种工具提高自身效率和开发体验。/);
-  assert.match(output, /\[联系方式\]\n邮箱\s+shadow1746556951@gmail\.com\nGitHub\s+https:\/\/github\.com\/Shadowzzh\n博客\s+https:\/\/blog\.zihengzhang\.com\//);
-  assert.match(output, /\[核心技能\]\n常用技术栈\s+React \/ Next\.js \/ Vue 2 \/ Vue 3\n工具链\s+Webpack \/ Vite\nAI 工具\s+Claude Code \/ ChatGPT \/ Gemini/);
-  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+前端开发工程师\n  - 主要负责公司前端和 Node 相关项目的迭代和维护。\n  - 负责自动化攻击平台的前端开发和 Claude Agent SDK 封装，使 Claude Code 可以被外部通过 HTTP 请求调用。\n  - 参与 CNAPP 云原生应用保护平台的前端开发和维护，协助修复后端 bug。/);
-  assert.match(output, /2022-02 ~ 2023-10\s+杭州沃土教育\s+前端开发工程师\n  - 负责培训平台、CMS 系统与钉钉小程序的前端业务开发和组件库开发。\n  - 使用 Dumi \+ Father 搭建多平台的组件库与文档系统。\n  - 批量升级多个项目的组件库版本，并对各类 UI 组件进行二次封装。/);
+  assert.match(output, /^张子恒\n高级前端工程师\n/m);
+  assert.match(output, /\[基本信息\]\n所在地\s+杭州，浙江，中国\n当前状态\s+寻找新的工作机会/);
+  assert.match(output, /\[个人摘要\]\n6 年\+ Web 开发经验，长期参与终端安全、云原生安全与 AI 安全验证产品建设。/);
+  assert.match(output, /具备 Node\.js\/Fastify AI Agent 服务与 Go 平台工具开发经验/);
+  assert.match(output, /能够完成前端及 Java\/Go 服务的 Docker、Nginx 部署/);
+  assert.match(output, /\[联系方式\]\n邮箱\s+shadow1746556951@gmail\.com\n电话\s+\d{11}\nGitHub\s+https:\/\/github\.com\/Shadowzzh\n博客\s+https:\/\/blog\.zihengzhang\.com\//);
+  assert.match(output, /\[专业技能\]\n前端开发\s+长期使用 JavaScript \/ TypeScript，熟练掌握 Vue 2 \/ Vue 3、React 与 Next\.js/);
+  assert.match(output, /前端工程化\s+具备 Vite \/ Webpack 项目的构建与升级经验/);
+  assert.match(output, /服务端与工具\s+具备 Go 跨平台检测工具开发与发布经验/);
+  assert.match(output, /部署与交付\s+具备 Docker 容器化、Nginx 配置及 Linux \/ Shell 实践/);
+  assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Fastify|Zod|Claude Agent SDK|Dumi|Father/);
+  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+前端开发工程师\n  - 负责终端安全、云原生安全与 AI 安全验证产品的前端建设与迭代/);
+  assert.match(output, /承担 AI 安全验证平台核心前端与任务服务开发/);
+  assert.match(output, /2022-02 ~ 2023-10\s+杭州沃土教育\s+前端开发工程师\n  - 使用 Vue、React 开发培训平台、CMS 系统、钉钉小程序、H5 页面及营销活动低代码平台。/);
+  assert.doesNotMatch(output, /Dumi|Father/);
   assert.match(output, /\[访问方式\]\nnpx @zhangziheng\/resume\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.json\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.7 \| man -l -/);
   assert.doesNotMatch(output, /全栈开发工程师/);
-  assert.doesNotMatch(output, /电话/);
+  assert.doesNotMatch(output, /Java 17|systemd|GitHub Actions|Go 安全客户端/);
   assert.doesNotMatch(output, /\[项目\]/);
   assert.doesNotMatch(output, /项目经历/);
   assert.doesNotMatch(output, /\bName\b/);

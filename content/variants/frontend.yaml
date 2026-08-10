@@ -1,23 +1,22 @@
 id: frontend
 label: 前端版
 headline_override:
-  primary: 前端开发工程师
-  secondary: 全栈开发工程师
+  primary: 高级前端工程师
+  secondary: AI 应用与工程化
 
 summary_override:
-  short: 5 年 Web 开发经验，前端为主，具备全栈开发能力。
+  short: 6 年+ Web 开发经验，以企业级前端为主，具备 AI 应用服务、Go 平台工具与部署交付能力。
 
 featured_project_ids:
-  - component-library
   - cnapp-platform
   - auto-pentest-platform
+  - component-library
 
 skill_domain_order:
   - frontend
-  - tooling
-  - ai_workflow
-  - fullstack
-  - devops
+  - engineering
+  - backend
+  - delivery
 
 experience_order:
   - qidun

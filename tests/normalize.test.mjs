@@ -15,19 +15,39 @@ test("buildCanonicalResume applies the frontend variant ordering", async () => {
   });
 
   assert.equal(resume.variant.id, "frontend");
-  assert.equal(resume.basics.headline.primary, "前端开发工程师");
-  assert.equal(resume.featuredProjects[0].id, "component-library");
-  assert.equal(resume.skills[0].id, "frontend");
+  assert.equal(resume.basics.headline.primary, "高级前端工程师");
+  assert.equal(resume.basics.headline.secondary, "AI 应用与工程化");
+  assert.equal(resume.featuredProjects[0].id, "cnapp-platform");
+  assert.equal(resume.featuredProjects[1].id, "auto-pentest-platform");
+  assert.equal(resume.featuredProjects[2].id, "component-library");
+  assert.deepEqual(
+    resume.skills.map((skill) => skill.id),
+    ["frontend", "engineering", "backend", "delivery"]
+  );
   assert.equal(resume.experience[0].id, "qidun");
 });
 
-test("buildPublicResume preserves missing optional contact fields for public channels", async () => {
+test("buildCanonicalResume keeps AI positioning in projects instead of a skill category", async () => {
+  const resume = await buildCanonicalResume({
+    rootDir: projectRoot,
+    variantId: "fullstack"
+  });
+
+  assert.equal(resume.variant.label, "AI 应用版");
+  assert.deepEqual(
+    resume.skills.map((skill) => skill.id),
+    ["frontend", "engineering", "backend", "delivery"]
+  );
+  assert.equal(resume.featuredProjects[0].id, "auto-pentest-platform");
+});
+
+test("buildPublicResume preserves the explicitly public contact fields", async () => {
   const canonical = await buildCanonicalResume({
     rootDir: projectRoot,
     variantId: "frontend"
   });
   const publicResume = buildPublicResume(canonical);
 
-  assert.equal(publicResume.basics.contact.phone, null);
+  assert.equal(publicResume.basics.contact.phone, canonical.basics.contact.phone);
   assert.equal(publicResume.meta.visibility, "public");
 });
