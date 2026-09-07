@@ -32,8 +32,9 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   assert.match(output, /服务端与工具\s+具备 Go 跨平台检测工具开发与发布经验/);
   assert.match(output, /部署与交付\s+具备 Docker 容器化、Nginx 配置及 Linux \/ Shell 实践/);
   assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Fastify|Zod|Claude Agent SDK|Dumi|Father/);
-  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+前端开发工程师\n  - 负责终端安全、云原生安全与 AI 安全验证产品的前端建设与迭代/);
-  assert.match(output, /承担 AI 安全验证平台核心前端与任务服务开发/);
+  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+前端开发工程师\n  - 负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈/);
+  assert.match(output, /随着自动化渗透测试业务发展，职责扩展至全栈交付/);
+  assert.match(output, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。/);
   assert.match(output, /2022-02 ~ 2023-10\s+杭州沃土教育\s+前端开发工程师\n  - 使用 Vue、React 开发培训平台、CMS 系统、钉钉小程序、H5 页面及营销活动低代码平台。/);
   assert.doesNotMatch(output, /Dumi|Father/);
   assert.match(output, /\[访问方式\]\nnpx @zhangziheng\/resume\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.json\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.7 \| man -l -/);

@@ -97,18 +97,6 @@ function formatPeriod(start, end) {
   return `${escapeHtml(start)} - ${escapeHtml(formatPeriodValue(end))}`;
 }
 
-function formatStatus(status) {
-  if (status === "ongoing") {
-    return "进行中";
-  }
-
-  if (status === "completed") {
-    return "已完成";
-  }
-
-  return status ? escapeHtml(status) : "未标注";
-}
-
 function getYearsOfExperience(resume) {
   const starts = resume.experience
     .map((item) => item.start)
@@ -300,7 +288,7 @@ function renderFeaturedProjectCards(resume, basePath = "/") {
           "inline-flex min-h-8 items-center rounded-full bg-blue-50 px-3 text-xs font-semibold text-blue-700"
         )}</div>`,
         `<div class="space-y-4"><div class="space-y-2"><p class="font-mono text-[11px] uppercase tracking-[0.24em] text-zinc-500">${escapeHtml(
-          `${project.company} / ${project.role} / ${formatPeriod(project.start, project.end)}`
+          `${project.company} / ${project.role}`
         )}</p>`,
         `<h3 class="text-[1.35rem] font-semibold tracking-[-0.035em] text-zinc-950"><a class="text-inherit hover:text-blue-700" href="${href}">${escapeHtml(project.title)}</a></h3></div>`,
         `<div class="flex flex-wrap gap-2">${renderInlinePills(
@@ -572,14 +560,6 @@ function renderSkillRowsV5(resume) {
     .join("");
 }
 
-function renderProjectBadgeV5(project) {
-  if (project.status === "ongoing") {
-    return '<span class="badge-v5">进行中</span>';
-  }
-
-  return '<span class="badge-v5 badge-v5-neutral">已完成</span>';
-}
-
 function joinProjectBullet(items, emptyText) {
   const safeItems = Array.isArray(items) ? items.filter(Boolean) : [];
 
@@ -594,15 +574,14 @@ function joinProjectBullet(items, emptyText) {
   return `${sentences.join("；")}。`;
 }
 
-function renderProjectCardsV5(resume) {
-  return orderFeaturedProjects(resume.featuredProjects)
+function renderProjectCardsV5(projects) {
+  return orderFeaturedProjects(projects)
     .map((project) => {
       const href = `projects/${project.id}/`;
       const sections = parseMarkdownSections(project.body ?? "");
       const background = sections.get("背景")?.[0] ?? project.summary?.[0] ?? "围绕既定业务场景推进项目落地。";
       const responsibility = joinProjectBullet(project.responsibility, "承担核心实现与协作落地工作。");
       const result = joinProjectBullet(project.impact, "完成目标能力交付并支撑后续迭代。");
-      const problem = joinProjectBullet(project.problem, "围绕业务平台的稳定交付与功能迭代推进。");
       const stack = project.stack.map((item) => escapeHtml(item)).join(", ");
 
       return [
@@ -611,15 +590,13 @@ function renderProjectCardsV5(resume) {
         renderIconSvg("project"),
         `<a href="${escapeHtml(href)}">${escapeHtml(project.title)}</a>`,
         '<span class="project-meta-v5">',
-        `<span>${escapeHtml(formatPeriod(project.start, project.end))}</span>`,
-        renderProjectBadgeV5(project),
+        `<span class="project-owner-v5">${escapeHtml(project.company)}</span>`,
         "</span>",
         "</div>",
         '<div class="project-body-v5">',
         `<div class="project-tech-v5">技术栈：${stack}</div>`,
         '<ul class="point-list-v5">',
         `<li><span class="list-label-v5">[项目背景]</span> ${escapeHtml(background)}</li>`,
-        `<li><span class="list-label-v5">[核心问题]</span> ${escapeHtml(problem)}</li>`,
         `<li><span class="list-label-v5">[负责内容]</span> ${escapeHtml(responsibility)}</li>`,
         `<li><span class="list-label-v5">[项目结果]</span> ${escapeHtml(result)}</li>`,
         "</ul>",
@@ -630,6 +607,23 @@ function renderProjectCardsV5(resume) {
     .join("");
 }
 
+function renderPersonalProjectSectionV5(projects) {
+  const personalProjects = projects.filter((project) => project.company === "个人项目");
+
+  if (personalProjects.length === 0) {
+    return "";
+  }
+
+  return [
+    '<section class="project-section-v5">',
+    '<div class="section-title-v5">个人项目</div>',
+    '<div class="project-list-v5">',
+    renderProjectCardsV5(personalProjects),
+    "</div>",
+    "</section>"
+  ].join("");
+}
+
 function renderExperienceListV5(resume, basePath = "/") {
   return resume.experience
     .map((item) => {
@@ -637,6 +631,8 @@ function renderExperienceListV5(resume, basePath = "/") {
 
       if (item.id === "qidun") {
         highlightLimit = 4;
+      } else if (item.id === "wotu") {
+        highlightLimit = 2;
       }
 
       const highlights = item.summary.slice(0, highlightLimit);
@@ -804,7 +800,7 @@ function renderSelectedWork(resume, basePath = "/") {
 
       return [
         '<article class="project-card">',
-        `<p class="project-meta">${escapeHtml(project.company)} / ${escapeHtml(project.role)} / ${formatPeriod(project.start, project.end)}</p>`,
+        `<p class="project-meta">${escapeHtml(project.company)} / ${escapeHtml(project.role)}</p>`,
         `<h3><a href="${href}">${escapeHtml(project.title)}</a></h3>`,
         renderTagRow(project.stack),
         '<div class="evidence-list">',
@@ -908,14 +904,14 @@ function renderProjects(resume, basePath = "/") {
   return resume.featuredProjects
     .map((project) => {
       const href = joinHref(basePath, `projects/${project.id}/`);
-      const problem = project.problem?.[0] ?? "";
+      const responsibility = joinProjectBullet(project.responsibility, "承担核心实现与协作落地工作。");
       const result = project.impact?.[0] ?? "";
 
       return [
         '<article class="resume-item">',
         `<h3><a href="${href}">${escapeHtml(project.title)}</a></h3>`,
-        `<p class="project-meta">${escapeHtml(project.company)} / ${formatPeriod(project.start, project.end)} / ${escapeHtml(project.stack.join(" / "))}</p>`,
-        `<p><strong>问题：</strong>${escapeHtml(problem)}</p>`,
+        `<p class="project-meta">${escapeHtml(project.company)} / ${escapeHtml(project.stack.join(" / "))}</p>`,
+        `<p><strong>负责：</strong>${escapeHtml(responsibility)}</p>`,
         `<p><strong>结果：</strong>${escapeHtml(result)}</p>`,
         "</article>"
       ].join("");
@@ -939,8 +935,6 @@ function renderSkills(resume) {
 function renderProjectOverviewMeta(project) {
   const items = [
     ["角色", project.role],
-    ["周期", `${project.start} - ${project.end}`],
-    ["状态", formatStatus(project.status)],
     ["技术栈", project.stack.join(" / ")]
   ];
 
@@ -1015,6 +1009,9 @@ async function writePage(filePath, content) {
 function renderHomeContent({ resume, templates, basePath }) {
   const secondaryHeadline = resume.basics.headline.secondary ?? "全栈开发工程师";
   const jobTitle = `${resume.basics.headline.primary} / ${secondaryHeadline}`;
+  const companyProjects = resume.featuredProjects.filter(
+    (project) => project.company !== "个人项目"
+  );
 
   return replacePlaceholders(templates.home, {
     name: escapeHtml(resume.basics.displayName),
@@ -1023,7 +1020,8 @@ function renderHomeContent({ resume, templates, basePath }) {
     contactStrip: renderContactStrip(resume),
     skillRows: renderSkillRowsV5(resume),
     experienceList: renderExperienceListV5(resume, basePath),
-    projectCards: renderProjectCardsV5(resume)
+    projectCards: renderProjectCardsV5(companyProjects),
+    personalProjectSection: renderPersonalProjectSectionV5(resume.featuredProjects)
   });
 }
 
@@ -1047,7 +1045,6 @@ function renderProjectContent({ project, templates }) {
   const headline = project.impact?.[0] ?? project.summary?.[0] ?? "围绕项目目标完成方案落地与能力交付。";
   const overview = renderProjectOverviewMeta(project);
   const backgroundHtml = renderParagraphs(background);
-  const problemHtml = renderList(project.problem);
   const solutionHtml = renderList(project.summary);
   const responsibilityHtml = renderList(project.responsibility);
   const impactHtml = renderList(project.impact);
@@ -1059,7 +1056,6 @@ function renderProjectContent({ project, templates }) {
     headline: escapeHtml(headline),
     overview: overview,
     background: `${backgroundHtml || "<p>项目围绕既定业务目标展开，并在现有系统基础上推进落地。</p>"}${projectLinksHtml}`,
-    problem: problemHtml || "<p>围绕业务场景的关键问题展开分析与处理。</p>",
     solution: solutionHtml || "<p>结合现有系统能力设计并落地解决方案。</p>",
     responsibility: responsibilityHtml || "<p>承担核心实现与协作落地工作。</p>",
     impact: impactHtml || "<p>完成既定目标能力交付，并支撑后续迭代。</p>"

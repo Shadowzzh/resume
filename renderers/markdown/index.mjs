@@ -181,7 +181,7 @@ function renderExperience(experience = []) {
 function renderFeaturedProjects(projects = []) {
   const lines = [];
 
-  for (const project of projects.slice(0, 3)) {
+  for (const project of projects.slice(0, 4)) {
     if (!project || !hasValue(project.title)) {
       continue;
     }
@@ -234,6 +234,12 @@ export function renderMarkdownResume(resume) {
   const { basics, branding } = resume;
   const lines = [`# ${basics.displayName ?? basics.name}`];
   const summaryLines = splitMultilineText(basics.summary.long);
+  const companyProjects = resume.featuredProjects.filter(
+    (project) => project.company !== "个人项目"
+  );
+  const personalProjects = resume.featuredProjects.filter(
+    (project) => project.company === "个人项目"
+  );
 
   if (hasValue(basics.headline.primary)) {
     lines.push("", `> ${basics.headline.primary}`);
@@ -244,7 +250,8 @@ export function renderMarkdownResume(resume) {
   appendSection(lines, "联系方式", renderContact(basics));
   appendSection(lines, "专业技能", renderSkills(resume.skills));
   appendSection(lines, "工作经历", renderExperience(resume.experience));
-  appendSection(lines, "代表项目", renderFeaturedProjects(resume.featuredProjects));
+  appendSection(lines, "代表项目", renderFeaturedProjects(companyProjects));
+  appendSection(lines, "个人项目", renderFeaturedProjects(personalProjects));
   appendSection(lines, "访问方式", renderAccessMethods(branding));
 
   return `${lines.join("\n")}\n`;

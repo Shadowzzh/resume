@@ -15,12 +15,10 @@ items:
       - Java / Spring Boot
       - Docker
     summary:
-      - 负责终端安全、云原生安全与 AI 安全验证产品的前端建设与迭代，覆盖风险评估、集群审计、CIS 基线、微隔离与资产治理等业务。
-      - 承担 AI 安全验证平台核心前端与任务服务开发，打通评估配置、任务执行、状态跟踪和结果查看链路。
-      - 负责 CNAPP 集群审计、CIS 基线、微隔离、资产与风险治理等模块，推进复杂状态管理、策略配置与风险处置体验。
-      - 负责 Go 跨平台基线检测工具开发，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。
-      - 参与 Java / Spring Boot 后端接口开发与联调。
-      - 参与前端及 Java/Go 服务的 Docker、Nginx 部署、版本发布、备份回滚与私有化交付。
+      - 负责公司前端项目建设与迭代，覆盖 Vue、React、Next.js 技术栈，支撑终端安全、云原生安全与自动化渗透测试等产品。
+      - 随着自动化渗透测试业务发展，职责扩展至全栈交付，开发 Node.js / Fastify Agent 任务服务，并参与 Java / Spring Boot 接口开发与联调。
+      - 使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。
+      - 建设 AI Agent 运行与交付环境，完成 Kali Linux Docker 容器封装、分层构建与离线交付。
     project_refs:
       - auto-pentest-platform
       - cnapp-platform

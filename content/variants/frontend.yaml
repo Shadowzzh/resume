@@ -8,8 +8,9 @@ summary_override:
   short: 6 年+ Web 开发经验，以企业级前端为主，具备 AI 应用服务、Go 平台工具与部署交付能力。
 
 featured_project_ids:
-  - cnapp-platform
   - auto-pentest-platform
+  - document-automation
+  - cnapp-platform
   - component-library
 
 skill_domain_order:

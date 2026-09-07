@@ -162,7 +162,7 @@ function getProjectExcerpt(project) {
 
 function renderFeaturedProjects(projects = []) {
   return projects
-    .slice(0, 3)
+    .slice(0, 4)
     .map((project) => {
       const excerpt = getProjectExcerpt(project);
 

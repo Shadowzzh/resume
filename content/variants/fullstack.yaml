@@ -9,6 +9,7 @@ summary_override:
 
 featured_project_ids:
   - auto-pentest-platform
+  - document-automation
   - security-baseline-agent
   - cnapp-platform
 

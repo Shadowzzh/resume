@@ -36,15 +36,18 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
   assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Fastify|Zod|Claude Agent SDK|Dumi|Father/);
   assert.match(
     output,
-    /## 工作经历\n\n### 杭州奇盾｜前端开发工程师\n\n- 时间：2024-03 - 至今\n- 负责终端安全、云原生安全与 AI 安全验证产品的前端建设与迭代/m
+    /## 工作经历\n\n### 杭州奇盾｜前端开发工程师\n\n- 时间：2024-03 - 至今\n- 负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈/m
   );
-  assert.match(output, /负责 Go 跨平台基线检测工具开发，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。/);
-  assert.match(output, /参与 Java \/ Spring Boot 后端接口开发与联调。/);
+  assert.match(output, /随着自动化渗透测试业务发展，职责扩展至全栈交付，开发 Node\.js \/ Fastify Agent 任务服务，并参与 Java \/ Spring Boot 接口开发与联调。/);
+  assert.match(output, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。/);
+  assert.match(output, /建设 AI Agent 运行与交付环境，完成 Kali Linux Docker 容器封装、分层构建与离线交付。/);
   assert.match(
     output,
-    /## 代表项目\n\n### CNAPP 云原生应用保护平台\n\n- 技术栈：Vue 3 \/ TypeScript \/ Vite \/ Pinia \/ Vue Query/m
+    /## 代表项目\n\n### 自动化渗透测试平台\n\n- 技术栈：Vue 3 \/ Node\.js \/ Fastify \/ Claude Agent SDK \/ Playwright \/ CDP \/ Docker \/ Java \/ Spring Boot/m
   );
-  assert.match(output, /### AI 安全验证平台\n\n- 技术栈：Vue 3 \/ TypeScript \/ Fastify \/ Zod \/ Claude Agent SDK \/ Docker \/ Java \/ Spring Boot/m);
+  assert.match(output, /## 个人项目\n\n### 浏览器自动化生成产品文档\n\n- 技术栈：Claude Code \/ Node\.js \/ Playwright \/ CDP \/ Markdown \/ VitePress/m);
+  assert.match(output, /### CNAPP 云原生应用保护平台\n\n- 技术栈：Vue 3 \/ TypeScript \/ Vite \/ Pinia \/ Vue Query/m);
+  assert.match(output, /Kali Linux Docker 容器封装/);
   assert.match(output, /### 多平台业务组件库\n\n- 技术栈：Vue \/ React \/ 钉钉小程序 \/ H5/m);
   assert.doesNotMatch(output, /Dumi|Father/);
   assert.match(
