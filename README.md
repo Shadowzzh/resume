@@ -28,6 +28,25 @@ npm run dev:html
 
 构建产物输出到 `dist/`。
 
+切换 variant（投放版本）：
+
+```bash
+# 默认构建前端版（frontend）
+npm run build
+
+# 构建 AI 应用版（fullstack）
+npm run build:fullstack
+
+# 本地预览 fullstack 版
+npm run dev:html:fullstack
+
+# 等价于显式指定环境变量
+VARIANT=fullstack npm run validate
+VARIANT=fullstack npm run build
+```
+
+`content/variants/*.yaml` 决定投放策略（标题、摘要、首页项目排序）；未设置 `VARIANT` 时默认使用 `frontend`。构建会在末尾打印当前使用的 variant。
+
 本地预览开发：
 
 - `npm run dev:html` 或 `pnpm dev:html`

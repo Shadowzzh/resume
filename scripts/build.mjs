@@ -23,12 +23,14 @@ async function main() {
   const rootDir = process.cwd();
   const distDir = path.join(rootDir, "dist");
 
-  await validateAll({ rootDir, variantId: "frontend" });
+  const variantId = process.env.VARIANT ?? "frontend";
+
+  await validateAll({ rootDir, variantId });
   await ensureCleanDir(distDir);
 
   const canonicalResume = await buildCanonicalResume({
     rootDir,
-    variantId: "frontend"
+    variantId
   });
   const publicResume = buildPublicResume(canonicalResume);
 
@@ -60,7 +62,7 @@ async function main() {
     });
   }
 
-  console.log("Build completed.");
+  console.log(`Build completed (variant: ${variantId}).`);
 }
 
 main().catch((error) => {

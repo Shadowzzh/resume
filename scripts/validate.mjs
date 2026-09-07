@@ -11,7 +11,7 @@ function assertCondition(condition, message, errors) {
 
 export async function validateAll({
   rootDir = process.cwd(),
-  variantId = "frontend"
+  variantId = process.env.VARIANT ?? "frontend"
 } = {}) {
   const content = await loadContent(rootDir);
   const errors = [];
