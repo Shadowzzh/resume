@@ -35,11 +35,10 @@ test("renderHtmlSite writes relative internal links that work at root and nested
     const homepage = await fs.readFile(path.join(outputDir, "index.html"), "utf8");
 
     assert.doesNotMatch(homepage, /href="print\/"/);
-    assert.match(homepage, /href="projects\/auto-pentest-platform\/"/);
-    assert.match(homepage, /href="projects\/cnapp-platform\/"/);
-    assert.match(homepage, /href="projects\/component-library\/"/);
-    assert.match(homepage, /href="projects\/security-baseline-agent\/"/);
+    assert.doesNotMatch(homepage, /href="projects\/[a-z-]+\/"/);
     assert.doesNotMatch(homepage, /href="\/resume\//);
+    await assert.rejects(fs.access(path.join(outputDir, "projects", "component-library", "index.html")));
+    await assert.rejects(fs.access(path.join(outputDir, "projects")));
   } finally {
     await fs.rm(outputDir, { recursive: true, force: true });
   }
@@ -80,9 +79,12 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.match(homepage, /专业技能/);
     assert.match(homepage, /核心项目经历/);
     assert.match(homepage, /<div class="section-title-v5">个人项目<\/div>/);
-    assert.match(homepage, /高级前端工程师/);
-    assert.match(homepage, /AI 应用与工程化/);
-    assert.match(homepage, /6 年\+ Web 开发经验，长期参与终端安全、云原生安全与 AI 安全验证产品建设。/);
+    assert.match(homepage, /全栈工程师偏前端/);
+    assert.doesNotMatch(homepage, /AI 应用与工程化/);
+    assert.doesNotMatch(homepage, /高级前端工程师 \/ AI 应用与工程化/);
+    assert.match(homepage, /6 年\+ Web 前端经验，长期做企业级业务系统的前端，从 ERP、CMS、内容管理这类后台，到前台展示页面、小程序、H5。/);
+    assert.match(homepage, /近年转向 AI Agent 应用与全栈：用 Node\.js 做过自动化渗透平台的任务服务，用 Go 独立交付过跨 Linux\/Windows 的基线检测工具/);
+    assert.match(homepage, /端到端跑通从开发、测试到容器化部署的完整链路/);
     assert.match(homepage, /自动化渗透测试平台/);
     assert.match(homepage, /浏览器自动化生成产品文档/);
     assert.match(homepage, /<span class="project-owner-v5">个人项目<\/span>/);
@@ -102,8 +104,6 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Fastify|Zod|Claude Agent SDK|Dumi|Father/);
     assert.match(homepage, /当前状态/);
     assert.match(homepage, /所在地/);
-    assert.match(homepage, /具备 Node\.js\/Fastify AI Agent 服务与 Go 平台工具开发经验/);
-    assert.match(homepage, /能够完成前端及 Java\/Go 服务的 Docker、Nginx 部署/);
     assert.match(qidunHighlights, /负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈，支撑终端安全、云原生安全与自动化渗透测试等产品。/);
     assert.match(qidunHighlights, /随着自动化渗透测试业务发展，职责扩展至全栈交付，开发 Node\.js \/ Fastify Agent 任务服务，并参与 Java \/ Spring Boot 接口开发与联调。/);
     assert.match(qidunHighlights, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。/);
@@ -149,7 +149,7 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
   }
 });
 
-test("renderHtmlSite turns project pages into structured case-study pages", async () => {
+test("renderHtmlSite stops emitting per-project detail pages and keeps project content on the homepage", async () => {
   const resume = await buildCanonicalResume({
     rootDir: projectRoot,
     variantId: "frontend"
@@ -163,42 +163,23 @@ test("renderHtmlSite turns project pages into structured case-study pages", asyn
       outputDir
     });
 
-    const projectPage = await fs.readFile(
-      path.join(outputDir, "projects", "component-library", "index.html"),
-      "utf8"
-    );
-    const baselineProjectPage = await fs.readFile(
-      path.join(outputDir, "projects", "security-baseline-agent", "index.html"),
-      "utf8"
-    );
-    const aiProjectPage = await fs.readFile(
-      path.join(outputDir, "projects", "auto-pentest-platform", "index.html"),
-      "utf8"
-    );
-    const documentAutomationPage = await fs.readFile(
-      path.join(outputDir, "projects", "document-automation", "index.html"),
-      "utf8"
+    const homepage = await fs.readFile(path.join(outputDir, "index.html"), "utf8");
+    const printPage = await fs.readFile(path.join(outputDir, "print", "index.html"), "utf8");
+
+    await assert.rejects(fs.access(path.join(outputDir, "projects")));
+    await assert.rejects(
+      fs.access(path.join(outputDir, "projects", "component-library", "index.html"))
     );
 
-    assert.match(projectPage, /项目概览/);
-    assert.match(projectPage, /项目背景/);
-    assert.doesNotMatch(projectPage, /核心问题/);
-    assert.match(projectPage, /解决方案/);
-    assert.match(projectPage, /我负责的部分/);
-    assert.match(projectPage, /项目结果/);
-    assert.match(projectPage, /https:\/\/www\.busionline\.com/);
-    assert.doesNotMatch(projectPage, /<strong>状态<\/strong>/);
-    assert.doesNotMatch(projectPage, /<h2>Details<\/h2>/);
-    assert.match(baselineProjectPage, /负责 Linux、Windows 主机与 DM8 数据库基线检查开发/);
-    assert.match(aiProjectPage, /Java \/ Spring Boot/);
-    assert.doesNotMatch(aiProjectPage, /<strong>周期<\/strong>/);
-    assert.match(aiProjectPage, /Kali Linux Docker 执行环境/);
-    assert.match(aiProjectPage, /Agent 任务运行时/);
-    assert.match(aiProjectPage, /智能体包与源码准备、工作区管理、任务启动、中断恢复、追加输入、状态持久化和进程清理/);
-    assert.match(aiProjectPage, /Web\/API 发现、白盒分析、测试用例生成和黑盒验证/);
-    assert.match(documentAutomationPage, /Playwright \/ CDP/);
-    assert.match(documentAutomationPage, /Playwright local \/ CDP 会话接入/);
-    assert.match(documentAutomationPage, /5 个通用工具累计通过 30 项回归测试/);
+    assert.match(homepage, /多平台业务组件库/);
+    assert.match(homepage, /浏览器自动化生成产品文档/);
+    assert.match(homepage, /自动化渗透测试平台/);
+    assert.match(homepage, /项目背景/);
+    assert.match(homepage, /\[负责内容\]/);
+    assert.match(homepage, /\[项目结果\]/);
+    assert.doesNotMatch(homepage, /class="section-kicker"/);
+    assert.doesNotMatch(printPage, /href="\.\.\/projects\//);
+    assert.doesNotMatch(printPage, /href="projects\//);
   } finally {
     await fs.rm(outputDir, { recursive: true, force: true });
   }

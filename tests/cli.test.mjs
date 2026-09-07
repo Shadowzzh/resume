@@ -21,11 +21,11 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   const experienceStart = output.indexOf("[工作经历]", skillsStart);
   const skillsSection = output.slice(skillsStart, experienceStart);
 
-  assert.match(output, /^张子恒\n高级前端工程师\n/m);
+  assert.match(output, /^张子恒\n全栈工程师偏前端\n/m);
   assert.match(output, /\[基本信息\]\n所在地\s+杭州，浙江，中国\n当前状态\s+寻找新的工作机会/);
-  assert.match(output, /\[个人摘要\]\n6 年\+ Web 开发经验，长期参与终端安全、云原生安全与 AI 安全验证产品建设。/);
-  assert.match(output, /具备 Node\.js\/Fastify AI Agent 服务与 Go 平台工具开发经验/);
-  assert.match(output, /能够完成前端及 Java\/Go 服务的 Docker、Nginx 部署/);
+  assert.match(output, /\[个人摘要\]\n6 年\+ Web 前端经验，长期做企业级业务系统的前端，从 ERP、CMS、内容管理这类后台，到前台展示页面、小程序、H5。/);
+  assert.match(output, /近年转向 AI Agent 应用与全栈：用 Node\.js 做过自动化渗透平台的任务服务，用 Go 独立交付过跨 Linux\/Windows 的基线检测工具/);
+  assert.match(output, /端到端跑通从开发、测试到容器化部署的完整链路/);
   assert.match(output, /\[联系方式\]\n邮箱\s+shadow1746556951@gmail\.com\n电话\s+\d{11}\nGitHub\s+https:\/\/github\.com\/Shadowzzh\n博客\s+https:\/\/blog\.zihengzhang\.com\//);
   assert.match(output, /\[专业技能\]\n前端开发\s+长期使用 JavaScript \/ TypeScript，熟练掌握 Vue 2 \/ Vue 3、React 与 Next\.js/);
   assert.match(output, /前端工程化\s+具备 Vite \/ Webpack 项目的构建与升级经验/);

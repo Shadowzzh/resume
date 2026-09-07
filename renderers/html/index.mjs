@@ -50,16 +50,6 @@ function renderList(items, className = "") {
   return `<ul${listClass}>${content}</ul>`;
 }
 
-function renderParagraphs(items) {
-  const safeItems = Array.isArray(items) ? items.filter(Boolean) : [];
-
-  if (safeItems.length === 0) {
-    return "";
-  }
-
-  return safeItems.map((item) => `<p>${escapeHtml(item)}</p>`).join("");
-}
-
 function parseMarkdownSections(markdown) {
   const sections = new Map();
   const lines = markdown.split("\n");
@@ -577,7 +567,6 @@ function joinProjectBullet(items, emptyText) {
 function renderProjectCardsV5(projects) {
   return orderFeaturedProjects(projects)
     .map((project) => {
-      const href = `projects/${project.id}/`;
       const sections = parseMarkdownSections(project.body ?? "");
       const background = sections.get("背景")?.[0] ?? project.summary?.[0] ?? "围绕既定业务场景推进项目落地。";
       const responsibility = joinProjectBullet(project.responsibility, "承担核心实现与协作落地工作。");
@@ -588,7 +577,7 @@ function renderProjectCardsV5(projects) {
         '<article class="project-card-v5">',
         '<div class="project-header-v5">',
         renderIconSvg("project"),
-        `<a href="${escapeHtml(href)}">${escapeHtml(project.title)}</a>`,
+        `<span class="project-title-v5">${escapeHtml(project.title)}</span>`,
         '<span class="project-meta-v5">',
         `<span class="project-owner-v5">${escapeHtml(project.company)}</span>`,
         "</span>",
@@ -637,10 +626,7 @@ function renderExperienceListV5(resume, basePath = "/") {
 
       const highlights = item.summary.slice(0, highlightLimit);
       const projectLinks = item.projects
-        .map((project) => {
-          const href = joinHref(basePath, `projects/${project.id}/`);
-          return `<a href="${escapeHtml(href)}">${escapeHtml(project.title)}</a>`;
-        })
+        .map((project) => escapeHtml(project.title))
         .join('<span class="experience-separator-v5">/</span>');
       const sections = [];
 
@@ -881,10 +867,7 @@ function renderExperience(resume, basePath = "/") {
   return resume.experience
     .map((item) => {
       const projectLinks = item.projects
-        .map((project) => {
-          const href = joinHref(basePath, `projects/${project.id}/`);
-          return `<a href="${href}">${escapeHtml(project.title)}</a>`;
-        })
+        .map((project) => escapeHtml(project.title))
         .join(" / ");
 
       return [
@@ -903,13 +886,12 @@ function renderExperience(resume, basePath = "/") {
 function renderProjects(resume, basePath = "/") {
   return resume.featuredProjects
     .map((project) => {
-      const href = joinHref(basePath, `projects/${project.id}/`);
       const responsibility = joinProjectBullet(project.responsibility, "承担核心实现与协作落地工作。");
       const result = project.impact?.[0] ?? "";
 
       return [
         '<article class="resume-item">',
-        `<h3><a href="${href}">${escapeHtml(project.title)}</a></h3>`,
+        `<h3>${escapeHtml(project.title)}</h3>`,
         `<p class="project-meta">${escapeHtml(project.company)} / ${escapeHtml(project.stack.join(" / "))}</p>`,
         `<p><strong>负责：</strong>${escapeHtml(responsibility)}</p>`,
         `<p><strong>结果：</strong>${escapeHtml(result)}</p>`,
@@ -932,55 +914,6 @@ function renderSkills(resume) {
     .join("");
 }
 
-function renderProjectOverviewMeta(project) {
-  const items = [
-    ["角色", project.role],
-    ["技术栈", project.stack.join(" / ")]
-  ];
-
-  return items
-    .map(([label, value]) => {
-      return [
-        '<article class="meta-card">',
-        `<strong>${escapeHtml(label)}</strong>`,
-        `<span>${escapeHtml(value)}</span>`,
-        "</article>"
-      ].join("");
-    })
-    .join("");
-}
-
-function renderProjectLinks(project) {
-  const safeLinks = Array.isArray(project.links) ? project.links.filter(Boolean) : [];
-
-  if (safeLinks.length === 0) {
-    return "";
-  }
-
-  const links = safeLinks
-    .map((link) => {
-      return `<p><a href="${escapeHtml(link)}">${escapeHtml(link)}</a></p>`;
-    })
-    .join("");
-
-  return `<div class="project-links">${links}</div>`;
-}
-
-function renderProjectSection(title, content, kicker, dark = false) {
-  const panelClass = dark ? "section-block panel panel-dark" : "section-block panel";
-  const summaryClass = dark ? "section-copy section-copy-dark" : "section-copy";
-
-  return [
-    `<section class="${panelClass}">`,
-    '<div class="section-heading">',
-    `<p class="section-kicker">${escapeHtml(kicker)}</p>`,
-    `<h2>${escapeHtml(title)}</h2>`,
-    "</div>",
-    `<div class="${summaryClass}">${content}</div>`,
-    "</section>"
-  ].join("");
-}
-
 async function renderPage({ layoutTemplate, pageTitle, bodyClass, content }) {
   return replacePlaceholders(layoutTemplate, {
     pageTitle: escapeHtml(pageTitle),
@@ -991,14 +924,13 @@ async function renderPage({ layoutTemplate, pageTitle, bodyClass, content }) {
 
 async function loadTemplates(rootDir) {
   const templateDir = path.join(rootDir, "site", "templates");
-  const [layout, home, print, project] = await Promise.all([
+  const [layout, home, print] = await Promise.all([
     fs.readFile(path.join(templateDir, "layout.html"), "utf8"),
     fs.readFile(path.join(templateDir, "home.html"), "utf8"),
-    fs.readFile(path.join(templateDir, "print.html"), "utf8"),
-    fs.readFile(path.join(templateDir, "project.html"), "utf8")
+    fs.readFile(path.join(templateDir, "print.html"), "utf8")
   ]);
 
-  return { layout, home, print, project };
+  return { layout, home, print };
 }
 
 async function writePage(filePath, content) {
@@ -1007,8 +939,13 @@ async function writePage(filePath, content) {
 }
 
 function renderHomeContent({ resume, templates, basePath }) {
-  const secondaryHeadline = resume.basics.headline.secondary ?? "全栈开发工程师";
-  const jobTitle = `${resume.basics.headline.primary} / ${secondaryHeadline}`;
+  const headlineParts = [resume.basics.headline.primary];
+
+  if (resume.basics.headline.secondary) {
+    headlineParts.push(resume.basics.headline.secondary);
+  }
+
+  const jobTitle = headlineParts.join(" / ");
   const companyProjects = resume.featuredProjects.filter(
     (project) => project.company !== "个人项目"
   );
@@ -1036,29 +973,6 @@ function renderPrintContent({ resume, templates, basePath }) {
     experience: renderExperience(resume, basePath),
     projects: renderProjects(resume, basePath),
     contact: renderContact(resume)
-  });
-}
-
-function renderProjectContent({ project, templates }) {
-  const sections = parseMarkdownSections(project.body ?? "");
-  const background = sections.get("背景") ?? [];
-  const headline = project.impact?.[0] ?? project.summary?.[0] ?? "围绕项目目标完成方案落地与能力交付。";
-  const overview = renderProjectOverviewMeta(project);
-  const backgroundHtml = renderParagraphs(background);
-  const solutionHtml = renderList(project.summary);
-  const responsibilityHtml = renderList(project.responsibility);
-  const impactHtml = renderList(project.impact);
-  const projectLinksHtml = renderProjectLinks(project);
-
-  return replacePlaceholders(templates.project, {
-    eyebrow: escapeHtml(project.company),
-    title: escapeHtml(project.title),
-    headline: escapeHtml(headline),
-    overview: overview,
-    background: `${backgroundHtml || "<p>项目围绕既定业务目标展开，并在现有系统基础上推进落地。</p>"}${projectLinksHtml}`,
-    solution: solutionHtml || "<p>结合现有系统能力设计并落地解决方案。</p>",
-    responsibility: responsibilityHtml || "<p>承担核心实现与协作落地工作。</p>",
-    impact: impactHtml || "<p>完成既定目标能力交付，并支撑后续迭代。</p>"
   });
 }
 
@@ -1091,21 +1005,6 @@ export async function renderHtmlSite({ resume, rootDir, outputDir }) {
 
   await writePage(path.join(outputDir, "index.html"), homePage);
   await writePage(path.join(outputDir, "print", "index.html"), printPage);
-
-  for (const project of resume.projects) {
-    const projectContent = renderProjectContent({
-      project,
-      templates
-    });
-    const page = await renderPage({
-      layoutTemplate: templates.layout,
-      pageTitle: `${project.title} | ${resume.basics.displayName}`,
-      bodyClass: "page-project",
-      content: projectContent
-    });
-
-    await writePage(path.join(outputDir, "projects", project.id, "index.html"), page);
-  }
 
   return {
     homepagePath: path.join(outputDir, "index.html"),

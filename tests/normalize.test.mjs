@@ -15,8 +15,8 @@ test("buildCanonicalResume applies the frontend variant ordering", async () => {
   });
 
   assert.equal(resume.variant.id, "frontend");
-  assert.equal(resume.basics.headline.primary, "高级前端工程师");
-  assert.equal(resume.basics.headline.secondary, "AI 应用与工程化");
+  assert.equal(resume.basics.headline.primary, "全栈工程师偏前端");
+  assert.equal(resume.basics.headline.secondary, undefined);
   assert.equal(resume.featuredProjects[0].id, "auto-pentest-platform");
   assert.equal(resume.featuredProjects[1].id, "document-automation");
   assert.equal(resume.featuredProjects[2].id, "cnapp-platform");
