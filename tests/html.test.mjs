@@ -14,7 +14,7 @@ const projectRoot = path.resolve(__dirname, "..");
 test("renderHtmlSite writes relative internal links that work at root and nested paths", async () => {
   const resume = await buildCanonicalResume({
     rootDir: projectRoot,
-    variantId: "frontend"
+    variantId: "fullstack"
   });
   const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "resume-html-"));
 
@@ -33,12 +33,23 @@ test("renderHtmlSite writes relative internal links that work at root and nested
     await assert.rejects(fs.access(path.join(outputDir, "resume", "index.html")));
 
     const homepage = await fs.readFile(path.join(outputDir, "index.html"), "utf8");
+    const printPage = await fs.readFile(path.join(outputDir, "print", "index.html"), "utf8");
 
     assert.doesNotMatch(homepage, /href="print\/"/);
     assert.doesNotMatch(homepage, /href="projects\/[a-z-]+\/"/);
     assert.doesNotMatch(homepage, /href="\/resume\//);
     await assert.rejects(fs.access(path.join(outputDir, "projects", "component-library", "index.html")));
     await assert.rejects(fs.access(path.join(outputDir, "projects")));
+
+    // favicon / 站点图标使用相对路径，首页在根、print 页在子目录均能命中
+    assert.match(homepage, /<link rel="icon" href="favicon\.ico" sizes="any" \/>/);
+    assert.match(homepage, /<link rel="icon" type="image\/png" sizes="32x32" href="favicon-32x32\.png" \/>/);
+    assert.match(homepage, /<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon\.png" \/>/);
+    assert.match(homepage, /<link rel="manifest" href="site\.webmanifest" \/>/);
+    assert.match(homepage, /<meta name="theme-color" content="#0F172A" \/>/);
+    assert.doesNotMatch(homepage, /\{\{basePath\}\}/);
+    assert.match(printPage, /href="\.\.\/favicon\.ico"/);
+    assert.doesNotMatch(printPage, /\{\{basePath\}\}/);
   } finally {
     await fs.rm(outputDir, { recursive: true, force: true });
   }
@@ -47,7 +58,7 @@ test("renderHtmlSite writes relative internal links that work at root and nested
 test("renderHtmlSite mirrors the reference resume-style homepage while keeping the print resume intact", async () => {
   const resume = await buildCanonicalResume({
     rootDir: projectRoot,
-    variantId: "frontend"
+    variantId: "fullstack"
   });
   const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "resume-html-"));
 
@@ -106,7 +117,7 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.match(homepage, /所在地/);
     assert.match(qidunHighlights, /负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈，支撑终端安全、云原生安全与自动化渗透测试等产品。/);
     assert.match(qidunHighlights, /随着自动化渗透测试业务发展，职责扩展至全栈交付，开发 Node\.js \/ Fastify Agent 任务服务，并参与 Java \/ Spring Boot 接口开发与联调。/);
-    assert.match(qidunHighlights, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。/);
+    assert.match(qidunHighlights, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机安全基线检查与测试验证。/);
     assert.match(qidunHighlights, /建设 AI Agent 运行与交付环境，完成 Kali Linux Docker 容器封装、分层构建与离线交付。/);
     assert.match(wotuHighlights, /负责中后台业务功能和多平台通用业务组件开发，推动多个业务项目统一升级组件库版本。/);
     assert.match(homepage, /邮箱/);
@@ -130,7 +141,7 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.doesNotMatch(printPage, /<strong>问题：<\/strong>/);
     assert.match(printPage, /负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈，支撑终端安全、云原生安全与自动化渗透测试等产品。/);
     assert.match(printPage, /随着自动化渗透测试业务发展，职责扩展至全栈交付，开发 Node\.js \/ Fastify Agent 任务服务，并参与 Java \/ Spring Boot 接口开发与联调。/);
-    assert.match(printPage, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。/);
+    assert.match(printPage, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机安全基线检查与测试验证。/);
     assert.match(printPage, /建设 AI Agent 运行与交付环境，完成 Kali Linux Docker 容器封装、分层构建与离线交付。/);
     assert.match(printPage, /2024-03 - 至今 \/ 杭州西湖区/);
     assert.match(printPage, /React<\/span><span class="tag">Vue 3<\/span><span class="tag">Next\.js<\/span><span class="tag">Node\.js<\/span><span class="tag">Go<\/span><span class="tag">Java \/ Spring Boot<\/span><span class="tag">Docker/);
@@ -152,7 +163,7 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
 test("renderHtmlSite stops emitting per-project detail pages and keeps project content on the homepage", async () => {
   const resume = await buildCanonicalResume({
     rootDir: projectRoot,
-    variantId: "frontend"
+    variantId: "fullstack"
   });
   const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "resume-html-"));
 

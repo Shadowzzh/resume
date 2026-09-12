@@ -12,7 +12,7 @@ const projectRoot = path.resolve(__dirname, "..");
 test("renderMarkdownResume prints a README-style public resume", async () => {
   const canonical = await buildCanonicalResume({
     rootDir: projectRoot,
-    variantId: "frontend"
+    variantId: "fullstack"
   });
   const resume = buildPublicResume(canonical);
 
@@ -40,16 +40,17 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
     /## 工作经历\n\n### 杭州奇盾｜前端开发工程师\n\n- 时间：2024-03 - 至今\n- 负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈/m
   );
   assert.match(output, /随着自动化渗透测试业务发展，职责扩展至全栈交付，开发 Node\.js \/ Fastify Agent 任务服务，并参与 Java \/ Spring Boot 接口开发与联调。/);
-  assert.match(output, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机及 DM8 数据库安全基线检查与测试验证。/);
+  assert.match(output, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机安全基线检查与测试验证。/);
   assert.match(output, /建设 AI Agent 运行与交付环境，完成 Kali Linux Docker 容器封装、分层构建与离线交付。/);
   assert.match(
     output,
     /## 代表项目\n\n### 自动化渗透测试平台\n\n- 技术栈：Vue 3 \/ Node\.js \/ Fastify \/ Claude Agent SDK \/ Playwright \/ CDP \/ Docker \/ Java \/ Spring Boot/m
   );
   assert.match(output, /## 个人项目\n\n### 浏览器自动化生成产品文档\n\n- 技术栈：Claude Code \/ Node\.js \/ Playwright \/ CDP \/ Markdown \/ VitePress/m);
-  assert.match(output, /### CNAPP 云原生应用保护平台\n\n- 技术栈：Vue 3 \/ TypeScript \/ Vite \/ Pinia \/ Vue Query/m);
+  assert.match(output, /### 主机安全基线检查工具\n\n- 技术栈：Go \/ PowerShell \/ YAML \/ Makefile/m);
   assert.match(output, /Kali Linux Docker 容器封装/);
-  assert.match(output, /### 多平台业务组件库\n\n- 技术栈：Vue \/ React \/ 钉钉小程序 \/ H5/m);
+  assert.doesNotMatch(output, /### CNAPP 云原生应用保护平台/);
+  assert.doesNotMatch(output, /### 多平台业务组件库/);
   assert.doesNotMatch(output, /Dumi|Father/);
   assert.match(
     output,
@@ -57,7 +58,6 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
   );
   assert.doesNotMatch(output, /全栈开发工程师/);
   assert.doesNotMatch(output, /Java 17|systemd|GitHub Actions|Go 安全客户端/);
-  assert.doesNotMatch(output, /### 跨平台基线检测工具/);
   assert.doesNotMatch(output, /\bundefined\b/);
   assert.doesNotMatch(output, /\bnull\b/);
 });

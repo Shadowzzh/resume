@@ -15,6 +15,28 @@ async function ensureCleanDir(dirPath) {
   await fs.mkdir(dirPath, { recursive: true });
 }
 
+async function copyStaticAssets(rootDir, distDir) {
+  const publicDir = path.join(rootDir, "public");
+
+  let entries;
+  try {
+    entries = await fs.readdir(publicDir, { withFileTypes: true });
+  } catch {
+    return;
+  }
+
+  for (const entry of entries) {
+    if (!entry.isFile() || entry.name.startsWith(".")) {
+      continue;
+    }
+
+    await fs.copyFile(
+      path.join(publicDir, entry.name),
+      path.join(distDir, entry.name)
+    );
+  }
+}
+
 function shouldBuildPdf() {
   return process.env.BUILD_PDF === "true";
 }
@@ -23,7 +45,7 @@ async function main() {
   const rootDir = process.cwd();
   const distDir = path.join(rootDir, "dist");
 
-  const variantId = process.env.VARIANT ?? "frontend";
+  const variantId = process.env.VARIANT ?? "fullstack";
 
   await validateAll({ rootDir, variantId });
   await ensureCleanDir(distDir);
@@ -54,6 +76,8 @@ async function main() {
   await fs.writeFile(path.join(distDir, "resume.txt"), renderCliResume(publicResume), "utf8");
   await fs.writeFile(path.join(distDir, "CNAME"), `${canonicalResume.branding.domain}\n`, "utf8");
   await fs.writeFile(path.join(distDir, ".nojekyll"), "", "utf8");
+
+  await copyStaticAssets(rootDir, distDir);
 
   if (shouldBuildPdf()) {
     await renderPdf({

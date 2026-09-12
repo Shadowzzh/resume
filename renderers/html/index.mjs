@@ -914,10 +914,11 @@ function renderSkills(resume) {
     .join("");
 }
 
-async function renderPage({ layoutTemplate, pageTitle, bodyClass, content }) {
+async function renderPage({ layoutTemplate, pageTitle, bodyClass, content, basePath = "" }) {
   return replacePlaceholders(layoutTemplate, {
     pageTitle: escapeHtml(pageTitle),
     bodyClass: escapeHtml(bodyClass),
+    basePath,
     content
   });
 }
@@ -993,6 +994,7 @@ export async function renderHtmlSite({ resume, rootDir, outputDir }) {
     layoutTemplate: templates.layout,
     pageTitle: `${resume.basics.displayName} | Resume`,
     bodyClass: "page-home",
+    basePath: "",
     content: homeContent
   });
 
@@ -1000,6 +1002,7 @@ export async function renderHtmlSite({ resume, rootDir, outputDir }) {
     layoutTemplate: templates.layout,
     pageTitle: `${resume.basics.displayName} | Print Resume`,
     bodyClass: "page-print",
+    basePath: "../",
     content: printContent
   });
 

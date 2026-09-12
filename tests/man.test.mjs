@@ -25,7 +25,7 @@ function extractPreformattedBlock(content) {
 test("renderManPage reuses the same resume body as the CLI output", async () => {
   const canonical = await buildCanonicalResume({
     rootDir: projectRoot,
-    variantId: "frontend"
+    variantId: "fullstack"
   });
   const resume = buildPublicResume(canonical);
   const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "resume-man-"));

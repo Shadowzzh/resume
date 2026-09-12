@@ -136,7 +136,7 @@ export async function loadContent(rootDir) {
 
 export async function buildCanonicalResume({
   rootDir = process.cwd(),
-  variantId = "frontend"
+  variantId = "fullstack"
 } = {}) {
   const content = await loadContent(rootDir);
   const variant = content.variants[variantId];
