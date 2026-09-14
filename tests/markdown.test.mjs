@@ -22,7 +22,7 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
   const skillsSection = output.slice(skillsStart, experienceStart);
 
   assert.match(output, /^# 张子恒\n\n> 全栈工程师偏前端\n/m);
-  assert.match(output, /## 个人摘要\n\n6 年\+ Web 前端经验，长期做企业级业务系统的前端，从 ERP、CMS、内容管理这类后台，到前台展示页面、小程序、H5。/m);
+  assert.match(output, /## 个人摘要\n\n6 年\+ Web 开发经验，长期做企业级业务系统的前端，从 ERP、CMS、内容管理这类后台，到前台展示页面、小程序、H5。/m);
   assert.match(output, /近年转向 AI Agent 应用与全栈：用 Node\.js 做过自动化渗透平台的任务服务，用 Go 独立交付过跨 Linux\/Windows 的基线检测工具/m);
   assert.match(output, /平时也喜欢软硬件 DIY：用树莓派、NAS、开发机等多台异构 Linux 主机自建服务/m);
   assert.match(output, /日常用 AI Agent 管理运维这套机器群/m);

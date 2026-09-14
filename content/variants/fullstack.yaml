@@ -11,6 +11,7 @@ featured_project_ids:
   - mobile-pentest
   - security-baseline-agent
   - document-automation
+  - videodoc
 
 skill_domain_order:
   - frontend
