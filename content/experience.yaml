@@ -21,6 +21,7 @@ items:
       - 建设 AI Agent 运行与交付环境，完成 Kali Linux Docker 容器封装、分层构建与离线交付。
     project_refs:
       - auto-pentest-platform
+      - mobile-pentest
       - cnapp-platform
       - security-baseline-agent
 

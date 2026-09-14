@@ -19,6 +19,16 @@ domains:
       - 单元测试
     narrative: 具备 Vite / Webpack 项目的构建与升级经验，能够建设和维护 Monorepo、组件库、自动化测试及多环境和离线构建流程。
 
+  - id: ai-agent
+    name: AI Agent 应用
+    level: strong
+    keywords:
+      - Pi / Claude Code / Codex
+      - Claude Agent SDK / MCP
+      - Playwright / CDP
+      - 移动端自动化（adb / Mobilewright）
+    narrative: 以 Pi 为主力，重度使用 Claude Code、Codex 等 Coding AI 驱动日常开发与运维。
+
   - id: backend
     name: 服务端与工具
     level: working
@@ -32,7 +42,9 @@ domains:
     level: working
     keywords:
       - Docker
-      - Kubernetes
       - Nginx
       - Linux / Shell
-    narrative: 具备 Docker 容器化、Nginx 配置及 Linux / Shell 实践，能够完成服务部署、版本发布、备份回滚、日志诊断和故障排查，并可进行 Kubernetes 基础发布与排障。
+      - FRP 内网穿透
+      - Tailscale
+      - Grafana / Loki
+    narrative: 具备 Docker 容器化、Nginx 配置与 Linux / Shell 实践；自建过 FRP 内网穿透、Tailscale 组网与 Grafana / Loki 日志观测体系，能够完成服务部署、版本发布、日志诊断和故障排查。

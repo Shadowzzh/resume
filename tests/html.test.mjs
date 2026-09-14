@@ -95,6 +95,8 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.doesNotMatch(homepage, /高级前端工程师 \/ AI 应用与工程化/);
     assert.match(homepage, /6 年\+ Web 前端经验，长期做企业级业务系统的前端，从 ERP、CMS、内容管理这类后台，到前台展示页面、小程序、H5。/);
     assert.match(homepage, /近年转向 AI Agent 应用与全栈：用 Node\.js 做过自动化渗透平台的任务服务，用 Go 独立交付过跨 Linux\/Windows 的基线检测工具/);
+    assert.match(homepage, /平时也喜欢软硬件 DIY：用树莓派、NAS、开发机等多台异构 Linux 主机自建服务/);
+    assert.match(homepage, /日常用 AI Agent 管理运维这套机器群，把配置、排障、复盘沉淀成可复用的技能库/);
     assert.match(homepage, /端到端跑通从开发、测试到容器化部署的完整链路/);
     assert.match(homepage, /自动化渗透测试平台/);
     assert.match(homepage, /浏览器自动化生成产品文档/);
@@ -111,8 +113,8 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.match(homepage, /部署与交付/);
     assert.match(homepage, /熟练掌握 Vue 2 \/ Vue 3、React 与 Next\.js/);
     assert.match(homepage, /具备 Go 跨平台检测工具开发与发布经验/);
-    assert.match(homepage, /并可进行 Kubernetes 基础发布与排障/);
-    assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Fastify|Zod|Claude Agent SDK|Dumi|Father/);
+    assert.match(homepage, /自建过 FRP 内网穿透、Tailscale 组网与 Grafana \/ Loki 日志观测体系/);
+    assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Zod|Dumi|Father/);
     assert.match(homepage, /当前状态/);
     assert.match(homepage, /所在地/);
     assert.match(qidunHighlights, /负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈，支撑终端安全、云原生安全与自动化渗透测试等产品。/);

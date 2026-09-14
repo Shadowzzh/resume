@@ -18,26 +18,28 @@ test("buildCanonicalResume applies the fullstack variant ordering", async () => 
   assert.equal(resume.basics.headline.primary, "全栈工程师偏前端");
   assert.equal(resume.basics.headline.secondary, undefined);
   assert.equal(resume.featuredProjects[0].id, "auto-pentest-platform");
-  assert.equal(resume.featuredProjects[1].id, "security-baseline-agent");
-  assert.equal(resume.featuredProjects[2].id, "document-automation");
+  assert.equal(resume.featuredProjects[1].id, "mobile-pentest");
+  assert.equal(resume.featuredProjects[2].id, "security-baseline-agent");
+  assert.equal(resume.featuredProjects[3].id, "document-automation");
   assert.deepEqual(
     resume.skills.map((skill) => skill.id),
-    ["frontend", "engineering", "backend", "delivery"]
+    ["frontend", "engineering", "ai-agent", "backend", "delivery"]
   );
   assert.equal(resume.experience[0].id, "qidun");
 });
 
-test("buildCanonicalResume keeps AI positioning in projects instead of a skill category", async () => {
+test("buildCanonicalResume exposes AI Agent capability as a skill domain", async () => {
   const resume = await buildCanonicalResume({
     rootDir: projectRoot,
     variantId: "fullstack"
   });
 
   assert.equal(resume.variant.label, "全栈版");
-  assert.equal(
-    resume.skills.some((skill) => skill.id === "ai"),
-    false
-  );
+  const aiDomain = resume.skills.find((skill) => skill.id === "ai-agent");
+  assert.ok(aiDomain, "ai-agent skill domain should exist");
+  assert.equal(aiDomain.name, "AI Agent 应用");
+  assert.ok(aiDomain.keywords.includes("Claude Agent SDK / MCP"));
+  assert.ok(aiDomain.keywords.some((keyword) => keyword.includes("移动端自动化")));
   assert.equal(resume.featuredProjects[0].id, "auto-pentest-platform");
 });
 

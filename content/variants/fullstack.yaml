@@ -8,12 +8,14 @@ summary_override:
 
 featured_project_ids:
   - auto-pentest-platform
+  - mobile-pentest
   - security-baseline-agent
   - document-automation
 
 skill_domain_order:
   - frontend
   - engineering
+  - ai-agent
   - backend
   - delivery
 
