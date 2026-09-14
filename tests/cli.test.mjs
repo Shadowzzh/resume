@@ -35,7 +35,7 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   assert.match(output, /部署与交付\s+具备 Docker 容器化、Nginx 配置与 Linux \/ Shell 实践/);
   assert.match(output, /自建过 FRP 内网穿透、Tailscale 组网与 Grafana \/ Loki 日志观测体系/);
   assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Zod|Dumi|Father/);
-  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+前端开发工程师\n  - 负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈/);
+  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+全栈工程师偏前端\n  - 负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈/);
   assert.match(output, /随着自动化渗透测试业务发展，职责扩展至全栈交付/);
   assert.match(output, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机安全基线检查与测试验证。/);
   assert.match(output, /2022-02 ~ 2023-10\s+杭州沃土教育\s+前端开发工程师\n  - 使用 Vue、React 开发培训平台、CMS 系统、钉钉小程序、H5 页面及营销活动低代码平台。/);

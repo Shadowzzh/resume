@@ -39,7 +39,7 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
   assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Zod|Dumi|Father/);
   assert.match(
     output,
-    /## 工作经历\n\n### 杭州奇盾｜前端开发工程师\n\n- 时间：2024-03 - 至今\n- 负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈/m
+    /## 工作经历\n\n### 杭州奇盾｜全栈工程师偏前端\n\n- 时间：2024-03 - 至今\n- 负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈/m
   );
   assert.match(output, /随着自动化渗透测试业务发展，职责扩展至全栈交付，开发 Node\.js \/ Fastify Agent 任务服务，并参与 Java \/ Spring Boot 接口开发与联调。/);
   assert.match(output, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机安全基线检查与测试验证。/);
