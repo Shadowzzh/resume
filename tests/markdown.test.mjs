@@ -48,7 +48,7 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
     output,
     /## 代表项目\n\n### 自动化渗透测试平台\n\n- 技术栈：Vue 3 \/ Node\.js \/ Fastify \/ Claude Agent SDK \/ Playwright \/ CDP \/ Docker \/ Java \/ Spring Boot/m
   );
-  assert.match(output, /## 个人项目\n\n### 浏览器自动化生成产品文档\n\n- 技术栈：Claude Code \/ Node\.js \/ Playwright \/ CDP \/ Markdown \/ VitePress/m);
+  assert.match(output, /## 个人项目\n\n### 浏览器自动化生成产品文档\n\n- 技术栈：AI Agent \/ Node\.js \/ Playwright \/ CDP \/ JavaScript \/ Markdown/m);
   assert.match(output, /### 主机安全基线检查工具\n\n- 技术栈：Go \/ PowerShell \/ YAML \/ Makefile/m);
   assert.match(output, /Kali Linux Docker 容器封装/);
   assert.doesNotMatch(output, /### CNAPP 云原生应用保护平台/);

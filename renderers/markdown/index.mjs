@@ -178,7 +178,7 @@ function renderExperience(experience = []) {
   return lines;
 }
 
-function renderFeaturedProjects(projects = []) {
+function renderFeaturedProjects(projects = [], { personal = false } = {}) {
   const lines = [];
 
   for (const project of projects.slice(0, 4)) {
@@ -196,11 +196,19 @@ function renderFeaturedProjects(projects = []) {
       lines.push(`- 技术栈：${formatSlashList(project.stack)}`);
     }
 
-    if (hasValue(project.summary?.[0])) {
+    const summaryItems = Array.isArray(project.summary)
+      ? project.summary.filter((item) => hasValue(item))
+      : [];
+
+    if (personal) {
+      for (const item of summaryItems) {
+        lines.push(`- ${item}`);
+      }
+    } else if (hasValue(project.summary?.[0])) {
       lines.push(`- ${project.summary[0]}`);
     }
 
-    if (hasValue(project.impact?.[0])) {
+    if (!personal && hasValue(project.impact?.[0])) {
       lines.push(`- ${project.impact[0]}`);
     }
 
@@ -251,7 +259,7 @@ export function renderMarkdownResume(resume) {
   appendSection(lines, "专业技能", renderSkills(resume.skills));
   appendSection(lines, "工作经历", renderExperience(resume.experience));
   appendSection(lines, "代表项目", renderFeaturedProjects(companyProjects));
-  appendSection(lines, "个人项目", renderFeaturedProjects(personalProjects));
+  appendSection(lines, "个人项目", renderFeaturedProjects(personalProjects, { personal: true }));
   appendSection(lines, "访问方式", renderAccessMethods(branding));
 
   return `${lines.join("\n")}\n`;

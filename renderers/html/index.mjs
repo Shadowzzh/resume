@@ -596,6 +596,46 @@ function renderProjectCardsV5(projects) {
     .join("");
 }
 
+function renderPersonalProjectCardsV5(projects) {
+  return orderFeaturedProjects(projects)
+    .map((project) => {
+      const highlights = Array.isArray(project.summary)
+        ? project.summary.filter(Boolean).map((item) => escapeHtml(String(item)))
+        : [];
+      const stack = project.stack.map((item) => escapeHtml(item)).join(", ");
+      const links = Array.isArray(project.links)
+        ? project.links.filter(Boolean).map((url) => escapeHtml(String(url)))
+        : [];
+
+      return [
+        '<article class="project-card-v5">',
+        '<div class="project-header-v5">',
+        renderIconSvg("project"),
+        `<span class="project-title-v5">${escapeHtml(project.title)}</span>`,
+        '<span class="project-meta-v5">',
+        `<span class="project-owner-v5">${escapeHtml(project.company)}</span>`,
+        "</span>",
+        "</div>",
+        '<div class="project-body-v5">',
+        `<div class="project-tech-v5">技术栈：${stack}</div>`,
+        links.length > 0
+          ? `<div class="project-links-v5">${links
+              .map(
+                (url) =>
+                  `<a class="project-link-v5" href="${url}" target="_blank" rel="noopener">GitHub ↗</a>`
+              )
+              .join("")}</div>`
+          : "",
+        '<ul class="point-list-v5">',
+        highlights.map((item) => `<li>${item}</li>`).join(""),
+        "</ul>",
+        "</div>",
+        "</article>"
+      ].join("");
+    })
+    .join("");
+}
+
 function renderPersonalProjectSectionV5(projects) {
   const personalProjects = projects.filter((project) => project.company === "个人项目");
 
@@ -607,7 +647,7 @@ function renderPersonalProjectSectionV5(projects) {
     '<section class="project-section-v5">',
     '<div class="section-title-v5">个人项目</div>',
     '<div class="project-list-v5">',
-    renderProjectCardsV5(personalProjects),
+    renderPersonalProjectCardsV5(personalProjects),
     "</div>",
     "</section>"
   ].join("");
@@ -886,15 +926,22 @@ function renderExperience(resume, basePath = "/") {
 function renderProjects(resume, basePath = "/") {
   return resume.featuredProjects
     .map((project) => {
+      const isPersonal = project.company === "个人项目";
       const responsibility = joinProjectBullet(project.responsibility, "承担核心实现与协作落地工作。");
       const result = project.impact?.[0] ?? "";
+      const summaryItems = Array.isArray(project.summary)
+        ? project.summary.filter(Boolean)
+        : [];
+
+      const rows = isPersonal
+        ? summaryItems.map((item) => `<li>${escapeHtml(String(item))}</li>`).join("")
+        : `<li><strong>负责：</strong>${escapeHtml(responsibility)}</li><li><strong>结果：</strong>${escapeHtml(result)}</li>`;
 
       return [
         '<article class="resume-item">',
         `<h3>${escapeHtml(project.title)}</h3>`,
         `<p class="project-meta">${escapeHtml(project.company)} / ${escapeHtml(project.stack.join(" / "))}</p>`,
-        `<p><strong>负责：</strong>${escapeHtml(responsibility)}</p>`,
-        `<p><strong>结果：</strong>${escapeHtml(result)}</p>`,
+        `<ul class="print-project-points">${rows}</ul>`,
         "</article>"
       ].join("");
     })
