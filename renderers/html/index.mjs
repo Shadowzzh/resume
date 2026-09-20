@@ -668,13 +668,7 @@ function renderExperienceListV5(resume, basePath = "/") {
       const projectLinks = item.projects
         .map((project) => escapeHtml(project.title))
         .join('<span class="experience-separator-v5">/</span>');
-      const sections = [];
-
-      if (item.id === "yuanhe") {
-        sections.push('<div class="section-title-v5 experience-continuation-v5">工作经历（续）</div>');
-      }
-
-      sections.push(
+      return [
         '<article class="experience-item-v5">',
         '<div class="experience-header-v5">',
         '<div>',
@@ -687,9 +681,7 @@ function renderExperienceListV5(resume, basePath = "/") {
         renderList(item.summary, "point-list-v5 experience-details-print-v5"),
         `<div class="experience-footer-v5"><span>${escapeHtml((item.tech_stack ?? []).join(" · "))}</span><span class="experience-projects-v5">${projectLinks}</span></div>`,
         "</article>"
-      );
-
-      return sections.join("");
+      ].join("");
     })
     .join("");
 }
