@@ -29,10 +29,10 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Install Chromium
+      - name: Install Chromium and CJK fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y chromium
+          sudo apt-get install -y chromium fonts-noto-cjk
           echo "CHROME_BIN=$(command -v chromium)" >> "$GITHUB_ENV"
       - run: npm ci
       - run: npm test
