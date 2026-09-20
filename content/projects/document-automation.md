@@ -31,7 +31,8 @@ responsibility:
   - 开发可配置的 JavaScript 截图与标注工具，通过动态注入 SVG 图层生成方框、编号、箭头和说明文字，并在截图后恢复页面。
   - 实现 Playwright local / CDP 会话接入、登录态复用、菜单结构化、弹窗处理、数据脱敏和任务续接。
   - 建设从真实页面验证、标注截图和操作步骤到用户文档的生成链路。
-links: []
+links:
+  - https://github.com/Shadowzzh/product-docs-toolkit
 ---
 
 ## 背景
