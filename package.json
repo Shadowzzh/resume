@@ -1,6 +1,6 @@
 {
   "name": "@zhangziheng/resume",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Single-source resume with HTML, PDF, man, JSON, and CLI outputs.",
   "type": "module",
   "private": false,
