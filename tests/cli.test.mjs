@@ -43,8 +43,12 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   assert.match(output, /\[访问方式\]\nnpx @zhangziheng\/resume\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.json\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.7 \| man -l -/);
   assert.doesNotMatch(output, /全栈开发工程师/);
   assert.doesNotMatch(output, /Java 17|systemd|GitHub Actions|Go 安全客户端/);
-  assert.doesNotMatch(output, /\[项目\]/);
-  assert.doesNotMatch(output, /项目经历/);
+  assert.match(output, /\[代表项目\]\n- 自动化渗透测试平台（Vue 3 \/ Node\.js \/ Fastify \/ Claude Agent SDK \/ Playwright \/ CDP \/ Docker \/ Java \/ Spring Boot）/);
+  assert.match(output, /- 移动端自动化渗透测试（Mobilewright \/ MCP \/ adb \/ mitmproxy \/ MobSF）/);
+  assert.match(output, /- 主机安全基线检查工具（Go \/ PowerShell \/ YAML \/ Makefile）/);
+  assert.match(output, /\[个人项目\]\n- 浏览器自动化生成产品文档（AI Agent \/ Node\.js \/ Playwright \/ CDP \/ JavaScript \/ Markdown）/);
+  assert.match(output, /- 视频转图文工作台（Python \/ Flask \/ React 19 \/ TypeScript \/ Whisper \/ DeepSeek \/ ffmpeg \/ yt-dlp）/);
+  assert.match(output, /链接：https:\/\/github\.com\/Shadowzzh\/VideoDoc/);
   assert.doesNotMatch(output, /\bName\b/);
   assert.doesNotMatch(output, /\bSummary\b/);
 });

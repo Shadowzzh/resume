@@ -144,34 +144,36 @@ function renderExperience(experience = []) {
   return lines;
 }
 
-function getProjectExcerpt(project) {
-  const candidates = [
-    project.summary?.[0],
-    project.impact?.[0],
-    project.problem?.[0]
-  ];
+function renderProjects(projects = [], { personal = false } = {}) {
+  const lines = [];
 
-  for (const candidate of candidates) {
-    if (hasValue(candidate)) {
-      return candidate;
+  for (const project of projects) {
+    if (!project || !hasValue(project.title)) {
+      continue;
+    }
+
+    const stack = Array.isArray(project.stack) ? formatSlashList(project.stack) : "";
+    lines.push(hasValue(stack) ? `- ${project.title}（${stack}）` : `- ${project.title}`);
+
+    const summaryItems = Array.isArray(project.summary)
+      ? project.summary.filter((item) => hasValue(item))
+      : [];
+    const highlights = personal ? summaryItems : summaryItems.slice(0, 1);
+
+    for (const item of highlights) {
+      lines.push(`  - ${item}`);
+    }
+
+    if (!personal && hasValue(project.impact?.[0])) {
+      lines.push(`  - ${project.impact[0]}`);
+    }
+
+    if (hasValue(project.links?.[0])) {
+      lines.push(`  链接：${project.links[0]}`);
     }
   }
 
-  return null;
-}
-
-function renderFeaturedProjects(projects = []) {
-  return projects
-    .slice(0, 4)
-    .map((project) => {
-      const excerpt = getProjectExcerpt(project);
-
-      if (!hasValue(excerpt)) {
-        return `- ${project.title}`;
-      }
-
-      return `- ${project.title}：${excerpt}`;
-    });
+  return lines;
 }
 
 function renderAccessMethods(branding = {}) {
@@ -207,6 +209,13 @@ export function renderCliResume(resume) {
     ["GitHub", basics.links.github],
     ["博客", basics.links.blog]
   ]);
+  const featuredProjects = Array.isArray(resume.featuredProjects) ? resume.featuredProjects : [];
+  const companyProjects = featuredProjects.filter(
+    (project) => project.company !== "个人项目"
+  );
+  const personalProjects = featuredProjects.filter(
+    (project) => project.company === "个人项目"
+  );
 
   lines.push(basics.displayName ?? basics.name);
 
@@ -219,6 +228,8 @@ export function renderCliResume(resume) {
   appendSection(lines, "联系方式", contactLines);
   appendSection(lines, "专业技能", renderSkills(resume.skills));
   appendSection(lines, "工作经历", renderExperience(resume.experience));
+  appendSection(lines, "代表项目", renderProjects(companyProjects));
+  appendSection(lines, "个人项目", renderProjects(personalProjects, { personal: true }));
   appendSection(lines, "访问方式", renderAccessMethods(branding));
 
   return `${lines.join("\n")}\n`;
