@@ -26,7 +26,7 @@ domains:
   - Claude Agent SDK / MCP
   - Playwright / CDP
   - 移动端自动化（adb / Mobilewright）
-  narrative: 以 Pi 为主力，重度使用 Claude Code、Codex 等 Coding AI 驱动日常开发与运维。
+  narrative: 以 Pi 生态为主力，重度使用 Claude Code、Codex 等 Coding AI 驱动日常开发与运维。
 - id: backend
   name: 服务端与工具
   level: working

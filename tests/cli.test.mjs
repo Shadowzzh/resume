@@ -25,7 +25,7 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   assert.match(output, /\[基本信息\]\n所在地\s+杭州，浙江，中国\n当前状态\s+寻找新的工作机会/);
   assert.match(output, /\[个人摘要\]\n6 年\+ Web 开发经验，长期做企业级业务系统的前端，从 ERP、CMS、内容管理这类后台，到前台展示页面、小程序、H5。/);
   assert.match(output, /近年转向 AI Agent 应用与全栈：用 Node\.js 做过自动化渗透平台的任务服务，用 Go 独立交付过跨 Linux\/Windows 的基线检测工具/);
-  assert.match(output, /平时也喜欢软硬件 DIY：用树莓派、NAS、开发机等多台异构 Linux 主机自建服务/);
+  assert.match(output, /平时也喜欢软硬件 DIY：自建并维护多台 Linux 开发机与内网服务/);
   assert.match(output, /日常用 AI Agent 管理运维这套机器群，把配置、排障、复盘沉淀成可复用的技能库/);
   assert.match(output, /端到端跑通从开发、测试到容器化部署的完整链路/);
   assert.match(output, /\[联系方式\]\n邮箱\s+shadow1746556951@gmail\.com\n电话\s+\d{11}\nGitHub\s+https:\/\/github\.com\/Shadowzzh\n博客\s+https:\/\/blog\.zihengzhang\.com\//);
