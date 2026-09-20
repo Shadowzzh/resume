@@ -6,3 +6,5 @@ dist
 skills-lock.json
 .superpowers
 docs/superpowers
+# 仅本地跟踪的发布待办，不入库（Makefile 的 git add -A 会扫入未跟踪文件）
+TODO.md
