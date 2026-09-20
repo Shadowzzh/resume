@@ -188,7 +188,7 @@ function renderAccessMethods(branding = {}) {
   }
 
   if (hasValue(branding.man_endpoint)) {
-    commands.push(`curl -sL ${branding.man_endpoint} | man -l -`);
+    commands.push(`curl -fsSL ${branding.man_endpoint} -o /tmp/resume.7 && man /tmp/resume.7`);
   }
 
   return commands;

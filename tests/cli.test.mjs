@@ -40,7 +40,7 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   assert.match(output, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机安全基线检查与测试验证。/);
   assert.match(output, /2022-02 ~ 2023-10\s+杭州沃土教育\s+前端开发工程师\n  - 使用 Vue、React 开发培训平台、CMS 系统、钉钉小程序、H5 页面及营销活动低代码平台。/);
   assert.doesNotMatch(output, /Dumi|Father/);
-  assert.match(output, /\[访问方式\]\nnpx @zhangziheng\/resume\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.json\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.7 \| man -l -/);
+  assert.match(output, /\[访问方式\]\nnpx @zhangziheng\/resume\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.json\ncurl -fsSL https:\/\/resume\.zihengzhang\.com\/resume\.7 -o \/tmp\/resume\.7 && man \/tmp\/resume\.7/);
   assert.doesNotMatch(output, /全栈开发工程师/);
   assert.doesNotMatch(output, /Java 17|systemd|GitHub Actions|Go 安全客户端/);
   assert.match(output, /\[代表项目\]\n- 自动化渗透测试平台（Vue 3 \/ Node\.js \/ Fastify \/ Claude Agent SDK \/ Playwright \/ CDP \/ Docker \/ Java \/ Spring Boot）/);
@@ -48,6 +48,7 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   assert.match(output, /- 主机安全基线检查工具（Go \/ PowerShell \/ YAML \/ Makefile）/);
   assert.match(output, /\[个人项目\]\n- 浏览器自动化生成产品文档（AI Agent \/ Node\.js \/ Playwright \/ CDP \/ JavaScript \/ Markdown）/);
   assert.match(output, /- 视频转图文工作台（Python \/ Flask \/ React 19 \/ TypeScript \/ Whisper \/ DeepSeek \/ ffmpeg \/ yt-dlp）/);
+  assert.match(output, /链接：https:\/\/github\.com\/Shadowzzh\/product-docs-toolkit/);
   assert.match(output, /链接：https:\/\/github\.com\/Shadowzzh\/VideoDoc/);
   assert.doesNotMatch(output, /\bName\b/);
   assert.doesNotMatch(output, /\bSummary\b/);

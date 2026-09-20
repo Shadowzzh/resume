@@ -56,7 +56,7 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
   assert.doesNotMatch(output, /Dumi|Father/);
   assert.match(
     output,
-    /## 访问方式\n\n- `npx @zhangziheng\/resume`\n- `curl -sL https:\/\/resume\.zihengzhang\.com\/resume\.json`\n- `curl -sL https:\/\/resume\.zihengzhang\.com\/resume\.7 \| man -l -`\n/m
+    /## 访问方式\n\n- `npx @zhangziheng\/resume`\n- `curl -sL https:\/\/resume\.zihengzhang\.com\/resume\.json`\n- `curl -fsSL https:\/\/resume\.zihengzhang\.com\/resume\.7 -o \/tmp\/resume\.7 && man \/tmp\/resume\.7`\n/m
   );
   assert.doesNotMatch(output, /全栈开发工程师/);
   assert.doesNotMatch(output, /Java 17|systemd|GitHub Actions|Go 安全客户端/);

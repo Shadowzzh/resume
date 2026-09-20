@@ -232,7 +232,7 @@ function renderAccessMethods(branding = {}) {
   }
 
   if (hasValue(branding.man_endpoint)) {
-    lines.push(`- \`curl -sL ${branding.man_endpoint} | man -l -\``);
+    lines.push(`- \`curl -fsSL ${branding.man_endpoint} -o /tmp/resume.7 && man /tmp/resume.7\``);
   }
 
   return lines;
