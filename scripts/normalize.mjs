@@ -90,20 +90,6 @@ function applyVariant(profile, experience, skills, projects, variant) {
   };
 }
 
-function enrichExperience(experience, projectsById) {
-  return experience.map((item) => ({
-    ...item,
-    projects: item.project_refs.map((projectId) => {
-      const project = projectsById.get(projectId);
-
-      return {
-        id: project.id,
-        title: project.title
-      };
-    })
-  }));
-}
-
 export async function loadContent(rootDir) {
   const contentDir = path.join(rootDir, "content");
   const profile = await readYamlFile(path.join(contentDir, "profile.yaml"));
@@ -145,7 +131,6 @@ export async function buildCanonicalResume({
     throw new Error(`Unknown variant: ${variantId}`);
   }
 
-  const projectsById = new Map(content.projects.map((project) => [project.id, project]));
   const variantView = applyVariant(
     content.profile,
     content.experience,
@@ -169,7 +154,7 @@ export async function buildCanonicalResume({
     },
     branding: content.profile.branding,
     skills: variantView.skills,
-    experience: enrichExperience(variantView.experience, projectsById),
+    experience: variantView.experience,
     projects: variantView.projects,
     featuredProjects: variantView.featuredProjects,
     variant: {

@@ -300,12 +300,6 @@ function renderFeaturedProjectCards(resume, basePath = "/") {
 function renderExperienceTimeline(resume, basePath = "/") {
   return resume.experience
     .map((item) => {
-      const projectLinks = item.projects
-        .map((project) => {
-          const href = joinHref(basePath, `projects/${project.id}/`);
-          return `<a class="text-sm font-medium text-blue-700 hover:text-blue-900" href="${href}">${escapeHtml(project.title)}</a>`;
-        })
-        .join('<span class="text-zinc-300">/</span>');
       const leadPoint = item.summary[0] ?? "";
 
       return [
@@ -665,9 +659,7 @@ function renderExperienceListV5(resume, basePath = "/") {
       }
 
       const highlights = item.summary.slice(0, highlightLimit);
-      const projectLinks = item.projects
-        .map((project) => escapeHtml(project.title))
-        .join('<span class="experience-separator-v5">/</span>');
+
       return [
         '<article class="experience-item-v5">',
         '<div class="experience-header-v5">',
@@ -679,7 +671,7 @@ function renderExperienceListV5(resume, basePath = "/") {
         "</div>",
         renderList(highlights, "point-list-v5 experience-highlights-v5"),
         renderList(item.summary, "point-list-v5 experience-details-print-v5"),
-        `<div class="experience-footer-v5"><span>${escapeHtml((item.tech_stack ?? []).join(" · "))}</span><span class="experience-projects-v5">${projectLinks}</span></div>`,
+        `<div class="experience-footer-v5"><span>${escapeHtml((item.tech_stack ?? []).join(" · "))}</span></div>`,
         "</article>"
       ].join("");
     })
@@ -836,12 +828,6 @@ function renderSelectedWork(resume, basePath = "/") {
 function renderExperienceSnapshot(resume, basePath = "/") {
   return resume.experience
     .map((item) => {
-      const projectLinks = item.projects
-        .map((project) => {
-          const href = joinHref(basePath, `projects/${project.id}/`);
-          return `<a href="${href}">${escapeHtml(project.title)}</a>`;
-        })
-        .join(" / ");
       const leadPoint = item.summary[0] ?? "";
 
       return [
@@ -850,7 +836,6 @@ function renderExperienceSnapshot(resume, basePath = "/") {
         `<h3>${escapeHtml(item.company)} / ${escapeHtml(item.role)}</h3>`,
         `<p>${escapeHtml(leadPoint)}</p>`,
         renderTagRow(item.tech_stack?.slice(0, 4) ?? []),
-        `<p class="timeline-links">${projectLinks}</p>`,
         "</article>"
       ].join("");
     })
@@ -898,17 +883,12 @@ function renderResourceLinks(resume, basePath = "/") {
 function renderExperience(resume, basePath = "/") {
   return resume.experience
     .map((item) => {
-      const projectLinks = item.projects
-        .map((project) => escapeHtml(project.title))
-        .join(" / ");
-
       return [
         '<article class="resume-item">',
         `<h3>${escapeHtml(item.company)} / ${escapeHtml(item.role)}</h3>`,
         `<p class="timeline-meta">${formatPeriod(item.start, item.end)} / ${escapeHtml(item.city)}</p>`,
         renderList(item.summary),
         renderTagRow(item.tech_stack ?? []),
-        `<p>${projectLinks}</p>`,
         "</article>"
       ].join("");
     })

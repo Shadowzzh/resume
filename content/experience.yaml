@@ -19,11 +19,6 @@ items:
       - 随着自动化渗透测试业务发展，职责扩展至全栈交付，开发 Node.js / Fastify Agent 任务服务，并参与 Java / Spring Boot 接口开发与联调。
       - 使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机安全基线检查与测试验证。
       - 建设 AI Agent 运行与交付环境，完成 Kali Linux Docker 容器封装、分层构建与离线交付。
-    project_refs:
-      - auto-pentest-platform
-      - mobile-pentest
-      - cnapp-platform
-      - security-baseline-agent
 
   - id: wotu
     company: 杭州沃土教育
@@ -42,8 +37,6 @@ items:
       - 使用 Vue、React 开发培训平台、CMS 系统、钉钉小程序、H5 页面及营销活动低代码平台。
       - 负责中后台业务功能和多平台通用业务组件开发，推动多个业务项目统一升级组件库版本。
       - 负责钉钉小程序埋点、差异化部署和原生小程序保存格式化能力建设。
-    project_refs:
-      - component-library
 
   - id: yuanhe
     company: 苏州元和信息有限公司
@@ -58,5 +51,3 @@ items:
     summary:
       - 负责财务评审系统前端开发，封装业务组件，提高页面复用性。
       - 使用 Vue 3 + Tailwind CSS 构建 UI，并支撑系统迭代维护。
-    project_refs:
-      - finance-review-system

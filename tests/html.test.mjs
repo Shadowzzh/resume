@@ -102,9 +102,8 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.match(homepage, /浏览器自动化生成产品文档/);
     assert.match(homepage, /<span class="project-owner-v5">个人项目<\/span>/);
     assert.doesNotMatch(homepage, /<span>2025-12 - 至今<\/span>/);
-    assert.match(homepage, /CNAPP 云原生应用保护平台/);
-    assert.match(homepage, /多平台业务组件库/);
     assert.match(homepage, /跨平台基线检测工具/);
+    assert.doesNotMatch(homepage, /experience-projects-v5/);
     assert.doesNotMatch(homepage, /class="badge-v5/);
     assert.doesNotMatch(homepage, /\[核心问题\]/);
     assert.match(homepage, /前端开发/);
@@ -184,8 +183,8 @@ test("renderHtmlSite stops emitting per-project detail pages and keeps project c
       fs.access(path.join(outputDir, "projects", "component-library", "index.html"))
     );
 
-    assert.match(homepage, /多平台业务组件库/);
     assert.match(homepage, /浏览器自动化生成产品文档/);
+    assert.doesNotMatch(homepage, /experience-projects-v5/);
     assert.match(homepage, /自动化渗透测试平台/);
     assert.match(homepage, /项目背景/);
     assert.match(homepage, /\[负责内容\]/);

@@ -48,14 +48,6 @@ export async function validateAll({
   for (const item of content.experience) {
     assertCondition(Boolean(item.id), "experience.id is required", errors);
     assertCondition(Boolean(item.company), `experience '${item.id}' company is required`, errors);
-
-    for (const projectId of item.project_refs ?? []) {
-      assertCondition(
-        projectIds.has(projectId),
-        `experience '${item.id}' references unknown project '${projectId}'`,
-        errors
-      );
-    }
   }
 
   for (const variant of Object.values(content.variants)) {
