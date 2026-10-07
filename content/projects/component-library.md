@@ -5,7 +5,7 @@ company: 杭州沃土教育
 featured: true
 status: completed
 start: 2022-02
-end: 2023-10
+end: 2024-02
 role: 前端开发工程师
 category:
   - 组件库
