@@ -23,7 +23,24 @@ test("buildCanonicalResume applies the fullstack variant ordering", async () => 
   assert.equal(resume.featuredProjects[3].id, "document-automation");
   assert.deepEqual(
     resume.skills.map((skill) => skill.id),
-    ["frontend", "engineering", "ai-agent", "backend", "delivery"]
+    ["frontend", "ai-agent", "backend", "delivery"]
+  );
+  const frontendDomain = resume.skills.find((skill) => skill.id === "frontend");
+  assert.equal(frontendDomain.name, "前端");
+  assert.equal(frontendDomain.level, "strong");
+  assert.deepEqual(frontendDomain.keywords, [
+    "JavaScript / TypeScript",
+    "Vue 2 / Vue 3",
+    "React / Next.js",
+    "Vite / Webpack",
+    "Monorepo",
+    "组件库",
+    "单元测试"
+  ]);
+  assert.equal(
+    resume.skills.some((skill) => skill.id === "engineering"),
+    false,
+    "engineering is merged into the frontend domain"
   );
   assert.equal(resume.experience[0].id, "qidun");
 });
@@ -37,7 +54,7 @@ test("buildCanonicalResume exposes AI Agent capability as a skill domain", async
   assert.equal(resume.variant.label, "全栈版");
   const aiDomain = resume.skills.find((skill) => skill.id === "ai-agent");
   assert.ok(aiDomain, "ai-agent skill domain should exist");
-  assert.equal(aiDomain.name, "AI Agent 工程实践");
+  assert.equal(aiDomain.name, "AI Agent");
   assert.ok(aiDomain.keywords.includes("Claude Agent SDK / MCP"));
   assert.ok(aiDomain.keywords.some((keyword) => keyword.includes("移动端自动化")));
   assert.equal(resume.featuredProjects[0].id, "auto-pentest-platform");

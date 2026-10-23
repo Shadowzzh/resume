@@ -1,25 +1,18 @@
 domains:
 - id: frontend
-  name: 前端开发
+  name: 前端
   level: strong
   keywords:
   - JavaScript / TypeScript
   - Vue 2 / Vue 3
   - React / Next.js
-  - Node.js
-  narrative: 长期使用 JavaScript / TypeScript，熟练掌握 Vue 2 / Vue 3、React 与 Next.js，具备丰富的项目实践，可承担企业级中后台、复杂状态与实时交互，以及
-    Node.js 配套服务开发。
-- id: engineering
-  name: 前端工程化
-  level: strong
-  keywords:
   - Vite / Webpack
   - Monorepo
   - 组件库
   - 单元测试
-  narrative: 具备 Vite / Webpack 项目的构建与升级经验，能够建设和维护 Monorepo、组件库、自动化测试及多环境和离线构建流程。
+  narrative: 熟练使用 JavaScript / TypeScript，具备 Vue 2 / Vue 3、React 与 Next.js 企业级应用开发能力，能够独立承担中后台业务开发、组件封装、复杂交互与跨页面状态管理。具备 Vite / Webpack 构建与升级经验，能够建设和维护 Monorepo、业务组件库与自动化测试，支持多环境及离线构建。
 - id: ai-agent
-  name: AI Agent 工程实践
+  name: AI Agent
   level: strong
   keywords:
   - Pi / Claude Code / Codex
@@ -28,12 +21,13 @@ domains:
   - 移动端自动化（adb / Mobilewright）
   narrative: 以 Pi、Claude Code、Codex 支撑日常开发与运维，通过主会话协调多个 Subagent 完成开发任务，将固定工作流封装为可复用 Skills；具备基于浏览器 CDP 的自动化测试实践。使用 AI 网关统一代理模型请求，并监控调用状态。
 - id: backend
-  name: 服务端与工具
+  name: 服务端
   level: working
   keywords:
+  - Node.js / Fastify
   - Go
   - Java / Spring Boot
-  narrative: 具备 Go 跨平台检测工具开发与发布经验，可参与 Java / Spring Boot 既有项目维护、接口开发和跨端联调。
+  narrative: 具备 Node.js / Fastify 服务开发与架构设计能力，能够设计接口与任务执行机制，处理长任务状态持久化、会话恢复和进程管理，完成从开发联调到 Docker 部署及日志排障的交付链路。具备 Go 跨平台工具开发与规则执行框架设计能力，可完成 Linux / Windows 适配、多架构构建和版本交付；参与 Java / Spring Boot 接口开发与联调。
 - id: delivery
   name: 部署与交付
   level: working
@@ -41,4 +35,4 @@ domains:
   - Docker
   - Nginx
   - Linux / Shell
-  narrative: 具备 Docker 容器化、Nginx 配置与 Linux / Shell 实践，熟悉常见网络与部署方案，能够独立完成服务部署、版本发布、日志诊断和故障排查，对软硬件设备有一定动手经验。
+  narrative: 具备 Docker、Nginx 与 Linux / Shell 实践，能够独立完成服务部署、镜像分层与离线交付，并结合应用、进程及容器日志进行故障定位和排查。
