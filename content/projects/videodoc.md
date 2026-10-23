@@ -28,10 +28,6 @@ impact:
 problem:
   - 长视频信息密度低，看完后想回看某段、引用某句很麻烦，人工整理转写、提纲和配图成本高。
   - 下载、转写、抽帧、生成文章环节分散，任一环节失败都要从头重跑，缺少统一的任务编排与断点恢复能力。
-responsibility:
-  - Python Flask 后端流水线、任务存储与前端 React 阅读界面的设计与实现。
-  - 集成 yt-dlp、Whisper、ffmpeg、OCR 与 LLM，串联 10 阶段生成链路并实现失败重试与断点续跑。
-  - 编写 43 项后端测试与前端组件测试，覆盖流水线各阶段与任务状态流转。
 links:
   - https://github.com/Shadowzzh/VideoDoc
 ---
