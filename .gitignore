@@ -6,5 +6,7 @@ dist
 skills-lock.json
 .superpowers
 docs/superpowers
+# 临时 worktree 目录（内含未提交改动，避免被 git add -A 扫入）
+.worktrees/
 # 仅本地跟踪的发布待办，不入库（Makefile 的 git add -A 会扫入未跟踪文件）
 TODO.md

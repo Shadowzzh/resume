@@ -19,14 +19,14 @@ domains:
   - 单元测试
   narrative: 具备 Vite / Webpack 项目的构建与升级经验，能够建设和维护 Monorepo、组件库、自动化测试及多环境和离线构建流程。
 - id: ai-agent
-  name: AI Agent 应用
+  name: AI Agent 工程实践
   level: strong
   keywords:
   - Pi / Claude Code / Codex
   - Claude Agent SDK / MCP
   - Playwright / CDP
   - 移动端自动化（adb / Mobilewright）
-  narrative: 以 Pi 生态为主力，重度使用 Claude Code、Codex 等 Coding AI 驱动日常开发与运维。
+  narrative: 以 Pi、Claude Code、Codex 支撑日常开发与运维，通过主会话协调多个 Subagent 完成开发任务，将固定工作流封装为可复用 Skills；具备基于浏览器 CDP 的自动化测试实践。使用 AI 网关统一代理模型请求，并监控调用状态。
 - id: backend
   name: 服务端与工具
   level: working

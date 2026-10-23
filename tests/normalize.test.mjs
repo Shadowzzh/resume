@@ -37,7 +37,7 @@ test("buildCanonicalResume exposes AI Agent capability as a skill domain", async
   assert.equal(resume.variant.label, "全栈版");
   const aiDomain = resume.skills.find((skill) => skill.id === "ai-agent");
   assert.ok(aiDomain, "ai-agent skill domain should exist");
-  assert.equal(aiDomain.name, "AI Agent 应用");
+  assert.equal(aiDomain.name, "AI Agent 工程实践");
   assert.ok(aiDomain.keywords.includes("Claude Agent SDK / MCP"));
   assert.ok(aiDomain.keywords.some((keyword) => keyword.includes("移动端自动化")));
   assert.equal(resume.featuredProjects[0].id, "auto-pentest-platform");
