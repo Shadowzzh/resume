@@ -8,10 +8,11 @@ summary_override:
 
 featured_project_ids:
   - auto-pentest-platform
-  - mobile-pentest
+  - qidun-official-site
   - security-baseline-agent
-  - document-automation
+  - mobile-pentest
   - videodoc
+  - document-automation
 
 skill_domain_order:
   - frontend

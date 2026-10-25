@@ -49,6 +49,32 @@ test("renderManPage reuses the same resume body as the CLI output", async () => 
     assert.match(content, /\[专业技能\]/);
     assert.match(content, /\[工作经历\]/);
     assert.match(content, /\[访问方式\]/);
+    assert.match(content, /企业安全产品官网建设与迭代/);
+    assert.match(content, /设计声明式 YAML 规则及采集执行框架/);
+    assert.match(content, /移动端自动化探索与接口资产梳理/);
+    assert.match(content, /功能大纲/);
+    assert.match(content, /mitmproxy/);
+    assert.match(content, /静态分析/);
+    assert.match(content, /拓扑/);
+    assert.match(content, /视频转图文工作台/);
+    // man 渲染的是 CLI 输出：在 VideoDoc 段内校验通用在线视频下载与平台示例
+    const manVideodocSection = content.slice(
+      content.indexOf("视频转图文工作台"),
+      content.indexOf("AI 产品文档生成工具箱")
+    );
+    assert.match(manVideodocSection, /下载在线视频/);
+    assert.match(manVideodocSection, /X（Twitter）/);
+    assert.match(manVideodocSection, /哔哩哔哩/);
+    assert.match(manVideodocSection, /等平台/);
+    assert.match(content, /AI 产品文档生成工具箱/);
+    assert.match(content, /将“现场判断”与“稳定动作”分离/);
+    assert.ok(
+      content.indexOf("视频转图文工作台") < content.indexOf("AI 产品文档生成工具箱"),
+      "man page keeps VideoDoc before the documentation toolkit"
+    );
+    assert.doesNotMatch(content, /浏览器自动化生成产品文档/);
+    assert.doesNotMatch(content, /移动端自动化信息采集与攻击面梳理/);
+    assert.doesNotMatch(content, /内容驱动企业官网/);
     assert.doesNotMatch(content, /\.SH EXPERIENCE/);
     assert.doesNotMatch(content, /\.SH PROJECTS/);
     assert.doesNotMatch(content, /\.SH CONTACT/);

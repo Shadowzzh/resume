@@ -39,18 +39,28 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
   assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Zod|Dumi|Father/);
   assert.match(
     output,
-    /## 工作经历\n\n### 杭州奇盾｜全栈工程师偏前端\n\n- 时间：2024-03 - 至今\n- 负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈/m
+    /## 工作经历\n\n### 杭州奇盾｜全栈工程师偏前端\n\n- 时间：2024-03 - 至今\n- 负责公司安全产品的前端建设与迭代，覆盖 Vue、React、Next\.js/m
   );
-  assert.match(output, /随着自动化渗透测试业务发展，职责扩展至全栈交付，开发 Node\.js \/ Fastify Agent 任务服务，并参与 Java \/ Spring Boot 接口开发与联调。/);
-  assert.match(output, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机安全基线检查与测试验证。/);
-  assert.match(output, /建设 AI Agent 运行与交付环境，完成 Kali Linux Docker 容器封装、分层构建与离线交付。/);
+  assert.match(output, /主导 Node\.js \/ Fastify Agent 执行控制服务开发，负责平台前端与任务服务的联调交付，并参与 Java \/ Spring Boot 接口开发。/);
+  assert.match(output, /独立开发并交付 Go 跨平台主机安全基线检查工具，覆盖 Linux \/ Windows，完成规则执行框架、平台适配、测试验证与多架构构建发布。/);
+  assert.match(output, /建设 AI Agent 容器化运行环境，完成 Kali Linux 镜像分层、离线交付与客户环境部署，并承担运行日志分析和故障排查。/);
   assert.match(
     output,
     /## 代表项目\n\n### 自动化渗透测试平台\n\n- 技术栈：Vue 3 \/ Node\.js \/ Fastify \/ Claude Agent SDK \/ Playwright \/ CDP \/ Docker \/ Java \/ Spring Boot/m
   );
-  assert.match(output, /## 个人项目\n\n### 浏览器自动化生成产品文档\n\n- 技术栈：AI Agent \/ Node\.js \/ Playwright \/ CDP \/ JavaScript \/ Markdown/m);
+  assert.match(
+    output,
+    /## 个人项目\n\n### 视频转图文工作台\n\n- 技术栈：Python \/ Flask \/ React 19 \/ TypeScript \/ Whisper \/ DeepSeek \/ ffmpeg \/ yt-dlp\n- [^\n]*下载在线视频[^\n]*时间锚点[^\n]*X（Twitter）[^\n]*YouTube[^\n]*哔哩哔哩[^\n]*等平台[^\n]*定位原视频[^\n]*\n- [^\n]*Flask[^\n]*持久化任务状态与中间产物[^\n]*断点续跑[^\n]*\n- 链接：[^\n]*\n\n### AI 产品文档生成工具箱\n\n- 技术栈：AI Agent \/ Node\.js \/ Playwright \/ CDP \/ JavaScript \/ Markdown\n- [^\n]*\n- 将“现场判断”与“稳定动作”分离[^\n]*/m
+  );
   assert.match(output, /### 主机安全基线检查工具\n\n- 技术栈：Go \/ PowerShell \/ YAML \/ Makefile/m);
-  assert.match(output, /Kali Linux Docker 容器封装/);
+  assert.match(
+    output,
+    /## 代表项目\n\n### 自动化渗透测试平台[\s\S]*?### 企业安全产品官网建设与迭代\n\n- 技术栈：Next\.js \/ React \/ TypeScript \/ Tailwind CSS \/ Resend \/ Docker\n- 基于 Next\.js \+ React \+ Tailwind CSS 设计并开发企业安全产品官网，覆盖首页、产品、案例、关于、联系与独立下载中心等多栏目页面。\n- 官网从产品展示延伸到线索收集与资料下载：咨询表单完成校验与邮件通知，下载中心完成访问校验与下载服务，形成完整功能链路。\n\n### 主机安全基线检查工具[\s\S]*?### 移动端自动化探索与接口资产梳理\n\n- 技术栈：Mobilewright \/ MCP \/ adb \/ mitmproxy \/ MobSF\n- [^\n]*mitmproxy[^\n]*静态分析[^\n]*功能大纲[^\n]*接口资产[^\n]*拓扑[^\n]*\n- [^\n]*功能大纲[^\n]*接口清单[^\n]*拓扑[^\n]*/m
+  );
+  assert.match(output, /设计声明式 YAML 规则及采集执行框架，将规则描述与执行逻辑分离/);
+  assert.doesNotMatch(output, /内容驱动企业官网/);
+  assert.doesNotMatch(output, /lisu-official-site/);
+  assert.match(output, /Kali Linux 镜像分层/);
   assert.doesNotMatch(output, /### CNAPP 云原生应用保护平台/);
   assert.doesNotMatch(output, /### 多平台业务组件库/);
   assert.doesNotMatch(output, /Dumi|Father/);

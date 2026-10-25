@@ -36,19 +36,31 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   assert.match(output, /并结合应用、进程及容器日志进行故障定位和排查/);
   assert.doesNotMatch(output, /前端工程化\s{2,}/);
   assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Zod|Dumi|Father/);
-  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+全栈工程师偏前端\n  - 负责公司前端项目建设与迭代，覆盖 Vue、React、Next\.js 技术栈/);
-  assert.match(output, /随着自动化渗透测试业务发展，职责扩展至全栈交付/);
-  assert.match(output, /使用 Go 开发跨平台基线检测工具，完成 Linux、Windows 主机安全基线检查与测试验证。/);
-  assert.match(output, /2022-02 ~ 2023-10\s+杭州沃土教育\s+前端开发工程师\n  - 使用 Vue、React 开发培训平台、CMS 系统、钉钉小程序、H5 页面及营销活动低代码平台。/);
+  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+全栈工程师偏前端\n  - 负责公司安全产品的前端建设与迭代，覆盖 Vue、React、Next\.js/);
+  assert.match(output, /主导 Node\.js \/ Fastify Agent 执行控制服务开发，负责平台前端与任务服务的联调交付，并参与 Java \/ Spring Boot 接口开发。/);
+  assert.match(output, /独立开发并交付 Go 跨平台主机安全基线检查工具，覆盖 Linux \/ Windows，完成规则执行框架、平台适配、测试验证与多架构构建发布。/);
+  assert.match(output, /2022-02 ~ 2023-10\s+杭州沃土教育\s+前端开发工程师\n  - 负责培训平台、CMS 系统与营销活动低代码平台等业务前端开发，覆盖 Vue \/ React 中后台、H5 与钉钉小程序。/);
   assert.doesNotMatch(output, /Dumi|Father/);
   assert.match(output, /\[访问方式\]\nnpx @zhangziheng\/resume\ncurl -sL https:\/\/resume\.zihengzhang\.com\/resume\.json\ncurl -fsSL https:\/\/resume\.zihengzhang\.com\/resume\.7 -o \/tmp\/resume\.7 && man \/tmp\/resume\.7/);
   assert.doesNotMatch(output, /全栈开发工程师/);
   assert.doesNotMatch(output, /Java 17|systemd|GitHub Actions|Go 安全客户端/);
   assert.match(output, /\[代表项目\]\n- 自动化渗透测试平台（Vue 3 \/ Node\.js \/ Fastify \/ Claude Agent SDK \/ Playwright \/ CDP \/ Docker \/ Java \/ Spring Boot）/);
-  assert.match(output, /- 移动端自动化信息采集与攻击面梳理（Mobilewright \/ MCP \/ adb \/ mitmproxy \/ MobSF）/);
+  assert.match(output, /- 移动端自动化探索与接口资产梳理（Mobilewright \/ MCP \/ adb \/ mitmproxy \/ MobSF）/);
   assert.match(output, /- 主机安全基线检查工具（Go \/ PowerShell \/ YAML \/ Makefile）/);
-  assert.match(output, /\[个人项目\]\n- 浏览器自动化生成产品文档（AI Agent \/ Node\.js \/ Playwright \/ CDP \/ JavaScript \/ Markdown）/);
-  assert.match(output, /- 视频转图文工作台（Python \/ Flask \/ React 19 \/ TypeScript \/ Whisper \/ DeepSeek \/ ffmpeg \/ yt-dlp）/);
+  assert.match(
+    output,
+    /\[代表项目\]\n- 自动化渗透测试平台（[^\n]*）[\s\S]*?- 企业安全产品官网建设与迭代（Next\.js \/ React \/ TypeScript \/ Tailwind CSS \/ Resend \/ Docker）\n  - 基于 Next\.js \+ React \+ Tailwind CSS 设计并开发企业安全产品官网[^\n]*\n  - 官网从产品展示延伸到线索收集与资料下载：[^\n]*\n- 主机安全基线检查工具（[^\n]*）[\s\S]*?- 移动端自动化探索与接口资产梳理（[^\n]*）\n  - [^\n]*mitmproxy[^\n]*静态分析[^\n]*功能大纲[^\n]*接口资产[^\n]*拓扑[^\n]*\n  - [^\n]*功能大纲[^\n]*接口清单[^\n]*拓扑[^\n]*/
+  );
+  assert.match(
+    output,
+    /- 主机安全基线检查工具（Go \/ PowerShell \/ YAML \/ Makefile）\n  - 用 Go 开发主机安全基线检查工具：[^\n]*设计声明式 YAML 规则及采集执行框架，将规则描述与执行逻辑分离[^\n]*/
+  );
+  assert.doesNotMatch(output, /内容驱动企业官网/);
+  assert.doesNotMatch(output, /lisu-official-site/);
+  assert.match(
+    output,
+    /\[个人项目\]\n- 视频转图文工作台（Python \/ Flask \/ React 19 \/ TypeScript \/ Whisper \/ DeepSeek \/ ffmpeg \/ yt-dlp）\n  - [^\n]*下载在线视频[^\n]*时间锚点[^\n]*X（Twitter）[^\n]*YouTube[^\n]*哔哩哔哩[^\n]*等平台[^\n]*定位原视频[^\n]*\n  - [^\n]*Flask[^\n]*持久化任务状态与中间产物[^\n]*断点续跑[^\n]*\n  链接：https:\/\/github\.com\/Shadowzzh\/VideoDoc\n- AI 产品文档生成工具箱（AI Agent \/ Node\.js \/ Playwright \/ CDP \/ JavaScript \/ Markdown）\n  - [^\n]*\n  - [^\n]*将“现场判断”与“稳定动作”分离[^\n]*\n  链接：https:\/\/github\.com\/Shadowzzh\/product-docs-toolkit/
+  );
   assert.match(output, /链接：https:\/\/github\.com\/Shadowzzh\/product-docs-toolkit/);
   assert.match(output, /链接：https:\/\/github\.com\/Shadowzzh\/VideoDoc/);
   assert.doesNotMatch(output, /\bName\b/);
