@@ -30,7 +30,7 @@ test("renderMarkdownResume prints a README-style public resume", async () => {
   assert.match(output, /## 基本信息\n\n- 所在地：杭州，浙江，中国\n- 当前状态：寻找新的工作机会\n/m);
   assert.match(
     output,
-    /## 联系方式\n\n- 邮箱：\[shadow1746556951@gmail\.com\]\(mailto:shadow1746556951@gmail\.com\)\n- 电话：\[\d{11}\]\(tel:\d{11}\)\n- GitHub：\[Shadowzzh\]\(https:\/\/github\.com\/Shadowzzh\)\n- 博客：\[blog\.zihengzhang\.com\]\(https:\/\/blog\.zihengzhang\.com\/\)\n/m
+    /## 联系方式\n\n- 邮箱：\[shadow1746556951@gmail\.com\]\(mailto:shadow1746556951@gmail\.com\)\n- GitHub：\[Shadowzzh\]\(https:\/\/github\.com\/Shadowzzh\)\n- 博客：\[blog\.zihengzhang\.com\]\(https:\/\/blog\.zihengzhang\.com\/\)\n/m
   );
   assert.match(output, /## 专业技能\n\n### 前端\n\n熟练使用 JavaScript \/ TypeScript，具备 Vue 2 \/ Vue 3、React 与 Next\.js 企业级应用开发能力，能够独立承担中后台业务开发、组件封装、复杂交互与跨页面状态管理/m);
   assert.match(output, /### 前端\n\n[^\n]*Vite \/ Webpack 构建与升级经验，能够建设和维护 Monorepo、业务组件库与自动化测试，支持多环境及离线构建/m);

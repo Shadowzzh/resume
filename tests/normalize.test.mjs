@@ -302,6 +302,7 @@ test("buildPublicResume preserves the explicitly public contact fields", async (
   });
   const publicResume = buildPublicResume(canonical);
 
-  assert.equal(publicResume.basics.contact.phone, canonical.basics.contact.phone);
+  assert.equal(publicResume.basics.contact.email, canonical.basics.contact.email);
+  assert.equal(publicResume.basics.contact.phone, undefined);
   assert.equal(publicResume.meta.visibility, "public");
 });

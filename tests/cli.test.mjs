@@ -28,7 +28,7 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   assert.match(output, /独立交付 Go 跨平台基线检查工具/);
   assert.match(output, /具备 Docker 容器化与离线交付经验/);
   assert.match(output, /日常将 AI Agent 用于开发、测试和运维，并持续维护自建 Linux 服务。/);
-  assert.match(output, /\[联系方式\]\n邮箱\s+shadow1746556951@gmail\.com\n电话\s+\d{11}\nGitHub\s+https:\/\/github\.com\/Shadowzzh\n博客\s+https:\/\/blog\.zihengzhang\.com\//);
+  assert.match(output, /\[联系方式\]\n邮箱\s+shadow1746556951@gmail\.com\nGitHub\s+https:\/\/github\.com\/Shadowzzh\n博客\s+https:\/\/blog\.zihengzhang\.com\//);
   assert.match(output, /\[专业技能\]\n前端\s+熟练使用 JavaScript \/ TypeScript，具备 Vue 2 \/ Vue 3、React 与 Next\.js 企业级应用开发能力，能够独立承担中后台业务开发、组件封装、复杂交互与跨页面状态管理/);
   assert.match(output, /前端\s+[^\n]*Vite \/ Webpack 构建与升级经验，能够建设和维护 Monorepo、业务组件库与自动化测试，支持多环境及离线构建/);
   assert.match(output, /服务端\s+具备 Node\.js \/ Fastify 服务开发与架构设计能力，能够设计接口与任务执行机制，处理长任务状态持久化、会话恢复和进程管理，完成从开发联调到 Docker 部署及日志排障的交付链路。具备 Go 跨平台工具开发与规则执行框架设计能力，可完成 Linux \/ Windows 适配、多架构构建和版本交付；参与 Java \/ Spring Boot 接口开发与联调/);

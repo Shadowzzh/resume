@@ -131,7 +131,7 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.match(yuanheHome, /与相应后端完成接口联调/);
     assert.doesNotMatch(yuanheHome, /抽象可复用业务组件|封装业务组件|提升页面复用性/);
     assert.match(homepage, /邮箱/);
-    assert.match(homepage, /tel:\d{11}/);
+    assert.doesNotMatch(homepage, /tel:/);
     assert.match(homepage, /博客/);
     assert.doesNotMatch(homepage, /个人优势与认知/);
     assert.doesNotMatch(homepage, /Java 17|systemd|GitHub Actions|Go 安全客户端/);
@@ -161,7 +161,7 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.match(printPage, /在既定项目框架下，参与财务评审系统部分业务页面开发与维护，使用 Vue 3 \+ Tailwind CSS 完成页面实现，并与相应后端完成接口联调。/);
     assert.doesNotMatch(printPage, /负责财务评审系统前端开发与迭代/);
     assert.doesNotMatch(printPage, /财务评审系统[^<]*?(?:抽象可复用业务组件|封装业务组件|提升业务页面复用度|降低后续页面开发成本)/);
-    assert.match(printPage, /电话/);
+    assert.doesNotMatch(printPage, /电话/);
     assert.doesNotMatch(printPage, /\bundefined\b/);
     assert.doesNotMatch(printPage, /\bnull\b/);
     assert.doesNotMatch(printPage, /<h2>项目经验<\/h2>/);
