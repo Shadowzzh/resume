@@ -90,7 +90,7 @@ test("renderHtmlSite mirrors the reference resume-style homepage while keeping t
     assert.match(homepage, /专业技能/);
     assert.match(homepage, /核心项目经历/);
     assert.match(homepage, /<div class="section-title-v5">个人项目<\/div>/);
-    assert.match(homepage, /全栈工程师偏前端/);
+    assert.match(homepage, /全栈工程师/);
     assert.doesNotMatch(homepage, /AI 应用与工程化/);
     assert.doesNotMatch(homepage, /高级前端工程师 \/ AI 应用与工程化/);
     assert.match(homepage, /6 年\+ Web 开发经验，以企业级前端为主，主要使用 Vue、React、Next\.js，近年将职责扩展至 AI Agent 服务与全栈交付。/);

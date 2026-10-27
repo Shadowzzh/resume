@@ -21,7 +21,7 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   const experienceStart = output.indexOf("[工作经历]", skillsStart);
   const skillsSection = output.slice(skillsStart, experienceStart);
 
-  assert.match(output, /^张子恒\n全栈工程师偏前端\n/m);
+  assert.match(output, /^张子恒\n全栈工程师\n/m);
   assert.match(output, /\[基本信息\]\n所在地\s+杭州，浙江，中国\n当前状态\s+寻找新的工作机会/);
   assert.match(output, /\[个人摘要\]\n6 年\+ Web 开发经验，以企业级前端为主，主要使用 Vue、React、Next\.js，近年将职责扩展至 AI Agent 服务与全栈交付。/);
   assert.match(output, /负责安全平台前端与 Node\.js \/ Fastify Agent 执行控制服务/);
@@ -36,7 +36,7 @@ test("renderCliResume prints a full resume-oriented CLI view", async () => {
   assert.match(output, /并结合应用、进程及容器日志进行故障定位和排查/);
   assert.doesNotMatch(output, /前端工程化\s{2,}/);
   assert.doesNotMatch(skillsSection, /Pinia|Vue Query|Vue Router|Zod|Dumi|Father/);
-  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+全栈工程师偏前端\n  - 负责公司安全产品的前端建设与迭代，覆盖 Vue、React、Next\.js/);
+  assert.match(output, /\[工作经历\]\n2024-03 ~ 至今\s+杭州奇盾\s+全栈工程师\n  - 负责公司安全产品的前端建设与迭代，覆盖 Vue、React、Next\.js/);
   assert.match(output, /主导 Node\.js \/ Fastify Agent 执行控制服务开发，负责平台前端与任务服务的联调交付，并参与 Java \/ Spring Boot 接口开发。/);
   assert.match(output, /独立开发并交付 Go 跨平台主机安全基线检查工具，覆盖 Linux \/ Windows，完成规则执行框架、平台适配、测试验证与多架构构建发布。/);
   assert.match(output, /2022-02 ~ 2023-10\s+杭州沃土教育\s+前端开发工程师\n  - 负责培训平台、CMS 系统与营销活动低代码平台等业务前端开发，覆盖 Vue \/ React 中后台、H5 与钉钉小程序。/);

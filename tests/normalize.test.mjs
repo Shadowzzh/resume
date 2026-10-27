@@ -15,7 +15,7 @@ test("buildCanonicalResume applies the fullstack variant ordering", async () => 
   });
 
   assert.equal(resume.variant.id, "fullstack");
-  assert.equal(resume.basics.headline.primary, "全栈工程师偏前端");
+  assert.equal(resume.basics.headline.primary, "全栈工程师");
   assert.equal(resume.basics.headline.secondary, undefined);
   assert.equal(resume.featuredProjects[0].id, "auto-pentest-platform");
   assert.deepEqual(
@@ -58,7 +58,7 @@ test("buildCanonicalResume applies the fullstack variant ordering", async () => 
   assert.equal(wotu.summary.length, 2);
   assert.equal(yuanhe.summary.length, 1);
   assert.equal(qidun.company, "杭州奇盾");
-  assert.equal(qidun.role, "全栈工程师偏前端");
+  assert.equal(qidun.role, "全栈工程师");
   assert.equal(qidun.city, "杭州西湖区");
   assert.equal(qidun.start, "2024-03");
   assert.equal(qidun.end, "present");
@@ -238,7 +238,7 @@ test("approved mobile, documentation and VideoDoc copy lands in the canonical re
   assert.equal(mobile.status, "completed");
   assert.equal(mobile.start, "2026-07");
   assert.equal(mobile.end, "2026-08");
-  assert.equal(mobile.role, "全栈工程师偏前端");
+  assert.equal(mobile.role, "全栈工程师");
   assert.deepEqual(mobile.category, ["AI Agent", "移动端安全"]);
   assert.deepEqual(mobile.stack, ["Mobilewright", "MCP", "adb", "mitmproxy", "MobSF"]);
   assert.deepEqual(mobile.links, []);
