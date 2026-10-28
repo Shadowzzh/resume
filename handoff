@@ -9,7 +9,7 @@
 - 已实现基础渲染链路：JSON、HTML、CLI、man、PDF
 - 已实现构建入口：`scripts/build.mjs`
 - 已实现 CLI 入口：`bin/resume.mjs`
-- 已生成构建产物：HTML、JSON、TXT、man、PDF、项目页、`CNAME`、`.nojekyll`
+- 已生成构建产物：HTML、JSON、TXT、man、PDF、项目页
 - 已有计划文档，记录了 foundation 阶段的目标与任务拆分
 - 当前工作区干净，无未提交改动
 - 当前最新提交：`57ae2a3 feat: initialize resume foundation`
@@ -60,8 +60,6 @@
   - `dist/resume.7`
   - `dist/resume.pdf`
   - `dist/projects/*/index.html`
-  - `dist/CNAME`
-  - `dist/.nojekyll`
 - 未验证
   - GitHub Actions 是否可实际跑通
   - ~~GitHub Pages 发布是否可实际访问~~ → **2026-10-29 已核实并关闭**：GitHub Pages 已停用并从仓库删除（GitHub API 与 `https://shadowzzh.github.io/resume/` 均返回 404），网站改由 Cloudflare Pages 部署，`https://resume-01u.pages.dev` 与自定义域 `resume.zihengzhang.com` 均实测 HTTP 200；NAS 侧由本地 `pre-push` hook 继续自动部署

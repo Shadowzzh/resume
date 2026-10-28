@@ -74,8 +74,6 @@ async function main() {
 
   await fs.writeFile(path.join(distDir, "resume.md"), renderMarkdownResume(publicResume), "utf8");
   await fs.writeFile(path.join(distDir, "resume.txt"), renderCliResume(publicResume), "utf8");
-  await fs.writeFile(path.join(distDir, "CNAME"), `${canonicalResume.branding.domain}\n`, "utf8");
-  await fs.writeFile(path.join(distDir, ".nojekyll"), "", "utf8");
 
   await copyStaticAssets(rootDir, distDir);
 

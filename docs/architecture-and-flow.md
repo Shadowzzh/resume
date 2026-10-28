@@ -99,7 +99,6 @@ flowchart TD
 - 先执行校验
 - 清空并重建 `dist/`
 - 生成 JSON、HTML、Markdown、CLI、man page
-- 写入 `CNAME` 和 `.nojekyll`
 - 在 `BUILD_PDF=true` 时生成 PDF
 
 最终产物输出到 `dist/`。

@@ -52,7 +52,7 @@ npm run build
 - Cloudflare Pages 发布目录来自 `dist/`（项目名 `resume`，生产地址 https://resume-01u.pages.dev）
 - 自定义域名 `resume.zihengzhang.com` 走 DNSPod 分线路解析：境内线路 A → `120.55.127.195`（阿里云 Nginx → FRPS → NAS 容器），默认（境外）线路 CNAME → `resume-01u.pages.dev`（Cloudflare Pages）；两条链路产物同源
 - GitHub Pages 已于 2026-10-29 停用并删除，不再发布；推 `main` 由 GitHub Actions（`cloudflare/wrangler-action@v3`）构建并部署到 Cloudflare Pages
-- `CNAME` 文件是 GitHub Pages 时代的遗留，构建仍会写入，对 Cloudflare Pages 无影响
+- 构建不再写入 GitHub Pages 专用的 `CNAME` 和 `.nojekyll`（2026-10-29 清理）
 - npm 包名为 `@zhangziheng/resume`
 - 首次发布 scoped 公共包依赖 `publishConfig.access = public`
 
