@@ -50,7 +50,8 @@ npm run build
 发布说明：
 
 - Cloudflare Pages 发布目录来自 `dist/`（项目名 `resume`，生产地址 https://resume-01u.pages.dev）
-- 自定义域名 `resume.zihengzhang.com` 通过 DNSPod 的 CNAME 指向 Pages
+- 自定义域名 `resume.zihengzhang.com` 走 DNSPod 分线路解析：境内线路 A → `120.55.127.195`（阿里云 Nginx → FRPS → NAS 容器），默认（境外）线路 CNAME → `resume-01u.pages.dev`（Cloudflare Pages）；两条链路产物同源
+- GitHub Pages 已于 2026-10-29 停用并删除，不再发布；推 `main` 由 GitHub Actions（`cloudflare/wrangler-action@v3`）构建并部署到 Cloudflare Pages
 - `CNAME` 文件是 GitHub Pages 时代的遗留，构建仍会写入，对 Cloudflare Pages 无影响
 - npm 包名为 `@zhangziheng/resume`
 - 首次发布 scoped 公共包依赖 `publishConfig.access = public`
@@ -61,7 +62,7 @@ Makefile 发布命令：
   执行 `npm test`、`npm run validate`、`npm run build:full`
 
 - `make deploy-pages`
-  执行构建，自动提交当前改动，然后推送 `main` 触发 Cloudflare Pages 部署
+  执行构建，自动提交当前改动，然后推送 `main` 触发 Cloudflare Pages 部署（本地 `pre-push` hook 同时会把新版部署到 NAS）
 
 - `make publish-npm-patch`
 - `make publish-npm-minor`
@@ -83,7 +84,7 @@ Makefile 发布命令：
 
 需要的仓库配置：
 
-- Cloudflare Pages 项目：`resume`
+- Cloudflare Pages 项目：`resume`（项目 ID `3acdde32-bb69-4ca0-8cb4-03520c6c46b4`，Cloudflare Account ID `4c2834af0e9dbfbb5acb3108d0be46de`）
 - 仓库 Secrets：`CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_ACCOUNT_ID`
 - 手动直传（本地无 CI 时）：`wrangler pages deploy dist --project-name resume --branch main`
 - npm Trusted Publisher with GitHub Actions OIDC

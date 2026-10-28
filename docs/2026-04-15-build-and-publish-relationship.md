@@ -1,5 +1,7 @@
 # Build And Publish Relationship
 
+> **历史文档提示（2026-10-29）**：本文写的是当时的 GitHub Pages 发布流程。自 2026-10-29 起，网站的部署目标已改为 **Cloudflare Pages**（项目 `resume`，生产地址 `https://resume-01u.pages.dev`），GitHub Pages 已停用并从仓库删除（`shadowzzh.github.io/resume` 现返回 404）。以下正文保留为当时的历史记录，不再代表当前流程；现行流程见 `README.md` 的发布说明与 `.github/workflows/deploy.yml`。
+
 这里最容易混淆的是 `content/`、`dist/`、GitHub Pages 和 npm publish 之间的关系。
 
 可以直接按“原材料”和“成品”来理解：

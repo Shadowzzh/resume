@@ -19,7 +19,7 @@
 - 本地验证已通过：测试、校验、构建都成功
 - `dist/` 已成功产出完整基础文件，包含 `resume.pdf`
 - 仓库当前缺少明确的“下一阶段目标定义”，后续做什么需要先定优先级
-- 待确认：GitHub Actions 工作流文件是否已实际创建并完善，计划文档里提到了，但本次未核对其内容
+- 待确认：GitHub Actions 工作流文件是否已实际创建并完善，计划文档里提到了，但本次未核对其内容（**2026-10-29 现状**：`.github/workflows/` 下 `ci.yml`、`deploy.yml`、`publish-npm.yml` 均存在；`deploy.yml` 已于 2026-10-29 改写为部署 Cloudflare Pages）
 
 【未完成】
 1. 明确下一阶段目标：优先做 CI/发布、内容完善、样式优化，还是 variant 扩展
@@ -64,7 +64,7 @@
   - `dist/.nojekyll`
 - 未验证
   - GitHub Actions 是否可实际跑通
-  - GitHub Pages 发布是否可实际访问
+  - ~~GitHub Pages 发布是否可实际访问~~ → **2026-10-29 已核实并关闭**：GitHub Pages 已停用并从仓库删除（GitHub API 与 `https://shadowzzh.github.io/resume/` 均返回 404），网站改由 Cloudflare Pages 部署，`https://resume-01u.pages.dev` 与自定义域 `resume.zihengzhang.com` 均实测 HTTP 200；NAS 侧由本地 `pre-push` hook 继续自动部署
   - npm 发布链路是否可实际发布
   - CLI 的最终用户体验是否满足预期
   - PDF 在不同机器环境下的稳定性
@@ -79,7 +79,7 @@
 - 项目是 Node.js 22 + `yaml` 的简历仓库，不是复杂业务系统
 - 当前仓库已在 `main`，工作区干净，不要误以为有未完成本地改动
 - 若继续涉及库、框架、CLI、云服务文档查询，按规则优先用 Context7 MCP
-- 待确认：CI/Deploy/Publish workflow 文件是否已经存在且可用
+- 待确认：CI/Deploy/Publish workflow 文件是否已经存在且可用（**2026-10-29 现状**：文件齐全，推 `main` 实测 run `40730680102` 成功部署到 Cloudflare Pages）
 
 【建议的下一步】
 1. 先核对 `.github/workflows/` 是否完整，确认 CI、Pages、npm 发布链路现状
