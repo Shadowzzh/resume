@@ -47,7 +47,7 @@ commit-release-state:
 # 串联主分支检查、构建和发版前提交。
 prepare-release: guard-main build commit-release-state
 
-# 仅部署 GitHub Pages：构建、提交当前改动并推送 main。
+# 仅部署 Cloudflare Pages：构建、提交当前改动并推送 main（由 GitHub Actions 上传 dist）。
 deploy-pages: guard-main build
 	git add -A
 	@if git diff --cached --quiet; then \
